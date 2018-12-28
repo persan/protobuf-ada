@@ -1,0 +1,8 @@
+*.o
+*.ali
+*.stdout
+*.stderr
+*-loc.xml
+gnatinspect.db 
+messages.txt
+gnatinspect.db 

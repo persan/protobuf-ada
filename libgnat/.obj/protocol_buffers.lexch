@@ -1,0 +1,17 @@
+[LIBRARY PATH]
+/home/stprsa/x/protobuf-ada/libgnat/lib/libprotocol_buffers.a
+[OBJECT FILES]
+/home/stprsa/x/protobuf-ada/libgnat/.obj/protocol_buffers-generated_message_utilities.o
+20181228115208
+/home/stprsa/x/protobuf-ada/libgnat/.obj/protocol_buffers-io-coded_input_stream.o
+20181228115209
+/home/stprsa/x/protobuf-ada/libgnat/.obj/protocol_buffers-io-coded_output_stream.o
+20181228115209
+/home/stprsa/x/protobuf-ada/libgnat/.obj/protocol_buffers-io.o
+20181228115208
+/home/stprsa/x/protobuf-ada/libgnat/.obj/protocol_buffers-message.o
+20181228115209
+/home/stprsa/x/protobuf-ada/libgnat/.obj/protocol_buffers-wire_format.o
+20181228115208
+/home/stprsa/x/protobuf-ada/libgnat/.obj/protocol_buffers.o
+20181228115208
