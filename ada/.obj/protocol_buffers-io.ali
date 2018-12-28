@@ -1,0 +1,20 @@
+V "GNAT Lib v19"
+A -gnatA
+A -mtune=generic
+A -march=pentium4
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U protocol_buffers.io%s	protocol_buffers-io.ads	bd8966aa NE OO PU PK
+W protocol_buffers%s	protocol_buffers.ads	protocol_buffers.ali
+
+D protocol_buffers.ads	20140303183632 e19cfd82 protocol_buffers%s
+D protocol_buffers-io.ads  20140303183632 5c159b28 protocol_buffers.io%s
+D system.ads		20180103153414 32a08138 system%s
+X 1 protocol_buffers.ads
+3K9*Protocol_Buffers 5e21 2|3r9 4r16 5r5
+X 2 protocol_buffers-io.ads
+3K26*IO 1|3k9 2|4r33 5l22 5e24
+

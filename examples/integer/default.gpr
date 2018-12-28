@@ -1,0 +1,14 @@
+with "Protocol_Buffers";
+
+project Default is
+
+   for Source_Dirs use ("src");
+   for Object_Dir use ".obj";
+   for Main use ("main.adb");
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnat12");
+   end Compiler;
+
+end Default;
+

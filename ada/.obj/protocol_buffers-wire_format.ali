@@ -1,0 +1,203 @@
+V "GNAT Lib v19"
+A -gnatA
+A -mtune=generic
+A -march=pentium4
+P ZX
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_FLOATING_POINT
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U protocol_buffers.wire_format%b  protocol_buffers-wire_format.adb  015672fd NE OO PK
+W protocol_buffers%s	protocol_buffers.ads	protocol_buffers.ali
+W protocol_buffers.io%s	protocol_buffers-io.ads	protocol_buffers-io.ali
+W protocol_buffers.io.invalid_protocol_buffer_exception%s  protocol_buffers-io-invalid_protocol_buffer_exception.adb  protocol_buffers-io-invalid_protocol_buffer_exception.ali
+
+U protocol_buffers.wire_format%s  protocol_buffers-wire_format.ads  0e011a6b EE OO PF PK
+W ada%s			ada.ads			ada.ali
+W ada.containers%s	a-contai.ads		a-contai.ali
+Z ada.containers.generic_array_sort%s
+Z ada.containers.helpers%s  a-conhel.adb	a-conhel.ali
+W ada.containers.vectors%s
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.finalization%s	a-finali.ads		a-finali.ali
+Z ada.iterator_interfaces%s
+Z ada.streams%s		a-stream.adb		a-stream.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+Z ada.unchecked_deallocation%s
+W interfaces%s		interfac.ads		interfac.ali
+W protocol_buffers%s	protocol_buffers.ads	protocol_buffers.ali
+Z system%s		system.ads		system.ali
+Z system.finalization_masters%s  s-finmas.adb	s-finmas.ali
+Z system.pool_global%s	s-pooglo.adb		s-pooglo.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z system.storage_elements%s  s-stoele.adb	s-stoele.ali
+Z system.storage_pools%s  s-stopoo.adb		s-stopoo.ali
+Z system.storage_pools.subpools%s  s-stposu.adb	s-stposu.ali
+Z system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20170727072658 76789da1 ada%s
+D a-contai.ads		20170725134136 61e5e089 ada.containers%s
+D a-cgarso.ads		20170725134136 9129bfa8 ada.containers.generic_array_sort%s
+D a-conhel.ads		20180103153414 20298884 ada.containers.helpers%s
+D a-conhel.adb		20180103153414 9cc5095b ada.containers.helpers%b
+D a-convec.ads		20180302120456 7e2b0fdf ada.containers.vectors%s
+D a-convec.adb		20180407161626 32f4e1a7 ada.containers.vectors%b
+D a-except.ads		20180103153414 291912d5 ada.exceptions%s
+D a-finali.ads		20180103153414 bf4f806b ada.finalization%s
+D a-iteint.ads		20170725134136 7c7305e9 ada.iterator_interfaces%s
+D a-stream.ads		20180103153414 119b8fb3 ada.streams%s
+D a-tags.ads		20180103153414 491b781d ada.tags%s
+D a-unccon.ads		20170725134136 0e9b276f ada.unchecked_conversion%s
+D a-uncdea.ads		20170725134136 eff36322 ada.unchecked_deallocation%s
+D interfac.ads		20180103153414 5ab55268 interfaces%s
+D protocol_buffers.ads	20140303183632 e19cfd82 protocol_buffers%s
+D protocol_buffers-io.ads  20140303183632 5c159b28 protocol_buffers.io%s
+D protocol_buffers-io-invalid_protocol_buffer_exception.ads  20140303183632 fb48ac81 protocol_buffers.io.invalid_protocol_buffer_exception%s
+D protocol_buffers-wire_format.ads  20140303183632 cb03ba5e protocol_buffers.wire_format%s
+D protocol_buffers-wire_format.adb  20140303183632 311d6422 protocol_buffers.wire_format%b
+D system.ads		20180103153414 32a08138 system%s
+D s-atocou.ads		20180103153414 b45c2d8d system.atomic_counters%s
+D s-atocou.adb		20180103153414 a9c6d721 system.atomic_counters%b
+D s-exctab.ads		20180103153414 54135002 system.exception_table%s
+D s-finmas.ads		20180103153414 7811a767 system.finalization_masters%s
+D s-finroo.ads		20180103153414 4ff27390 system.finalization_root%s
+D s-maccod.ads		20180103153414 6d68a701 system.machine_code%s
+D s-memory.ads		20180103153414 597d6634 system.memory%s
+D s-parame.ads		20180328163828 48ec542b system.parameters%s
+D s-pooglo.ads		20180103153414 ede33ef8 system.pool_global%s
+D s-secsta.ads		20180430184654 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20180103153414 a7318a92 system.soft_links%s
+D s-stache.ads		20180103153414 a37c21ec system.stack_checking%s
+D s-stalib.ads		20180103153414 09bd3940 system.standard_library%s
+D s-stalib.adb		20180103153414 f2fe2716 system.standard_library%b
+D s-stoele.ads		20180103153414 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20180103153414 ed88f8fb system.storage_elements%b
+D s-stopoo.ads		20180103153414 b16154c2 system.storage_pools%s
+D s-stposu.ads		20180103153414 97a6219c system.storage_pools.subpools%s
+D s-stratt.ads		20180103153414 aedef97e system.stream_attributes%s
+D s-traent.ads		20180103153414 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20180103153414 34867c83 system.unsigned_types%s
+X 1 ada.ads
+16K9*Ada 20e8 19|4r6 38r35 39r35 40r35 41r34 42r33 43r34 44r34 45r42
+X 2 a-contai.ads
+16K13*Containers 24e19 19|4r10 38r39 39r39 40r39 41r38 42r37 43r38 44r38
+. 45r46
+X 6 a-convec.ads
+73k24*Vectors 824e27 19|4w21 38r50 39r50 40r50 41r49 42r48 43r49 44r49 45r57
+X 10 a-iteint.ads
+24h9 Forward_Iterator
+32h9 Reversible_Iterator<24R9[6|111]>
+X 15 interfac.ads
+38K9*Interfaces 184e15 19|3w6 10r22 11r24 12r24 13r24 14r23 16r23 17r23 21r28
+. 51r35 51r86 51r116 52r35 52r87 52r118 53r35 53r87 53r118 54r36 54r87 54r117
+. 55r36 55r88 55r119 56r36 56r88 56r119 57r47 57r98 57r128 58r47 58r99 58r130
+. 59r47 59r99 59r130 62r32
+52I9*Integer_32<integer> 19|16r34
+55I9*Integer_64<long_long_integer> 19|17r34
+63M9*Unsigned_8 19|10r33 51r46 51r97 54r47 54r98 57r58 57r109
+74M9*Unsigned_32 19|11r35 21r39 52r46 52r98 55r47 55r99 58r58 58r110
+77M9*Unsigned_64 19|12r35 53r46 53r98 56r47 56r99 59r58 59r110
+81V13*Shift_Left{63M9} 19|51r127
+85V13*Shift_Right{63M9} 19|54r128
+89V13*Shift_Right_Arithmetic{63M9} 19|57r139
+121V13*Shift_Left{74M9} 19|52r129
+125V13*Shift_Right{74M9} 19|55r130
+129V13*Shift_Right_Arithmetic{74M9} 19|58r141
+141V13*Shift_Left{77M9} 19|53r129
+145V13*Shift_Right{77M9} 19|56r130
+149V13*Shift_Right_Arithmetic{77M9} 19|59r141
+169F9*IEEE_Float_32<short_float> 19|14r34
+172F9*IEEE_Float_64<long_float> 19|13r35
+X 16 protocol_buffers.ads
+3K9*Protocol_Buffers 5e21 19|6r9 64r5 20|3r6 5r14 37r7 53r5
+X 17 protocol_buffers-io.ads
+3K26*IO 5e24 20|3r23 37r24
+X 18 protocol_buffers-io-invalid_protocol_buffer_exception.ads
+3K29*Invalid_Protocol_Buffer_Exception 41e58 20|3w26 37r27
+10U13*Invalid_Wire_Type 20|37s61
+X 19 protocol_buffers-wire_format.ads
+6K26*Wire_Format 16|3k9 19|64l22 64e33 20|5b31 53l22 53t33
+9A11*PB_String{string}<integer> 19r39
+10M11*PB_Byte{15|63M9}
+11M11*PB_UInt32{15|74M9} 25r38 25r61 29r12 38r75 47r91 48r40 49r43 62r19
+. 20|14r13 17r12 18r7 26r15 46r15
+12M11*PB_UInt64{15|77M9} 30r12 39r75
+13F11*PB_Double{15|172F9} 31r12 40r75
+14F11*PB_Float{15|169F9} 32r12 41r74
+15B11*PB_Bool{boolean} 33r12 42r73
+16I11*PB_Int32{15|52I9} 34r12 43r74
+17I11*PB_Int64{15|55I9} 35r12 44r74
+19P8*PB_String_Access(9A11) 45r82
+21M11*PB_Field_Type{15|74M9} 47r40 49r61 20|12r24 47r13 50r12
+22I11*PB_Object_Size{natural} 38r59 39r59 40r59 41r58 42r57 43r58 44r58 45r66
+23E8*PB_Wire_Type 23e94 47r70 48r58 20|13r24 18r18 27r13 31r25 31r41
+23n25*VARINT{23E8} 20|38r14
+23n33*FIXED_64{23E8}
+23n43*LENGTH_DELIMITED{23E8}
+23n61*START_GROUP{23E8}
+23n74*END_GROUP{23E8}
+23n85*FIXED_32{23E8}
+25A8*Has_Bits_Array_Type(11M11)<15|74M9>
+38K11*PB_UInt32_Vector[6|73]
+39K11*PB_UInt64_Vector[6|73]
+40K11*PB_Double_Vector[6|73]
+41K11*PB_Float_Vector[6|73]
+42K11*PB_Bool_Vector[6|73]
+43K11*PB_Int32_Vector[6|73]
+44K11*PB_Int64_Vector[6|73]
+45K11*PB_String_Access_Vector[6|73]
+47V12*Make_Tag{11M11} 47>22 47>55 20|11b12 19l7 19t15
+47m22 Field_Number{21M11} 20|12b6 17r35
+47e55 Wire_Type{23E8} 20|13b6 18r36
+48V12*Get_Tag_Wire_Type{23E8} 48>31 20|25b12 39l7 39t24
+48m31 Tag{11M11} 20|26b6 31r59
+49V12*Get_Tag_Field_Number{21M11} 49>34 20|45b12 51l7 51t27
+49m34 Tag{11M11} 20|46b6 50r40
+51V12*Shift_Left=51:127{15|63M9}
+51m24 Value{15|63M9}
+51i58 Amount{natural}
+52V12*Shift_Left=52:129{15|74M9} 62s47 20|17s23
+52m24 Value{15|74M9}
+52i59 Amount{natural}
+53V12*Shift_Left=53:129{15|77M9}
+53m24 Value{15|77M9}
+53i59 Amount{natural}
+54V12*Shift_Right=54:128{15|63M9}
+54m25 Value{15|63M9}
+54i59 Amount{natural}
+55V12*Shift_Right=55:130{15|74M9} 20|50s27
+55m25 Value{15|74M9}
+55i60 Amount{natural}
+56V12*Shift_Right=56:130{15|77M9}
+56m25 Value{15|77M9}
+56i60 Amount{natural}
+57V12*Shift_Right_Arithmetic=57:139{15|63M9}
+57m36 Value{15|63M9}
+57i70 Amount{natural}
+58V12*Shift_Right_Arithmetic=58:141{15|74M9}
+58m36 Value{15|74M9}
+58i71 Amount{natural}
+59V12*Shift_Right_Arithmetic=59:141{15|77M9}
+59m36 Value{15|77M9}
+59i71 Amount{natural}
+61N3*TAG_TYPE_BITS 62r62 20|17r49 50r45
+62m3*TAG_TYPE_MASK{11M11} 20|31r67
+X 20 protocol_buffers-wire_format.adb
+31e7 Result{19|23E8} 33r14
+X 21 system.ads
+67M9*Address
+X 28 s-memory.ads
+53V13*Alloc{21|67M9} 103i<c,__gnat_malloc>22
+68U14*Free 104i<c,__gnat_free>22
+76V13*Realloc{21|67M9} 105i<c,__gnat_realloc>22
+X 35 s-stalib.adb
+93U14 Break_Start 94i<c,__gnat_break_start>22
+

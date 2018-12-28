@@ -1,0 +1,6 @@
+// See README.txt for information and build instructions.
+
+message Person {
+  required int32  id = 1;        // Unique ID number for this person.
+  optional uint32 age = 2;
+}

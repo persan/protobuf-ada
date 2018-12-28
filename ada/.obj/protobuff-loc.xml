@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Locations>
+  <Project>
+    <vfs_file>C:\development\protobuf-ada\ada\protobuff.gpr</vfs_file>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\development\protobuf-ada\ada\default.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\development\protobuf-ada\ada\default.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\development\protobuf-ada\ada\default.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>C:\development\protobuf-ada\ada\protobuff.gpr</vfs_project>
+      <vfs_file>C:\development\protobuf-ada\ada\src\main\protocol_buffers-io-coded_output_stream.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 7" line=" 986" >
+      <vfs_project>C:\development\protobuf-ada\ada\protobuff.gpr</vfs_project>
+      <vfs_file>C:\development\protobuf-ada\ada\src\main\protocol_buffers-io-coded_output_stream.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 7" line=" 1011" >
+      <vfs_project>C:\development\protobuf-ada\ada\protobuff.gpr</vfs_project>
+      <vfs_file>C:\development\protobuf-ada\ada\src\main\protocol_buffers-io-coded_output_stream.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

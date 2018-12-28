@@ -1,0 +1,2 @@
+protocol_buffers-io-coded_output_stream.adb:986:07: warning: types for unchecked conversion have different sizes
+protocol_buffers-io-coded_output_stream.adb:1011:07: warning: types for unchecked conversion have different sizes

@@ -1,0 +1,13 @@
+gprbuild -d -PC:\development\protobuf-ada\ada\protobuff.gpr
+Compile
+   [Ada]          protocol_buffers.ads
+   [Ada]          protocol_buffers-wire_format.adb
+   [Ada]          protocol_buffers-message.adb
+   [Ada]          protocol_buffers-io.ads
+   [Ada]          protocol_buffers-io-invalid_protocol_buffer_exception.adb
+   [Ada]          protocol_buffers-io-coded_output_stream.adb
+protocol_buffers-io-coded_output_stream.adb:986:07: warning: types for unchecked conversion have different sizes
+protocol_buffers-io-coded_output_stream.adb:1011:07: warning: types for unchecked conversion have different sizes
+   [Ada]          protocol_buffers-io-coded_input_stream.adb
+   [Ada]          protocol_buffers-generated_message_utilities.adb
+[2018-12-28 10:37:05] process terminated successfully, elapsed time: 06.28s

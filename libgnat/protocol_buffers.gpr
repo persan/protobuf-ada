@@ -1,0 +1,8 @@
+library project Protocol_Buffers is
+    for Languages    use ("Ada");
+    for Source_Dirs  use ("protocol_buffers");
+    for Object_Dir   use "obj";
+	for Library_Name use "protocol_buffers";
+	for Library_Kind use "static";
+	for Library_Dir  use "lib";
+end Protocol_Buffers;
