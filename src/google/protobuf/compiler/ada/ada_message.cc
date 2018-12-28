@@ -33,12 +33,12 @@
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
 #include <google/protobuf/stubs/hash.h>
-#include <google/protobuf/compiler/ada/ada_message.h>
-#include <google/protobuf/compiler/ada/ada_enum.h>
+#include <ada_message.h>
+#include <ada_enum.h>
 #include <google/protobuf/io/printer.h>
-#include <google/protobuf/stubs/strutil.h>
+#include <strutil.h>
 #include <google/protobuf/wire_format.h>
-#include <google/protobuf/compiler/ada/ada_helpers.h>
+#include <ada_helpers.h>
 
 namespace google {
 namespace protobuf {
@@ -133,8 +133,8 @@ const FieldDescriptor** SortFieldsByNumber(const Descriptor* descriptor) {
   for (int i = 0; i < descriptor->field_count(); i++) {
     fields[i] = descriptor->field(i);
   }
-  sort(fields, fields + descriptor->field_count(),
-    FieldOrderingByNumber());
+//  sort(fields, fields + descriptor->field_count(),
+//    FieldOrderingByNumber()); // <persan>
   return fields;
 }
 
@@ -858,13 +858,13 @@ GenerateMerge(io::Printer * printer) {
       printer->Print("end if;\n");
     }
   }
-  
+
   if (last_index >= 0) {
     printer->Outdent();
     printer->Print(
       "end if;\n");
   }
-  
+
   printer->Outdent();
   printer->Print(
     "end Merge;\n"
@@ -931,7 +931,7 @@ GenerateByteSize(io::Printer * printer) {
       "end if;\n");
   }
 
-  // TODO: implement Byte_Size for extensions and (unknown fields)? 
+  // TODO: implement Byte_Size for extensions and (unknown fields)?
 
   // Repeated fields don't use _has_bits_ so we count them in a separate
   // pass.
@@ -1034,7 +1034,7 @@ GenerateMergePartialFromCodedInputStream(io::Printer * printer) {
     "begin\n");
   printer->Indent();
 
-  // TODO:  Extension, unknown fields, etc. not supported. 
+  // TODO:  Extension, unknown fields, etc. not supported.
 
   if (descriptor_->field_count() > 0) {
     // Body
@@ -1225,7 +1225,7 @@ GenerateFieldAccessorDefinitionClear(const map<string, string>* variables,
 
   // Body
   field_generators_.get(field).GenerateClearingCode(printer);
-  
+
   if (!field->is_repeated()) {
     printer->Print((*variables),
       "The_Message.Clear_Has_$name$;\n");

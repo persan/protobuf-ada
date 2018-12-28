@@ -32,9 +32,9 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
-#include <google/protobuf/compiler/ada/ada_message_field.h>
+#include <ada_message_field.h>
 #include <google/protobuf/io/printer.h>
-#include <google/protobuf/compiler/ada/ada_helpers.h>
+#include <ada_helpers.h>
 
 namespace google {
 namespace protobuf {

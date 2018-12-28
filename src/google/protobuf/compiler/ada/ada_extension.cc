@@ -32,7 +32,7 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
-#include <google/protobuf/compiler/ada/ada_extension.h>
+#include <ada_extension.h>
 
 namespace google {
 namespace protobuf {

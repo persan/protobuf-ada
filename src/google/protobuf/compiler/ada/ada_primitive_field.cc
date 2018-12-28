@@ -32,11 +32,11 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
-#include <google/protobuf/compiler/ada/ada_primitive_field.h>
-#include <google/protobuf/compiler/ada/ada_helpers.h>
+#include <ada_primitive_field.h>
+#include <ada_helpers.h>
 #include <google/protobuf/io/printer.h>
 #include <google/protobuf/wire_format.h>
-#include <google/protobuf/stubs/strutil.h>
+#include <strutil.h>
 
 #include "ada_enum_field.h"
 

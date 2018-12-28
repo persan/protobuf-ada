@@ -32,17 +32,17 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
-#include <google/protobuf/compiler/ada/ada_generator.h>
+#include <ada_generator.h>
 
 #include <vector>
 #include <utility>
 
-#include <google/protobuf/compiler/ada/ada_file.h>
-#include <google/protobuf/compiler/ada/ada_helpers.h>
+#include <ada_file.h>
+#include <ada_helpers.h>
 #include <google/protobuf/descriptor.pb.h>
 #include <google/protobuf/io/printer.h>
 #include <google/protobuf/io/zero_copy_stream.h>
-#include <google/protobuf/stubs/strutil.h>
+#include <strutil.h>
 
 namespace google {
 namespace protobuf {
@@ -96,7 +96,7 @@ Generate(const FileDescriptor* file,
   file_generator.GenerateSpecification(&printer);
 
   // Generate child package for every message
-  file_generator.GenerateChildPackages("", 
+  file_generator.GenerateChildPackages("",
     file_generator.packagename(), context, &all_files);
 
   // Generate output list if requested.

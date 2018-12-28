@@ -32,14 +32,14 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
-#include <google/protobuf/compiler/ada/ada_primitive_field.h>
-#include <google/protobuf/compiler/ada/ada_enum_field.h>
-#include <google/protobuf/compiler/ada/ada_message_field.h>
-#include <google/protobuf/compiler/ada/ada_string_field.h>
-#include <google/protobuf/compiler/ada/ada_field.h>
-#include <google/protobuf/compiler/ada/ada_helpers.h>
+#include <ada_primitive_field.h>
+#include <ada_enum_field.h>
+#include <ada_message_field.h>
+#include <ada_string_field.h>
+#include <ada_field.h>
+#include <ada_helpers.h>
 #include <google/protobuf/wire_format.h>
-#include <google/protobuf/stubs/strutil.h>
+#include <strutil.h>
 
 namespace google {
 namespace protobuf {

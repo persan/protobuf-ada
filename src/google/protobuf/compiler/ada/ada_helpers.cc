@@ -35,8 +35,8 @@
 #include <limits>
 #include <google/protobuf/stubs/hash.h>
 
-#include <google/protobuf/compiler/ada/ada_helpers.h>
-#include <google/protobuf/stubs/strutil.h>
+#include <ada_helpers.h>
+#include <strutil.h>
 #include <float.h>
 #include <errno.h>
 #include <stdio.h>
@@ -152,7 +152,7 @@ string Basename(const FileDescriptor* file) {
 // -----------------------------------------------------------------------------
 // The following functions are modified copies from strutil.cc. for more 
 // information about these functions see google/protobuf/stubs/strutil.cc and
-// google/protobuf/stubs/strutil.h.
+// strutil.h.
 //
 // Ada unfortunately provides no way of specifying the type of a literal instead
 // it infers if a literal is a floating point literal from the presence of a

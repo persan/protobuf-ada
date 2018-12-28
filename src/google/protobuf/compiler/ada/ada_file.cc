@@ -32,13 +32,13 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
-#include <google/protobuf/compiler/ada/ada_file.h>
-#include <google/protobuf/compiler/ada/ada_helpers.h>
-#include <google/protobuf/compiler/ada/ada_message.h>
-#include <google/protobuf/compiler/ada/ada_enum.h>
+#include <ada_file.h>
+#include <ada_helpers.h>
+#include <ada_message.h>
+#include <ada_enum.h>
 #include <google/protobuf/descriptor.pb.h>
 #include <google/protobuf/io/printer.h>
-#include <google/protobuf/stubs/strutil.h>
+#include <strutil.h>
 #include <google/protobuf/io/zero_copy_stream.h>
 #include <google/protobuf/compiler/code_generator.h>
 
@@ -107,7 +107,7 @@ GenerateSpecification(io::Printer* printer) {
     enumGenerator.GenerateDefinition(printer);
     printer->Print("\n");
   }
-  
+
   printer->Print("package Enumeration is\n");
   printer->Indent();
 
@@ -151,19 +151,19 @@ GenerateNestedEnumerationPackages(io::Printer* printer, const Descriptor* descri
   printer->Print("package $package$ is\n",
     "package", AdaPackageTypeName(descriptor));
   printer->Indent();
-  
+
   for (int i = 0; i < descriptor->enum_type_count(); i++) {
     printer->Print("\n");
     EnumGenerator enumGenerator(descriptor->enum_type(i));
     enumGenerator.GenerateDefinition(printer);
     printer->Print("\n");
   }
-  
+
   for (int i = 0; i < descriptor->nested_type_count(); i++) {
     const Descriptor* message = descriptor->nested_type(i);
     GenerateNestedEnumerationPackages(printer, message);
   }
-  
+
   printer->Outdent();
   printer->Print("end $package$;\n",
     "package", AdaPackageTypeName(descriptor));
@@ -239,4 +239,3 @@ GenerateChildPackages(const string& package_dir,
 } // namespace compiler
 } // namespace protobuf
 } // namespace google
-

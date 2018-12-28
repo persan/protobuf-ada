@@ -13,7 +13,11 @@
 *.db-shm
 *.db-wal
 *.gcno
-gnatinspect.db 
+gnatinspect.db
 messages.txt
-gnatinspect.db 
-
+gnatinspect.db
+protoc-ada
+*.deps
+.#*#
+clang_ref_cache.db
+trace

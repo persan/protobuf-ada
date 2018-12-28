@@ -35,7 +35,7 @@
 #ifndef GOOGLE_PROTOBUF_COMPILER_ADA_ENUM_FIELD_H__
 #define GOOGLE_PROTOBUF_COMPILER_ADA_ENUM_FIELD_H__
 
-#include <google/protobuf/compiler/ada/ada_field.h>
+#include <ada_field.h>
 #include <google/protobuf/stubs/common.h>
 
 namespace google {

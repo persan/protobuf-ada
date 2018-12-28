@@ -35,10 +35,10 @@
 #include <set>
 #include <map>
 
-#include <google/protobuf/compiler/ada/ada_enum.h>
-#include <google/protobuf/compiler/ada/ada_helpers.h>
+#include <ada_enum.h>
+#include <ada_helpers.h>
 #include <google/protobuf/io/printer.h>
-#include <google/protobuf/stubs/strutil.h>
+#include <strutil.h>
 
 namespace google {
 namespace protobuf {
@@ -64,8 +64,8 @@ const EnumValueDescriptor** SortEnumConstantsByValue(const EnumDescriptor* enum_
   for (int i = 0; i < enum_descriptor->value_count(); i++) {
     enum_constant[i] = enum_descriptor->value(i);
   }
-  sort(enum_constant, enum_constant + enum_descriptor->value_count(),
-    EnumConstantOrderingByValue());
+  //sort(enum_constant, enum_constant + enum_descriptor->value_count(),
+  //  EnumConstantOrderingByValue()); // <persan>
   return enum_constant;
 }
 

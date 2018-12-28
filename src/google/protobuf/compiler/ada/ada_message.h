@@ -38,7 +38,7 @@
 #include <string>
 #include <set>
 
-#include <google/protobuf/compiler/ada/ada_field.h>
+#include <ada_field.h>
 
 namespace google {
 namespace protobuf {
