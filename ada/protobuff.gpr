@@ -1,7 +1,17 @@
-project ProtoBuff is
+library project ProtoBuff is
 
    for Source_Dirs use ("src/main/**");
    for Object_Dir use ".obj";
+   for Library_Name use "a-protobuff";
+   for Library_Dir use "lib";
+
+   package Builder is
+      for Switches ("ada") use ("-k", "-j0");
+   end Builder;
+
+   package Compiler is
+      for Switches ("ada") use ("-gnatQ", "-fcallgraph-info=su,da", "-O2", "-fstack-check");
+   end Compiler;
 
 end ProtoBuff;
 
