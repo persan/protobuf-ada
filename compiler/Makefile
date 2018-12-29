@@ -15,3 +15,7 @@ install:
 Makefile.conf:Makefile
 	echo "GPRBUILD=$(shell which gprbuild)" >${@}
 	echo "GPRINSTALL=$(shell which gprinstall)" >>${@}
+
+
+configure:
+	sed "s-@_LIBDIR_@-$$(dirname $$(find  $$(dirname $$(dirname $$(which protoc))) -name libprotobuf.so))-" protoc_ada.gpr.in >protoc_ada.gpr

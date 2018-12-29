@@ -15,7 +15,7 @@ project Protoc_Ada is
    end Compiler;
 
    package Linker is
-      for Switches ("c++") use ("-L" & "/usr/gnat/lib/protobuf",
+      for Switches ("c++") use ("-L" & "@_LIBDIR_@",
                                 "-l" & "protoc",
                                 "-l" & "protobuf");
    end Linker;
