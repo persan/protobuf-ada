@@ -23,3 +23,4 @@ clang_ref_cache.db
 trace
 Makefile.conf
 protoc-gen-ada
+_

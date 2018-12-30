@@ -5,14 +5,21 @@ project Protoc_Ada is
    for source_Dirs use ("src/**");
    for Object_Dir use ".obj";
    for Exec_Dir use "bin";
-     
+
    package Naming is
       for Spec_Suffix ("c++") use ".h";
       for Body_Suffix ("c++") use ".cc";
    end Naming;
 
    package Compiler is
+      for Switches ("c++") use ("-O2", "-Wall");
    end Compiler;
+
+   package Install is
+      for Mode use "usage";
+      for Install_Project use "true";
+   end Install;
+
 
    package Linker is
       for Switches ("c++") use ("-L" & "@_LIBDIR_@",
