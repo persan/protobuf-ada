@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<GPS>
+  <Language>
+    <Parent>C</Parent>
+    <Name>Protocoll Buffers</Name>
+    <Spec_Suffix>.proto</Spec_Suffix>
+    <Keywords>^(enum|import|package|message|(option(|al))|public|required|repeated|static)\b</Keywords>
+
+    <Context>
+      <New_Line_Comment_Start>//</New_Line_Comment_Start>
+      <Comment_Start>/*</Comment_Start>
+      <Comment_End>*/</Comment_End>
+      <String_Delimiter>&quot;</String_Delimiter>
+      <Can_Indent>True</Can_Indent>
+      <Syntax_Highlighting>True</Syntax_Highlighting>
+      <Case_Sensitive>True</Case_Sensitive>
+      <Use_Semicolon>True</Use_Semicolon>
+    </Context>
+
+    <Categories>
+      <Category>
+        <Name>package</Name>
+        <Pattern>^\W*package[ \t]+((\w|\.)+);</Pattern>
+        <Index>1</Index>
+      </Category>
+      <Category>
+        <Name>type</Name>
+        <Pattern>^\W*message[ \t]+(\w+)[ \t]*{</Pattern>
+        <Index>1</Index>
+      </Category>
+    </Categories>
+  </Language>
+</GPS>
