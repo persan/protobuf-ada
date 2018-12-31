@@ -6,10 +6,10 @@ project Protoc_Ada is
    for Object_Dir use ".obj";
    for Exec_Dir use "bin";
 
-   package Naming is
-      for Spec_Suffix ("c++") use ".h";
-      for Body_Suffix ("c++") use ".cc";
-   end Naming;
+   package Builder is
+      for Executable ("protoc-ada.cc") use "protoc-gen-ada";
+   end Builder;
+
 
    package Compiler is
       for Switches ("c++") use ("-O2", "-Wall");
@@ -26,5 +26,10 @@ project Protoc_Ada is
                                 "-l" & "protoc",
                                 "-l" & "protobuf");
    end Linker;
+
+   package Naming is
+      for Spec_Suffix ("c++") use ".h";
+      for Body_Suffix ("c++") use ".cc";
+   end Naming;
 
 end Protoc_Ada;

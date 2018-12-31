@@ -12,9 +12,6 @@ build:
 	${MAKE} -C compiler ${@}
 	${GPRBUILD} -p -P ${project}
 
-configure:
-	${MAKE} -C compiler ${@}
-
 install:
 	@set +e ; ${GPRINSTALL} --uninstall ${project} 2>/dev/null >/dev/null ; true
 	${GPRINSTALL} -p -P ${project} --prefix=${destdir}${prefix}
@@ -25,7 +22,6 @@ uninstall:
 
 gps:
 	@${GPS} -P ${project} & 
-#	@${MAKE} -C compiler ${@}
 
 
 Makefile.conf:Makefile
@@ -37,3 +33,10 @@ Makefile.conf:Makefile
 
 env:
 	@bash
+
+.PHONY: test
+test:
+	${MAKE} -C test all
+
+clean:
+	git clean -xdf
