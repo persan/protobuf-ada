@@ -71,7 +71,7 @@ namespace google {
 	  vector<pair<string, string> > options;
 	  ParseGeneratorParameter(parameter, &options);
 
-	  for (int i = 0; i < options.size(); i++) {
+	  for (unsigned int i = 0; i < options.size(); i++) {
 	    if (options[i].first == "output_list_file") {
 	      output_list_file = options[i].second;
 	    } else {
@@ -106,7 +106,7 @@ namespace google {
 	    scoped_ptr<io::ZeroCopyOutputStream> srclist_raw_output(
 								    context->Open(output_list_file));
 	    io::Printer srclist_printer(srclist_raw_output.get(), '$');
-	    for (int i = 0; i < all_files.size(); i++) {
+	    for (unsigned int i = 0; i < all_files.size(); i++) {
 	      srclist_printer.Print("$filename$\n", "filename", all_files[i]);
 	    }
 	  }
