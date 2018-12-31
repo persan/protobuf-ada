@@ -3,7 +3,7 @@
   <Language>
     <Parent>C</Parent>
     <Name>Protocoll Buffers</Name>
-    <Spec_Suffix>.proto</Spec_Suffix>
+    <Body_Suffix>.proto</Body_Suffix>
     <Keywords>^(enum|import|package|message|(option(|al))|public|required|repeated|static)\b</Keywords>
 
     <Context>
@@ -25,7 +25,7 @@
       </Category>
       <Category>
         <Name>type</Name>
-        <Pattern>^\W*message[ \t]+(\w+)[ \t]*{</Pattern>
+        <Pattern>^\W*message[ \t]+(\w+)\W*{</Pattern>
         <Index>1</Index>
       </Category>
     </Categories>

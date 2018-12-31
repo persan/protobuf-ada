@@ -1,6 +1,6 @@
 // See README.txt for information and build instructions.
 
-syntax="proto2";
+syntax="proto3";
 
 package tutorial;
 

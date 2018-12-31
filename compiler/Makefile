@@ -1,14 +1,15 @@
 -include Makefile.conf
 
 project:=protoc_ada.gpr
+PROTOC:=$(shell which protoc)
 
-compile:
+build:protoc_ada.gpr
 	${GPRBUILD} -p -P ${project}
 
-uninstall:
+uninstall:protoc_ada.gpr
 	${GPRINSTALL} --uninstall ${project}
 
-install:
+install:protoc_ada.gpr
 	@${GPRINSTALL} --uninstall ${project} --prefix=${destdir}${prefix} 2>/dev/null >/dev/null ; true
 	${GPRINSTALL} -p -P ${project} --prefix=${destdir}${prefix}
 
@@ -20,5 +21,5 @@ Makefile.conf:Makefile
 gps:
 	${GPS} -P ${project} & 
 
-configure:
-	sed "s-@_LIBDIR_@-$$(dirname $$(find  $$(dirname $$(dirname $$(which protoc))) -name libprotobuf.so))-" protoc_ada.gpr.in >protoc_ada.gpr
+protoc_ada.gpr:protoc_ada.gpr.in ${PROTOC} Makefile 
+	sed "s-@_LIBDIR_@-$$(dirname $$(find  $$(dirname $$(dirname ${PROTOC})) -name libprotobuf.so))-" ${@}.in >${@}

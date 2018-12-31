@@ -34,3 +34,6 @@ Makefile.conf:Makefile
 	@echo "GPRINSTALL:=$(shell which gprinstall)" >>${@}
 	@echo "export PATH:=${CURDIR}/compiler/bin:${PATH}" >>${@}
 	@echo "export GPR_PROJECT_PATH:=${CURDIR}" >>${@}
+
+env:
+	@bash
