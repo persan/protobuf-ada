@@ -41,85 +41,85 @@
 #include <strutil.h>
 #include <algorithm>    // std::sort
 namespace google {
-namespace protobuf {
-namespace compiler {
-namespace ada {
+  namespace protobuf {
+    namespace compiler {
+      namespace ada {
 
-namespace {
+	namespace {
 
-struct EnumConstantOrderingByValue {
+	  struct EnumConstantOrderingByValue {
 
-  inline bool operator()(const EnumValueDescriptor* a,
-    const EnumValueDescriptor * b) const {
-    return a->number() < b->number();
-  }
-};
+	    inline bool operator()(const EnumValueDescriptor* a,
+				   const EnumValueDescriptor * b) const {
+	      return a->number() < b->number();
+	    }
+	  };
 
-// Sort the fields of the given EnumDescriptor by value into a new[]'d array
-// and return it.
+	  // Sort the fields of the given EnumDescriptor by value into a new[]'d array
+	  // and return it.
 
-const EnumValueDescriptor** SortEnumConstantsByValue(const EnumDescriptor* enum_descriptor) {
-  const EnumValueDescriptor** enum_constant =
-    new const EnumValueDescriptor*[enum_descriptor->value_count()];
-  for (int i = 0; i < enum_descriptor->value_count(); i++) {
-    enum_constant[i] = enum_descriptor->value(i);
-  }
-  std::sort(enum_constant, enum_constant + enum_descriptor->value_count(),
-    EnumConstantOrderingByValue());
-  return enum_constant;
-}
+	  const EnumValueDescriptor** SortEnumConstantsByValue(const EnumDescriptor* enum_descriptor) {
+	    const EnumValueDescriptor** enum_constant =
+	    new const EnumValueDescriptor*[enum_descriptor->value_count()];
+	    for (int i = 0; i < enum_descriptor->value_count(); i++) {
+	      enum_constant[i] = enum_descriptor->value(i);
+	    }
+	    std::sort(enum_constant, enum_constant + enum_descriptor->value_count(),
+		      EnumConstantOrderingByValue());
+	    return enum_constant;
+	  }
 
-}
+	}
 
-EnumGenerator::EnumGenerator(const EnumDescriptor* descriptor)
-: descriptor_(descriptor) { }
+	EnumGenerator::EnumGenerator(const EnumDescriptor* descriptor)
+	: descriptor_(descriptor) { }
 
-EnumGenerator::~EnumGenerator() { }
+	EnumGenerator::~EnumGenerator() { }
 
-void EnumGenerator::GenerateDefinition(io::Printer* printer) {
-  // Ada requires that enumeration constant values are defined in an ascending
-  // order. We must therefore sort enumeration constants by value.
-  scoped_array<const EnumValueDescriptor*> ordered_values(
-    SortEnumConstantsByValue(descriptor_));
+	void EnumGenerator::GenerateDefinition(io::Printer* printer) {
+	  // Ada requires that enumeration constant values are defined in an ascending
+	  // order. We must therefore sort enumeration constants by value.
+	  scoped_array<const EnumValueDescriptor*> ordered_values(
+								  SortEnumConstantsByValue(descriptor_));
 
-  printer->Print(
-    "type $name$ is (", "name", descriptor_->name());
-  for (int i = 0; i < descriptor_->value_count(); i++) {
-    printer->Print(
-      "$literal$", "literal", ordered_values[i]->name());
+	  printer->Print(
+			 "type $name$ is (", "name", descriptor_->name());
+	  for (int i = 0; i < descriptor_->value_count(); i++) {
+	    printer->Print(
+			   "$literal$", "literal", ordered_values[i]->name());
 
-    // More enumeration literals follow?
-    if (i != descriptor_->value_count() - 1) {
-      printer->Print(", ");
-    }
-  }
-  printer->Print(");\n");
-  printer->Print("for $name$'Size use 32;\n", "name", EnumTypeName(descriptor_, false));
+	    // More enumeration literals follow?
+	    if (i != descriptor_->value_count() - 1) {
+	      printer->Print(", ");
+	    }
+	  }
+	  printer->Print(");\n");
+	  printer->Print("for $name$'Size use 32;\n", "name", EnumTypeName(descriptor_, false));
 
-  printer->Print("for $name$ use (", "name", descriptor_->name());
-  for (int i = 0; i < descriptor_->value_count(); i++) {
-    printer->Print("$constant$ => $value$",
-      "constant", ordered_values[i]->name(),
-      "value", SimpleItoa(ordered_values[i]->number()));
+	  printer->Print("for $name$ use (", "name", descriptor_->name());
+	  for (int i = 0; i < descriptor_->value_count(); i++) {
+	    printer->Print("$constant$ => $value$",
+			   "constant", ordered_values[i]->name(),
+			   "value", SimpleItoa(ordered_values[i]->number()));
 
-    // More constants follow?
-    if (i != descriptor_->value_count() - 1) {
-      printer->Print(", ");
-    }
-  }
-  printer->Print(");\n");
-  printer->Print(
-    "function Enumeration_To_PB_Int32 is new Ada.Unchecked_Conversion "
-    "($name$, Protocol_Buffers.Wire_Format.PB_Int32);\n",
-    "name", EnumTypeName(descriptor_, false));
-  printer->Print(
-    "function PB_Int32_To_Enumeration is new Ada.Unchecked_Conversion "
-    "(Protocol_Buffers.Wire_Format.PB_Int32, $name$);\n",
-    "name", EnumTypeName(descriptor_, false));
-}
+	    // More constants follow?
+	    if (i != descriptor_->value_count() - 1) {
+	      printer->Print(", ");
+	    }
+	  }
+	  printer->Print(");\n");
+	  printer->Print(
+			 "function Enumeration_To_PB_Int32 is new Ada.Unchecked_Conversion "
+			 "($name$, Protocol_Buffers.Wire_Format.PB_Int32);\n",
+			 "name", EnumTypeName(descriptor_, false));
+	  printer->Print(
+			 "function PB_Int32_To_Enumeration is new Ada.Unchecked_Conversion "
+			 "(Protocol_Buffers.Wire_Format.PB_Int32, $name$);\n",
+			 "name", EnumTypeName(descriptor_, false));
+	}
 
 
-} // namespace ada
-} // namespace compiler
-} // namespace protobuf
+      } // namespace ada
+    } // namespace compiler
+  } // namespace protobuf
 } // namespace google

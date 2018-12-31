@@ -42,58 +42,58 @@
 #include <ada_field.h>
 
 namespace google {
-namespace protobuf {
-namespace compiler {
-namespace ada {
+  namespace protobuf {
+    namespace compiler {
+      namespace ada {
 
-class StringFieldGenerator : public FieldGenerator {
- public:
-  explicit StringFieldGenerator(const FieldDescriptor* descriptor);
-  ~StringFieldGenerator();
-  
-  // implements FieldGenerator ---------------------------------------
-  void GenerateAccessorDeclarations(io::Printer* printer) const;
-  void GenerateAccessorDefinitions(io::Printer* printer) const;
-  void GenerateClearingCode(io::Printer* printer) const;
-  void GenerateRecordComponentDeclaration(io::Printer* printer) const;
-  void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
-  void GenerateByteSize(io::Printer* printer) const;
-  void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
-  void GenerateMergingCode(io::Printer* printer) const;
-  void GenerateStaticDefaults(io::Printer* printer) const;
-  void GenerateFinalizationCode(io::Printer* printer) const;
- private: 
-  const FieldDescriptor* descriptor_;
-  map<string, string> variables_;
+	class StringFieldGenerator : public FieldGenerator {
+	  public:
+	  explicit StringFieldGenerator(const FieldDescriptor* descriptor);
+	  ~StringFieldGenerator();
 
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(StringFieldGenerator);
-};
+	  // implements FieldGenerator ---------------------------------------
+	  void GenerateAccessorDeclarations(io::Printer* printer) const;
+	  void GenerateAccessorDefinitions(io::Printer* printer) const;
+	  void GenerateClearingCode(io::Printer* printer) const;
+	  void GenerateRecordComponentDeclaration(io::Printer* printer) const;
+	  void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
+	  void GenerateByteSize(io::Printer* printer) const;
+	  void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
+	  void GenerateMergingCode(io::Printer* printer) const;
+	  void GenerateStaticDefaults(io::Printer* printer) const;
+	  void GenerateFinalizationCode(io::Printer* printer) const;
+	  private:
+	  const FieldDescriptor* descriptor_;
+	  map<string, string> variables_;
 
-class RepeatedStringFieldGenerator : public FieldGenerator {
- public:
-  explicit RepeatedStringFieldGenerator(const FieldDescriptor* descriptor);
-  ~RepeatedStringFieldGenerator();
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(StringFieldGenerator);
+	};
 
-  // implements FieldGenerator ---------------------------------------
-  void GenerateAccessorDeclarations(io::Printer* printer) const;
-  void GenerateAccessorDefinitions(io::Printer* printer) const;
-  void GenerateClearingCode(io::Printer* printer) const;
-  void GenerateRecordComponentDeclaration(io::Printer* printer) const;
-  void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
-  void GenerateByteSize(io::Printer* printer) const;
-  void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
-  void GenerateMergingCode(io::Printer* printer) const;
-  void GenerateStaticDefaults(io::Printer* printer) const;
-  void GenerateFinalizationCode(io::Printer* printer) const;
- private:
-  const FieldDescriptor* descriptor_;
-  map<string, string> variables_;
+	class RepeatedStringFieldGenerator : public FieldGenerator {
+	  public:
+	  explicit RepeatedStringFieldGenerator(const FieldDescriptor* descriptor);
+	  ~RepeatedStringFieldGenerator();
 
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(RepeatedStringFieldGenerator);
-};
+	  // implements FieldGenerator ---------------------------------------
+	  void GenerateAccessorDeclarations(io::Printer* printer) const;
+	  void GenerateAccessorDefinitions(io::Printer* printer) const;
+	  void GenerateClearingCode(io::Printer* printer) const;
+	  void GenerateRecordComponentDeclaration(io::Printer* printer) const;
+	  void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
+	  void GenerateByteSize(io::Printer* printer) const;
+	  void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
+	  void GenerateMergingCode(io::Printer* printer) const;
+	  void GenerateStaticDefaults(io::Printer* printer) const;
+	  void GenerateFinalizationCode(io::Printer* printer) const;
+	  private:
+	  const FieldDescriptor* descriptor_;
+	  map<string, string> variables_;
 
-} // namespace java
-} // namespace compiler
-} // namespace protobuf
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(RepeatedStringFieldGenerator);
+	};
+
+      } // namespace java
+    } // namespace compiler
+  } // namespace protobuf
 } // namespace google
 #endif  // GOOGLE_PROTOBUF_COMPILER_JAVA_STRING_FIELD_H__

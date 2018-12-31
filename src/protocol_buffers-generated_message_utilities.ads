@@ -8,16 +8,16 @@ with Protocol_Buffers.Wire_Format;
 
 package Protocol_Buffers.Generated_Message_Utilities is
 
-  -- Protocol_Buffers.Wire_Format.PB_Float
-  function Positive_Infinity return Protocol_Buffers.Wire_Format.PB_Float;
-  function Negative_Infinity return Protocol_Buffers.Wire_Format.PB_Float;
-  function NaN return Protocol_Buffers.Wire_Format.PB_Float;
+   -- Protocol_Buffers.Wire_Format.PB_Float
+   function Positive_Infinity return Protocol_Buffers.Wire_Format.PB_Float;
+   function Negative_Infinity return Protocol_Buffers.Wire_Format.PB_Float;
+   function NaN return Protocol_Buffers.Wire_Format.PB_Float;
 
-  -- Protocol_Buffers.Wire_Format.PB_Double
-  function Positive_Infinity return Protocol_Buffers.Wire_Format.PB_Double;
-  function Negative_Infinity return Protocol_Buffers.Wire_Format.PB_Double;
-  function NaN return Protocol_Buffers.Wire_Format.PB_Double;
+   -- Protocol_Buffers.Wire_Format.PB_Double
+   function Positive_Infinity return Protocol_Buffers.Wire_Format.PB_Double;
+   function Negative_Infinity return Protocol_Buffers.Wire_Format.PB_Double;
+   function NaN return Protocol_Buffers.Wire_Format.PB_Double;
 
-  EMPTY_STRING : aliased Protocol_Buffers.Wire_Format.PB_String := "";
+   EMPTY_STRING : aliased Protocol_Buffers.Wire_Format.PB_String := "";
 
 end Protocol_Buffers.Generated_Message_Utilities;

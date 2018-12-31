@@ -35,19 +35,18 @@
 #include <ada_extension.h>
 
 namespace google {
-namespace protobuf {
-namespace compiler {
-namespace ada {
+  namespace protobuf {
+    namespace compiler {
+      namespace ada {
 
-ExtensionGenerator::
-ExtensionGenerator(const FieldDescriptor* descriptor) { }
+	ExtensionGenerator::
+	ExtensionGenerator(const FieldDescriptor* descriptor) { }
 
-ExtensionGenerator::
-~ExtensionGenerator() { }
+	ExtensionGenerator::
+	~ExtensionGenerator() { }
 
 
-} // namespace ada
-} // namespace compiler
-} // namespace protobuf
+      } // namespace ada
+    } // namespace compiler
+  } // namespace protobuf
 } // namespace google
-

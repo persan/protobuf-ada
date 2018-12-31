@@ -40,32 +40,32 @@
 
 
 namespace google {
-namespace protobuf {
-  namespace io {
-    class Printer;             // printer.h
+  namespace protobuf {
+    namespace io {
+      class Printer;             // printer.h
+    }
   }
-}
 
-namespace protobuf {
-namespace compiler {
-namespace ada {
+  namespace protobuf {
+    namespace compiler {
+      namespace ada {
 
-class EnumGenerator {
- public:  
-  explicit EnumGenerator(const EnumDescriptor* descriptor);
-  ~EnumGenerator();
+	class EnumGenerator {
+	  public:
+	  explicit EnumGenerator(const EnumDescriptor* descriptor);
+	  ~EnumGenerator();
 
-  void GenerateDefinition(io::Printer* printer);
+	  void GenerateDefinition(io::Printer* printer);
 
- private:
-  const EnumDescriptor* descriptor_;
-  
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(EnumGenerator);
-};
+	  private:
+	  const EnumDescriptor* descriptor_;
 
-}  // namespace ada
-}  // namespace compiler
-}  // namespace protobuf
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(EnumGenerator);
+	};
+
+      }  // namespace ada
+    }  // namespace compiler
+  }  // namespace protobuf
 
 }  // namespace google
 #endif  // GOOGLE_PROTOBUF_COMPILER_ADA_ENUM_H__

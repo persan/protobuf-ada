@@ -40,28 +40,28 @@
 #include <google/protobuf/stubs/common.h>
 
 namespace google {
-namespace protobuf {
-class FieldDescriptor; // descriptor.h
-namespace io {
-class Printer; // printer.h
-}
-}
+  namespace protobuf {
+    class FieldDescriptor; // descriptor.h
+    namespace io {
+      class Printer; // printer.h
+    }
+  }
 
-namespace protobuf {
-namespace compiler {
-namespace ada {
+  namespace protobuf {
+    namespace compiler {
+      namespace ada {
 
-class ExtensionGenerator {
- public:
-  explicit ExtensionGenerator(const FieldDescriptor* descriptor);
-  ~ExtensionGenerator();
- private:
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ExtensionGenerator);
-};
+	class ExtensionGenerator {
+	  public:
+	  explicit ExtensionGenerator(const FieldDescriptor* descriptor);
+	  ~ExtensionGenerator();
+	  private:
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ExtensionGenerator);
+	};
 
-} // namespace ada
-} // namespace compiler
-} // namespace protobuf
+      } // namespace ada
+    } // namespace compiler
+  } // namespace protobuf
 } // namespace google
 
 #endif // GOOGLE_PROTOBUF_COMPILER_ADA_EXTENSION_H__

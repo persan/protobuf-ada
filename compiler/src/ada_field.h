@@ -42,104 +42,104 @@
 #include <google/protobuf/stubs/common.h>
 
 namespace google {
-namespace protobuf {
-namespace io {
-class Printer; // printer.h
-}
-}
+  namespace protobuf {
+    namespace io {
+      class Printer; // printer.h
+    }
+  }
 
-namespace protobuf {
-namespace compiler {
-namespace ada {
+  namespace protobuf {
+    namespace compiler {
+      namespace ada {
 
-// Helper function: set variables in the map that are the same for all
-// field code generators.
-// ['name', 'index', 'number', 'packagename', 'declared_type', 'tag_size'].
-void SetCommonFieldVariables(const FieldDescriptor* descriptor,
-                             map<string, string>* variables);
+	// Helper function: set variables in the map that are the same for all
+	// field code generators.
+	// ['name', 'index', 'number', 'packagename', 'declared_type', 'tag_size'].
+	void SetCommonFieldVariables(const FieldDescriptor* descriptor,
+				     map<string, string>* variables);
 
-class FieldGenerator {
- public:
+	class FieldGenerator {
+	  public:
 
-  FieldGenerator() { }
-  virtual ~FieldGenerator();
+	  FieldGenerator() { }
+	  virtual ~FieldGenerator();
 
-  // Generate declarations for all of the accessor functions related to this
-  // field.  These are placed inside the package specification.
-  virtual void GenerateAccessorDeclarations(io::Printer* printer) const = 0;
+	  // Generate declarations for all of the accessor functions related to this
+	  // field.  These are placed inside the package specification.
+	  virtual void GenerateAccessorDeclarations(io::Printer* printer) const = 0;
 
-  // Generate definitions for all of the accessor functions related to this
-  // field.
-  virtual void GenerateAccessorDefinitions(io::Printer* printer) const = 0;
+	  // Generate definitions for all of the accessor functions related to this
+	  // field.
+	  virtual void GenerateAccessorDefinitions(io::Printer* printer) const = 0;
 
-  // Generate lines of code (statements, not declarations) which clear the
-  // field.  This is used to define the clear_$name$() method as well as
-  // the Clear() method for the whole message.
-  virtual void GenerateClearingCode(io::Printer* printer) const = 0;
+	  // Generate lines of code (statements, not declarations) which clear the
+	  // field.  This is used to define the clear_$name$() method as well as
+	  // the Clear() method for the whole message.
+	  virtual void GenerateClearingCode(io::Printer* printer) const = 0;
 
-  // Generate a declaration for this field inside the Ada tagged record type 
-  // used to store fields.
-  virtual void GenerateRecordComponentDeclaration(io::Printer* printer) const = 0;
+	  // Generate a declaration for this field inside the Ada tagged record type
+	  // used to store fields.
+	  virtual void GenerateRecordComponentDeclaration(io::Printer* printer) const = 0;
 
-  // Generate lines to serialize this field, which are placed within the
-  // message's Serialize_With_Cached_Sizes procedure.
-  virtual void GenerateSerializeWithCachedSizes(io::Printer* printer) const = 0;
+	  // Generate lines to serialize this field, which are placed within the
+	  // message's Serialize_With_Cached_Sizes procedure.
+	  virtual void GenerateSerializeWithCachedSizes(io::Printer* printer) const = 0;
 
-  // Generate lines to compute the serialized size of this field, which
-  // are placed in the message's Byte_Size function.
-  virtual void GenerateByteSize(io::Printer* printer) const = 0;
+	  // Generate lines to compute the serialized size of this field, which
+	  // are placed in the message's Byte_Size function.
+	  virtual void GenerateByteSize(io::Printer* printer) const = 0;
 
-  // Generate lines to decode this field, which will be placed inside the
-  // message's MergeFromCodedInputStream procedure.
-  virtual void GenerateMergeFromCodedInputStream(io::Printer* printer) const = 0;
+	  // Generate lines to decode this field, which will be placed inside the
+	  // message's MergeFromCodedInputStream procedure.
+	  virtual void GenerateMergeFromCodedInputStream(io::Printer* printer) const = 0;
 
-  // Generate lines of code (statements, not declarations) which merges the
-  // contents of the field from the current message to the target message,
-  // which is stored in the generated code variable "from".
-  // This is used to fill in the MergeFrom method for the whole message.
-  // Details of this usage can be found in ada_message.cc under the
-  // GenerateMergeFrom method.
-  virtual void GenerateMergingCode(io::Printer* printer) const = 0;
+	  // Generate lines of code (statements, not declarations) which merges the
+	  // contents of the field from the current message to the target message,
+	  // which is stored in the generated code variable "from".
+	  // This is used to fill in the MergeFrom method for the whole message.
+	  // Details of this usage can be found in ada_message.cc under the
+	  // GenerateMergeFrom method.
+	  virtual void GenerateMergingCode(io::Printer* printer) const = 0;
 
-  // Generate "static" defaults
-  virtual void GenerateStaticDefaults(io::Printer* printer) const = 0;
+	  // Generate "static" defaults
+	  virtual void GenerateStaticDefaults(io::Printer* printer) const = 0;
 
-  // Generate lines to decode this field from a packed value, which will be
-  // placed inside the message's Merge_From_Coded_Input_Stream method.
-  virtual void GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const;
-  
-  // Generate any code that needs to go in the Finalize procedure for cleanup.
-  // Most field types don't need this, so the default implementation is empty.
-  virtual void GenerateFinalizationCode(io::Printer* printer) const { }
-  
-  // Generate functions renaming enumeration literats
-  virtual void GenerateEnumerationLiteralRenaming(io::Printer* printer) const { }
-  
- private:
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FieldGenerator);
-};
+	  // Generate lines to decode this field from a packed value, which will be
+	  // placed inside the message's Merge_From_Coded_Input_Stream method.
+	  virtual void GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const;
 
-// Convenience class which constructs FieldGenerators for a Descriptor.
+	  // Generate any code that needs to go in the Finalize procedure for cleanup.
+	  // Most field types don't need this, so the default implementation is empty.
+	  virtual void GenerateFinalizationCode(io::Printer* printer) const { }
 
-class FieldGeneratorMap {
- public:
-  explicit FieldGeneratorMap(const Descriptor* descriptor);
-  ~FieldGeneratorMap();
+	  // Generate functions renaming enumeration literats
+	  virtual void GenerateEnumerationLiteralRenaming(io::Printer* printer) const { }
 
-  const FieldGenerator& get(const FieldDescriptor* field) const;
+	  private:
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FieldGenerator);
+	};
 
- private:
-  const Descriptor* descriptor_;
-  scoped_array<scoped_ptr<FieldGenerator> > field_generators_;
+	// Convenience class which constructs FieldGenerators for a Descriptor.
 
-  static FieldGenerator* MakeGenerator(const FieldDescriptor* field);
+	class FieldGeneratorMap {
+	  public:
+	  explicit FieldGeneratorMap(const Descriptor* descriptor);
+	  ~FieldGeneratorMap();
 
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FieldGeneratorMap);
-};
+	  const FieldGenerator& get(const FieldDescriptor* field) const;
 
-} // namespace ada
-} // namespace compiler
-} // namespace protobuf
+	  private:
+	  const Descriptor* descriptor_;
+	  scoped_array<scoped_ptr<FieldGenerator> > field_generators_;
+
+	  static FieldGenerator* MakeGenerator(const FieldDescriptor* field);
+
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FieldGeneratorMap);
+	};
+
+      } // namespace ada
+    } // namespace compiler
+  } // namespace protobuf
 } // namespace google
 
 #endif // GOOGLE_PROTOBUF_COMPILER_ADA_FIELD_H__
