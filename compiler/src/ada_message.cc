@@ -39,6 +39,7 @@
 #include <strutil.h>
 #include <google/protobuf/wire_format.h>
 #include <ada_helpers.h>
+#include <algorithm>
 
 namespace google {
 namespace protobuf {
@@ -133,8 +134,8 @@ const FieldDescriptor** SortFieldsByNumber(const Descriptor* descriptor) {
   for (int i = 0; i < descriptor->field_count(); i++) {
     fields[i] = descriptor->field(i);
   }
-//  sort(fields, fields + descriptor->field_count(),
-//    FieldOrderingByNumber()); // <persan>
+  std::sort(fields, fields + descriptor->field_count(),
+    FieldOrderingByNumber());
   return fields;
 }
 

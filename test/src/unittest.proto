@@ -37,6 +37,8 @@
 
 // Some generic_services option(s) added automatically.
 // See:  http://go/proto2-generic-services-default
+syntax = "proto2";
+
 option cc_generic_services = true;     // auto-added
 option java_generic_services = true;   // auto-added
 option py_generic_services = true;     // auto-added
@@ -434,4 +436,3 @@ message TestCommentInjectionMessage {
   // */ <- This should not close the generated doc comment
   optional string a = 1 [default="*/ <- Neither should this."];
 }
-

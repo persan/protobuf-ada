@@ -39,7 +39,7 @@
 #include <ada_helpers.h>
 #include <google/protobuf/io/printer.h>
 #include <strutil.h>
-
+#include <algorithm>    // std::sort
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -64,8 +64,8 @@ const EnumValueDescriptor** SortEnumConstantsByValue(const EnumDescriptor* enum_
   for (int i = 0; i < enum_descriptor->value_count(); i++) {
     enum_constant[i] = enum_descriptor->value(i);
   }
-  //sort(enum_constant, enum_constant + enum_descriptor->value_count(),
-  //  EnumConstantOrderingByValue()); // <persan>
+  std::sort(enum_constant, enum_constant + enum_descriptor->value_count(),
+    EnumConstantOrderingByValue());
   return enum_constant;
 }
 

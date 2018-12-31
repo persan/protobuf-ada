@@ -39,6 +39,8 @@
 // that the generated code doesn't depend on being in the proto2 namespace.
 // In test_util.h we do
 // "using namespace unittest_import = protobuf_unittest_import".
+syntax = "proto2";
+
 package protobuf_unittest_import;
 
 option optimize_for = SPEED;
@@ -61,4 +63,3 @@ enum ImportEnum {
   IMPORT_BAR = 8;
   IMPORT_BAZ = 9;
 }
-
