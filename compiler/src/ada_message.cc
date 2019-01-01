@@ -215,12 +215,10 @@ namespace google {
 	  for (int i = 0; i < descriptor_->field_count(); i++) {
 	    if (!descriptor_->field(i)->is_repeated()) {
 
-	      printer->Print(
-			     "procedure Set_Has_$name$ (The_Message : in out $ada_package_name$.Instance);\n",
+	      printer->Print("procedure Set_Has_$name$ (The_Message : in out Instance);\n",
 			     "name", FieldName(descriptor_->field(i)),
 			     "ada_package_name", ada_package_name_);
-	      printer->Print(
-			     "procedure Clear_Has_$name$ (The_Message : in out $ada_package_name$.Instance);\n",
+	      printer->Print("procedure Clear_Has_$name$ (The_Message : in out Instance);\n",
 			     "name", FieldName(descriptor_->field(i)),
 			     "ada_package_name", ada_package_name_);
 	    }
@@ -228,8 +226,7 @@ namespace google {
 
 	  printer->Outdent();
 
-	  printer->Print(
-			 "end $ada_package_name$;\n",
+	  printer->Print("end $ada_package_name$;\n",
 			 "ada_package_name", ada_package_name_);
 	}
 
@@ -277,8 +274,7 @@ namespace google {
 
 	  // TODO: replace temporary type Instance!? Other declarations might also need
 	  // prettification ...
-	  printer->Print(
-			 "type Instance is new Protocol_Buffers.Message.Instance with private;\n"
+	  printer->Print("type Instance is new Protocol_Buffers.Message.Instance with private;\n"
 			 "type $package_type$_Access is access all Instance;\n"
 			 "\n",
 			 "package_type", ada_package_type_);
@@ -293,8 +289,7 @@ namespace google {
 	    printer->Print("\n");
 	  }
 
-	  printer->Print(
-			 "---------------------------------------------------------------------------\n"
+	  printer->Print("---------------------------------------------------------------------------\n"
 			 "-- Inherited functions and procedures from Protocol_Buffers.Message -------\n"
 			 "---------------------------------------------------------------------------\n"
 			 "\n");
@@ -305,7 +300,7 @@ namespace google {
 			 "procedure Clear\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(The_Message : in out $package$.Instance);\n"
+			 "(The_Message : in out Instance);\n"
 			 "\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
@@ -316,7 +311,7 @@ namespace google {
 			 "procedure Serialize_With_Cached_Sizes\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(The_Message   : in $package$.Instance;\n"
+			 "(The_Message   : in Instance;\n"
 			 " The_Coded_Output_Stream : in\n",
 			 "package", ada_package_name_);
 	  printer->Indent();
@@ -332,7 +327,7 @@ namespace google {
 			 "procedure Merge_Partial_From_Coded_Input_Stream\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(The_Message   : in out $package$.Instance;\n"
+			 "(The_Message   : in out Instance;\n"
 			 " The_Coded_Input_Stream : in out\n",
 			 "package", ada_package_name_);
 	  printer->Indent();
@@ -348,8 +343,8 @@ namespace google {
 			 "procedure Merge\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(To   : in out $package$.Instance;\n"
-			 " From : in $package$.Instance);\n"
+			 "(To   : in out Instance;\n"
+			 " From : in Instance);\n"
 			 "\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
@@ -360,8 +355,8 @@ namespace google {
 			 "procedure Copy\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(To   : in out $package$.Instance;\n"
-			 " From : in $package$.Instance);\n"
+			 "(To   : in out Instance;\n"
+			 " From : in Instance);\n"
 			 "\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
@@ -372,7 +367,7 @@ namespace google {
 			 "function Get_Type_Name\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(The_Message : in $package$.Instance) return Protocol_Buffers.Wire_Format.PB_String;\n"
+			 "(The_Message : in Instance) return Protocol_Buffers.Wire_Format.PB_String;\n"
 			 "\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
@@ -384,7 +379,7 @@ namespace google {
 			 "function Byte_Size\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(The_Message : in out $package$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n"
+			 "(The_Message : in out Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n"
 			 "\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
@@ -396,7 +391,7 @@ namespace google {
 			 "function Get_Cached_Size\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(The_Message : in $package$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n"
+			 "(The_Message : in Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n"
 			 "\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
@@ -407,7 +402,7 @@ namespace google {
 			 "function Is_Initialized\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(The_Message : in $package$.Instance) return Boolean;\n"
+			 "(The_Message : in Instance) return Boolean;\n"
 			 "\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
@@ -415,7 +410,7 @@ namespace google {
 	  // Finalize
 	  printer->Print(
 			 "overriding\n"
-			 "procedure Finalize (The_Message : in out $package$.Instance);\n"
+			 "procedure Finalize (The_Message : in out Instance);\n"
 			 "\n",
 			 "package", ada_package_name_);
 	}
@@ -423,8 +418,7 @@ namespace google {
 	void MessageGenerator::
 	GenerateMessageDefinitions(io::Printer * printer) {
 
-	  printer->Print(
-			 "---------------------------------------------------------------------------\n"
+	  printer->Print("---------------------------------------------------------------------------\n"
 			 "-- Inherited functions and procedures from Protocol_Buffers.Message -------\n"
 			 "---------------------------------------------------------------------------\n"
 			 "\n");
@@ -459,29 +453,23 @@ namespace google {
 
 	    if (field->is_repeated()) {
 	      // Generate $name$_Size
-	      printer->Print(vars,
-			     "function $name$_Size\n");
+	      printer->Print(vars,"function $name$_Size\n");
 	      printer->Indent();
-	      printer->Print(vars,
-			     "(The_Message : in $packagename$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	      printer->Print(vars,"(The_Message : in Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
 	      printer->Outdent();
 	    } else {
 	      // Generate Has_$name$
 
-	      printer->Print(vars,
-			     "function Has_$name$\n");
+	      printer->Print(vars,"function Has_$name$\n");
 	      printer->Indent();
-	      printer->Print(vars,
-			     "(The_Message : in $packagename$.Instance) return Boolean;\n");
+	      printer->Print(vars,"(The_Message : in Instance) return Boolean;\n");
 	      printer->Outdent();
 	    }
 
 	    // Generate Clear_$name$
-	    printer->Print(vars,
-			   "procedure Clear_$name$\n");
+	    printer->Print(vars,"procedure Clear_$name$\n");
 	    printer->Indent();
-	    printer->Print(vars,
-			   "(The_Message : in out $packagename$.Instance);\n");
+	    printer->Print(vars,"(The_Message : in out Instance);\n");
 	    printer->Outdent();
 
 	    // Generate type specific accessor declarations
@@ -493,10 +481,9 @@ namespace google {
 
 	void MessageGenerator::
 	GenerateEnumerationLiterals(io::Printer* printer) {
-	  printer->Print(
-			 "---------------------------------------------------------------------------\n"
-			 "-- Enumeration Literals ---------------------------------------------------\n"
-			 "---------------------------------------------------------------------------\n"
+	  printer->Print("--------------------------\n"
+			 "--  Enumeration Literals -\n"
+			 "--------------------------\n"
 			 "\n");
 
 	  for (int i = 0; i < descriptor_->enum_type_count(); i++) {
@@ -504,7 +491,7 @@ namespace google {
 	    for (int k = 0; k < enum_descriptor->value_count(); k++) {
 	      const EnumValueDescriptor* value = enum_descriptor->value(k);
 	      printer->Print("function $literal$ return $enum_type$ "
-			     "renames $package$.$literal$;\n",
+			     "renames $literal$;\n",
 			     "literal", value->name(),
 			     "enum_type", EnumTypeName(enum_descriptor, false),
 			     "package", EnumDefinitionPackageName(enum_descriptor));
@@ -568,12 +555,10 @@ namespace google {
 	  printer->Print(
 			 "procedure Clear\n");
 	  printer->Indent();
-	  printer->Print(
-			 "(The_Message : in out $package$.Instance) is\n",
+	  printer->Print("(The_Message : in out Instance) is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  // TODO: add code to clear extensions, unknown fields etc.
 	  printer->Indent();
 
@@ -611,8 +596,7 @@ namespace google {
 	      field->cpp_type() == FieldDescriptor::CPPTYPE_STRING;
 
 	      if (should_check_bit) {
-		printer->Print(
-			       "if The_Message.Has_$name$ then\n",
+		printer->Print("if The_Message.Has_$name$ then\n",
 			       "name", FieldName(field));
 		printer->Indent();
 	      }
@@ -621,8 +605,7 @@ namespace google {
 
 	      if (should_check_bit) {
 		printer->Outdent();
-		printer->Print(
-			       "end if;\n");
+		printer->Print("end if;\n");
 	      }
 	    }
 	  }
@@ -653,40 +636,31 @@ namespace google {
 	void MessageGenerator::
 	GenerateCopy(io::Printer * printer) {
 
-	  printer->Print(
-			 "procedure Copy\n");
+	  printer->Print("procedure Copy\n");
 	  printer->Indent();
-	  printer->Print(
-			 "(To   : in out $package$.Instance;\n"
-			 " From : in $package$.Instance) is\n",
+	  printer->Print("(To   : in out Instance;\n"
+			 " From : in Instance) is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
-	  printer->Print(
-			 "To.Clear;\n"
+	  printer->Print("To.Clear;\n"
 			 "To.Merge (From);\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "end Copy;\n"
-			 "\n");
+	  printer->Print("end Copy;\n\n");
 	}
 
 	void MessageGenerator::
 	GenerateGetTypeName(io::Printer * printer) {
 
-	  printer->Print(
-			 "function Get_Type_Name\n");
+	  printer->Print("function Get_Type_Name\n");
 	  printer->Indent();
 	  // TODO: change return type?
-	  printer->Print(
-			 "(The_Message : in $package$.Instance) return "
+	  printer->Print("(The_Message : in Instance) return "
 			 "Protocol_Buffers.Wire_Format.PB_String is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -708,7 +682,7 @@ namespace google {
 	  printer->Indent();
 	  // TODO: change return type?
 	  printer->Print(
-			 "(The_Message : in $package$.Instance) return Boolean is\n",
+			 "(The_Message : in Instance) return Boolean is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
 	  printer->Print(
@@ -800,8 +774,8 @@ namespace google {
 			 "procedure Merge\n");
 	  printer->Indent();
 	  printer->Print(
-			 "(To   : in out $package$.Instance;\n"
-			 " From : in $package$.Instance) is\n",
+			 "(To   : in out Instance;\n"
+			 " From : in Instance) is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
 	  printer->Print(
@@ -838,8 +812,7 @@ namespace google {
 		  printer->Print("end if;\n");
 		}
 
-		printer->Print(
-			       "if (From.Has_Bits ($index$ / 32) and "
+		printer->Print("if (From.Has_Bits ($index$ / 32) and "
 			       "Protocol_Buffers.Wire_Format.Shift_Left (16#FF#, $index$ mod 32)) /= 0 then\n",
 			       "index", SimpleItoa(field->index()));
 		printer->Indent();
@@ -848,8 +821,7 @@ namespace google {
 	      last_index = i;
 
 	      PrintFieldComment(printer, field);
-	      printer->Print(
-			     "if From.Has_$name$ then\n",
+	      printer->Print("if From.Has_$name$ then\n",
 			     "name", FieldName(field));
 	      printer->Indent();
 
@@ -879,7 +851,7 @@ namespace google {
 	  printer->Indent();
 	  // TODO: change return type?
 	  printer->Print(
-			 "(The_Message : in out $package$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n",
+			 "(The_Message : in out Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
 	  printer->Indent();
@@ -928,8 +900,7 @@ namespace google {
 
 	  if (last_index >= 0) {
 	    printer->Outdent();
-	    printer->Print(
-			   "end if;\n");
+	    printer->Print("end if;\n");
 	  }
 
 	  // TODO: implement Byte_Size for extensions and (unknown fields)?
@@ -947,56 +918,45 @@ namespace google {
 	    }
 	  }
 
-	  printer->Print(
-			 "The_Message.Cached_Size := Total_Size;\n"
+	  printer->Print("The_Message.Cached_Size := Total_Size;\n"
 			 "return Total_Size;\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "end Byte_Size;\n"
+	  printer->Print("end Byte_Size;\n"
 			 "\n");
 	}
 
 	void MessageGenerator::
 	GenerateGetCachedSize(io::Printer * printer) {
 
-	  printer->Print(
-			 "function Get_Cached_Size\n");
+	  printer->Print("function Get_Cached_Size\n");
 	  printer->Indent();
 	  // TODO: change return type?
-	  printer->Print(
-			 "(The_Message : in $package$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n",
+	  printer->Print("(The_Message : in Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 	  printer->Print("return The_Message.Cached_Size;\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "end Get_Cached_Size;\n"
+	  printer->Print("end Get_Cached_Size;\n"
 			 "\n");
 	}
 
 	void MessageGenerator::
 	GenerateSerializeWithCachedSizes(io::Printer * printer) {
 	  //TODO: implement handling of extensions.
-	  scoped_array<const FieldDescriptor*> ordered_fields(
-							      SortFieldsByNumber(descriptor_));
+	  scoped_array<const FieldDescriptor*> ordered_fields(SortFieldsByNumber(descriptor_));
 
-	  printer->Print(
-			 "procedure Serialize_With_Cached_Sizes\n");
+	  printer->Print("procedure Serialize_With_Cached_Sizes\n");
 	  printer->Indent();
-	  printer->Print(
-			 "(The_Message   : in $package$.Instance;\n"
+	  printer->Print("(The_Message   : in Instance;\n"
 			 " The_Coded_Output_Stream : in\n",
 			 "package", ada_package_name_);
 	  printer->Indent();
-	  printer->Print(
-			 " Protocol_Buffers.IO.Coded_Output_Stream.Instance) is\n");
+	  printer->Print(" Protocol_Buffers.IO.Coded_Output_Stream.Instance) is\n");
 	  printer->Outdent();
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -1010,42 +970,35 @@ namespace google {
 	  }
 
 	  printer->Outdent();
-	  printer->Print(
-			 "end Serialize_With_Cached_Sizes;\n"
+	  printer->Print("end Serialize_With_Cached_Sizes;\n"
 			 "\n");
 	}
 
 	void MessageGenerator::
 	GenerateMergePartialFromCodedInputStream(io::Printer * printer) {
 	  // TODO: Return value indicating success or failure
-	  printer->Print(
-			 "procedure Merge_Partial_From_Coded_Input_Stream\n");
+	  printer->Print("procedure Merge_Partial_From_Coded_Input_Stream\n");
 	  printer->Indent();
-	  printer->Print(
-			 "(The_Message   : in out $package$.Instance;\n"
+	  printer->Print("(The_Message   : in out Instance;\n"
 			 " The_Coded_Input_Stream : in out\n",
 			 "package", ada_package_name_);
 	  printer->Indent();
-	  printer->Print(
-			 " Protocol_Buffers.IO.Coded_Input_Stream.Instance) is\n");
+	  printer->Print(" Protocol_Buffers.IO.Coded_Input_Stream.Instance) is\n");
 	  printer->Outdent();
 	  printer->Print("Tag : Protocol_Buffers.Wire_Format.PB_UInt32;\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // TODO:  Extension, unknown fields, etc. not supported.
 
 	  if (descriptor_->field_count() > 0) {
 	    // Body
-	    printer->Print(
-			   "Tag := The_Coded_Input_Stream.Read_Tag;\n"
+	    printer->Print("Tag := The_Coded_Input_Stream.Read_Tag;\n"
 			   "while Tag /= 0 loop\n");
 	    printer->Indent();
 
-	    printer->Print(
-			   "case Protocol_Buffers.Wire_Format.Get_Tag_Field_Number (Tag) is\n");
+	    printer->Print("case Protocol_Buffers.Wire_Format.Get_Tag_Field_Number (Tag) is\n");
 
 	    scoped_array<const FieldDescriptor*> ordered_fields(
 								SortFieldsByNumber(descriptor_));
@@ -1055,18 +1008,15 @@ namespace google {
 
 	      PrintFieldComment(printer, field);
 
-	      printer->Print(
-			     "when $number$ =>\n",
+	      printer->Print("when $number$ =>\n",
 			     "number", SimpleItoa(field->number()));
 	      printer->Indent();
 	      const FieldGenerator& field_generator = field_generators_.get(field);
 
 	      // Emit code to parse the common, expected case.
-	      printer->Print(
-			     "if Protocol_Buffers.Wire_Format.Get_Tag_Wire_Type (Tag) =\n");
+	      printer->Print("if Protocol_Buffers.Wire_Format.Get_Tag_Wire_Type (Tag) =\n");
 	      printer->Indent();
-	      printer->Print(
-			     "Protocol_Buffers.Wire_Format.$wiretype$ then\n",
+	      printer->Print("Protocol_Buffers.Wire_Format.$wiretype$ then\n",
 			     "wiretype", kWireTypeNames[internal::WireFormat::WireTypeForField(field)]);
 
 	      // TODO: consider implementing optimization ExpectTag from C++
@@ -1079,13 +1029,11 @@ namespace google {
 	      }
 
 	      printer->Outdent();
-	      printer->Print(
-			     "end if;\n");
+	      printer->Print("end if;\n");
 	      printer->Outdent();
 	    }
 
-	    printer->Print(
-			   "when others =>\n");
+	    printer->Print("when others =>\n");
 	    printer->Indent();
 	    printer->Print("declare\n");
 	    printer->Indent();
@@ -1100,20 +1048,17 @@ namespace google {
 	    printer->Print("end;\n");
 	    printer->Outdent();
 
-	    printer->Print(
-			   "end case;\n"
+	    printer->Print("end case;\n"
 			   "Tag := The_Coded_Input_Stream.Read_Tag;\n");
 	    printer->Outdent();
-	    printer->Print(
-			   "end loop;\n");
+	    printer->Print("end loop;\n");
 	  } else {
 	    printer->Print("null;\n");
 	    printer->Print("pragma Unreferenced (Tag);\n");
 	  }
 
 	  printer->Outdent();
-	  printer->Print(
-			 "end Merge_Partial_From_Coded_Input_Stream;\n"
+	  printer->Print("end Merge_Partial_From_Coded_Input_Stream;\n"
 			 "\n");
 	}
 
@@ -1125,10 +1070,9 @@ namespace google {
 			 "function $name$_Size\n");
 	  printer->Indent();
 	  printer->Print((*variables),
-			 "(The_Message : in $packagename$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n");
+			 "(The_Message : in Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -1151,10 +1095,9 @@ namespace google {
 			 "function Has_$name$\n");
 	  printer->Indent();
 	  printer->Print((*variables),
-			 "(The_Message : in $packagename$.Instance) return Boolean is\n");
+			 "(The_Message : in Instance) return Boolean is\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -1171,10 +1114,9 @@ namespace google {
 			 "procedure Set_Has_$name$\n");
 	  printer->Indent();
 	  printer->Print((*variables),
-			 "(The_Message : in out $packagename$.Instance) is\n");
+			 "(The_Message : in out Instance) is\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -1184,18 +1126,16 @@ namespace google {
 
 	  printer->Outdent();
 	  printer->Print((*variables),
-			 "end Set_Has_$name$;\n"
-			 "\n");
+			 "end Set_Has_$name$;\n\n");
 
 	  // Generate Clear_Has_$name$
 	  printer->Print((*variables),
 			 "procedure Clear_Has_$name$\n");
 	  printer->Indent();
 	  printer->Print((*variables),
-			 "(The_Message : in out $packagename$.Instance) is\n");
+			 "(The_Message : in out Instance) is\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -1205,8 +1145,7 @@ namespace google {
 
 	  printer->Outdent();
 	  printer->Print((*variables),
-			 "end Clear_Has_$name$;\n"
-			 "\n");
+			 "end Clear_Has_$name$;\n\n");
 	}
 
 	void MessageGenerator::
@@ -1218,10 +1157,9 @@ namespace google {
 			 "procedure Clear_$name$\n");
 	  printer->Indent();
 	  printer->Print((*variables),
-			 "(The_Message : in out $packagename$.Instance) is\n");
+			 "(The_Message : in out Instance) is\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -1239,8 +1177,7 @@ namespace google {
 
 	void MessageGenerator::
 	GenerateTaggedType(io::Printer * printer) {
-	  printer->Print(
-			 "type Instance is new Protocol_Buffers.Message.Instance with record\n");
+	  printer->Print("type Instance is new Protocol_Buffers.Message.Instance with record\n");
 	  printer->Indent();
 
 	  // Add component(s) to record if message has at least one field.
@@ -1252,14 +1189,12 @@ namespace google {
 
 	  // TODO: change name to avoid name collisions, consider changing type of
 	  // Has_Bits and the same goes for Cached_Size.
-	  printer->Print(
-			 "Has_Bits : Protocol_Buffers.Wire_Format.Has_Bits_Array_Type "
+	  printer->Print("Has_Bits : Protocol_Buffers.Wire_Format.Has_Bits_Array_Type "
 			 "(0 .. ($field_count$ + 31) / 32) := (others => 0);\n"
 			 "Cached_Size : Protocol_Buffers.Wire_Format.PB_Object_Size := 0;\n",
 			 "field_count", SimpleItoa(descriptor_->field_count()));
 	  printer->Outdent();
-	  printer->Print(
-			 "end record;\n"
+	  printer->Print("end record;\n"
 			 "\n");
 	}
 
@@ -1268,8 +1203,7 @@ namespace google {
 	  PrintFieldComment(printer, field);
 
 	  if (!field->is_repeated()) {
-	    printer->Print(
-			   "if The_Message.Has_$name$ then\n",
+	    printer->Print("if The_Message.Has_$name$ then\n",
 			   "name", FieldName(field));
 	    printer->Indent();
 	  }
@@ -1279,23 +1213,19 @@ namespace google {
 	  if (!field->is_repeated()) {
 
 	    printer->Outdent();
-	    printer->Print(
-			   "end if;\n");
+	    printer->Print("end if;\n");
 	  }
 	}
 
 	void MessageGenerator::
 	GenerateFinalize(io::Printer * printer) {
-	  printer->Print(
-			 "overriding\n"
+	  printer->Print("overriding\n"
 			 "procedure Finalize\n");
 	  printer->Indent();
-	  printer->Print(
-			 "(The_Message : in out $package$.Instance) is\n",
+	  printer->Print("(The_Message : in out Instance) is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  bool finalization_needed = false;
@@ -1311,14 +1241,11 @@ namespace google {
 	  }
 
 	  if (!finalization_needed) {
-	    printer->Print(
-			   "null;\n");
+	    printer->Print("null;\n");
 	  }
 
 	  printer->Outdent();
-	  printer->Print(
-			 "end Finalize;\n"
-			 "\n");
+	  printer->Print("end Finalize;\n\n");
 	}
 
       } // namespace ada

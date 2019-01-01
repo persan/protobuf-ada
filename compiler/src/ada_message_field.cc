@@ -68,7 +68,7 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance) return access $containing_type$.Instance;\n");
+			 "(The_Message : in out Instance) return access $containing_type$.Instance;\n");
 	  printer->Outdent();
 
 	  // Generate declaration Release_$name$
@@ -76,7 +76,7 @@ namespace google {
 			 "function Release_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance) return access $containing_type$.Instance;\n");
+			 "(The_Message : in out Instance) return access $containing_type$.Instance;\n");
 	  printer->Outdent();
 
 	  // Generate declaration Set_$name$
@@ -84,7 +84,7 @@ namespace google {
 			 "procedure Set_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;\n"
+			 "(The_Message : in out Instance;\n"
 			 " Value : in $containing_type$.$type$_Access);\n");
 	  printer->Outdent();
 	}
@@ -96,7 +96,7 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance) return access $containing_type$.Instance is\n"
+			 "(The_Message : in out Instance) return access $containing_type$.Instance is\n"
 			 "use type $containing_type$.$type$_Access;\n");
 	  printer->Outdent();
 	  printer->Print(
@@ -122,7 +122,7 @@ namespace google {
 			 "function Release_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance) return access $containing_type$.Instance is\n"
+			 "(The_Message : in out Instance) return access $containing_type$.Instance is\n"
 			 "Temp : access $containing_type$.Instance;\n");
 	  printer->Outdent();
 	  printer->Print(
@@ -144,7 +144,7 @@ namespace google {
 	  printer->Indent();
 	  // TODO: Move declaration of Free outside Set_$name$. Fix use type?
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;\n"
+			 "(The_Message : in out Instance;\n"
 			 " Value : in $containing_type$.$type$_Access) is\n"
 			 "use type $containing_type$.$type$_Access;\n"
 			 "Temp : Protocol_Buffers.Message.Instance_Access := Protocol_Buffers.Message.Instance_Access (The_Message.$name$);\n");
@@ -225,23 +225,20 @@ namespace google {
 	void MessageFieldGenerator::
 	GenerateFinalizationCode(io::Printer* printer) const {
 	  // TODO: Consider changing this to a procedure.
-	  printer->Print(
-			 "declare\n");
+	  printer->Print("declare\n");
 	  printer->Indent();
 	  // Move this elsewhere
 	  printer->Print(variables_,
 			 "Temp : Protocol_Buffers.Message.Instance_Access := "
 			 "Protocol_Buffers.Message.Instance_Access(The_Message.$name$);\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 	  printer->Print(variables_,
 			 "Protocol_Buffers.Message.Free (Temp);\n"
 			 "The_Message.$name$ := null;\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "end;\n");
+	  printer->Print("end;\n");
 	}
 
 	// ===================================================================
@@ -263,7 +260,7 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in $packagename$.Instance;\n"
+			 "(The_Message : in Instance;\n"
 			 " Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) "
 			 "return access $containing_type$.Instance;\n");
 	  printer->Outdent();
@@ -273,7 +270,7 @@ namespace google {
 			 "function Add_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance) "
+			 "(The_Message : in out Instance) "
 			 "return access $containing_type$.Instance;\n");
 	  printer->Outdent();
 	}
@@ -286,12 +283,11 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in $packagename$.Instance;\n"
+			 "(The_Message : in Instance;\n"
 			 " Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) "
 			 "return access $containing_type$.Instance is\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -309,11 +305,10 @@ namespace google {
 			 "function Add_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance) return access $containing_type$.Instance is\n"
+			 "(The_Message : in out Instance) return access $containing_type$.Instance is\n"
 			 "Temp : $containing_type$.$type$_Access := new $containing_type$.Instance;\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  // Body
@@ -373,14 +368,12 @@ namespace google {
 	  // TODO: consider optimizing. At present we only read one field at time.
 	  //       It might be beneficial to guess that the next read item from the
 	  //       Coded_Input_Stream is also of this type ...
-	  printer->Print(
-			 "declare\n");
+	  printer->Print("declare\n");
 	  printer->Indent();
 	  printer->Print(variables_,
 			 "Temp : $containing_type$.$type$_Access := The_Message.Add_$name$;\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 
 	  printer->Print(variables_,
@@ -393,14 +386,12 @@ namespace google {
 	void RepeatedMessageFieldGenerator::
 	GenerateMergingCode(io::Printer* printer) const {
 	  // TODO: optimize ...
-	  printer->Print(
-			 "declare\n");
+	  printer->Print("declare\n");
 	  printer->Indent();
 	  printer->Print(variables_,
 			 "Temp : $containing_type$.$type$_Access;\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "begin\n");
+	  printer->Print("begin\n");
 	  printer->Indent();
 	  printer->Print(variables_,
 			 "for E of From.$name$ loop\n");
@@ -410,11 +401,9 @@ namespace google {
 			 "Temp.Merge ($containing_type$.Instance (E.all));\n"
 			 "To.$name$.Append (Protocol_Buffers.Message.Instance_Access (Temp));\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "end loop;\n");
+	  printer->Print("end loop;\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "end;\n");
+	  printer->Print("end;\n");
 	}
 
 	void RepeatedMessageFieldGenerator::
@@ -431,11 +420,9 @@ namespace google {
 	  printer->Print(variables_,
 			 "Protocol_Buffers.Message.Free (The_Message.$name$.Reference (C).Element.all);\n");
 	  printer->Outdent();
-	  printer->Print(
-			 "end loop;\n");
+	  printer->Print("end loop;\n");
 	  printer->Print(variables_,
-			 "The_Message.$name$.Clear;\n"
-			 "\n");
+			 "The_Message.$name$.Clear;\n\n");
 	}
 
       } // namespace ada

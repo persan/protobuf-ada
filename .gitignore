@@ -24,3 +24,9 @@ trace
 Makefile.conf
 protoc-gen-ada
 _
+b__*
+main
+*.exe
+x
+w.py
+*.pyc

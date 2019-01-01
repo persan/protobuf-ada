@@ -72,7 +72,7 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in $packagename$.Instance) return $type$;\n");
+			 "(The_Message : in Instance) return $type$;\n");
 	  printer->Outdent();
 
 	  // Generate declaration Get_$name$ return $access_type$
@@ -81,7 +81,7 @@ namespace google {
 	  printer->Indent();
 	  // TODO: Consider changing type of size and renaming function.
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;"
+			 "(The_Message : in out Instance;"
 			 " Size : in Integer := -1) return $access_type$;\n");
 	  printer->Outdent();
 
@@ -90,7 +90,7 @@ namespace google {
 			 "procedure Set_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;\n"
+			 "(The_Message : in out Instance;\n"
 			 " Value : in $type$);\n");
 	  printer->Outdent();
 
@@ -100,7 +100,7 @@ namespace google {
 	  printer->Indent();
 	  // TODO: Consider changing type of size and renaming function.
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance) return $access_type$;\n");
+			 "(The_Message : in out Instance) return $access_type$;\n");
 	  printer->Outdent();
 	}
 
@@ -111,7 +111,7 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in $packagename$.Instance) return $type$ is\n");
+			 "(The_Message : in Instance) return $type$ is\n");
 	  printer->Outdent();
 	  printer->Print("begin\n");
 	  printer->Indent();
@@ -127,7 +127,7 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;\n"
+			 "(The_Message : in out Instance;\n"
 			 " Size : in Integer := -1) return $access_type$ is\n");
 	  printer->Outdent();
 	  printer->Print(
@@ -164,7 +164,7 @@ namespace google {
 			 "procedure Set_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;\n"
+			 "(The_Message : in out Instance;\n"
 			 " Value : in $type$) is\n");
 	  printer->Outdent();
 	  printer->Print("begin\n");
@@ -197,7 +197,7 @@ namespace google {
 			 "function Release_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance) return $access_type$ is\n");
+			 "(The_Message : in out Instance) return $access_type$ is\n");
 	  printer->Outdent();
 	  printer->Print(
 			 "begin\n");
@@ -340,7 +340,7 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in $packagename$.Instance;\n"
+			 "(The_Message : in Instance;\n"
 			 " Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$;\n");
 	  printer->Outdent();
 
@@ -350,7 +350,7 @@ namespace google {
 			 "procedure Set_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;\n"
+			 "(The_Message : in out Instance;\n"
 			 " Index : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n"
 			 " Value : in $type$);\n");
 	  printer->Outdent();
@@ -360,7 +360,7 @@ namespace google {
 			 "procedure Add_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;"
+			 "(The_Message : in out Instance;"
 			 " Value : in $type$);\n");
 	  printer->Outdent();
 	}
@@ -373,7 +373,7 @@ namespace google {
 			 "function Get_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in $packagename$.Instance;\n"
+			 "(The_Message : in Instance;\n"
 			 " Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$ is\n");
 	  printer->Outdent();
 	  printer->Print(
@@ -395,7 +395,7 @@ namespace google {
 			 "procedure Set_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;\n"
+			 "(The_Message : in out Instance;\n"
 			 " Index : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n"
 			 " Value : in $type$) is\n");
 	  printer->Outdent();
@@ -433,7 +433,7 @@ namespace google {
 			 "procedure Add_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,
-			 "(The_Message : in out $packagename$.Instance;\n"
+			 "(The_Message : in out Instance;\n"
 			 " Value : in $type$) is\n");
 	  //"New_Item : $access_type$ := new $type$'(Value);\n");
 	  printer->Outdent();
