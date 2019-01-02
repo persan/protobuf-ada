@@ -79,14 +79,11 @@ namespace google {
 	void EnumGenerator::GenerateDefinition(io::Printer* printer) {
 	  // Ada requires that enumeration constant values are defined in an ascending
 	  // order. We must therefore sort enumeration constants by value.
-	  scoped_array<const EnumValueDescriptor*> ordered_values(
-								  SortEnumConstantsByValue(descriptor_));
+	  scoped_array<const EnumValueDescriptor*> ordered_values(SortEnumConstantsByValue(descriptor_));
 
-	  printer->Print(
-			 "type $name$ is (", "name", descriptor_->name());
+	  printer->Print("type $name$ is (", "name", descriptor_->name());
 	  for (int i = 0; i < descriptor_->value_count(); i++) {
-	    printer->Print(
-			   "$literal$", "literal", ordered_values[i]->name());
+	    printer->Print("$literal$", "literal", ordered_values[i]->name());
 
 	    // More enumeration literals follow?
 	    if (i != descriptor_->value_count() - 1) {
@@ -108,13 +105,9 @@ namespace google {
 	    }
 	  }
 	  printer->Print(");\n");
-	  printer->Print(
-			 "function Enumeration_To_PB_Int32 is new Ada.Unchecked_Conversion "
-			 "($name$, Protocol_Buffers.Wire_Format.PB_Int32);\n",
+	  printer->Print("function Enumeration_To_PB_Int32 is new Ada.Unchecked_Conversion ($name$, Protocol_Buffers.Wire_Format.PB_Int32);\n",
 			 "name", EnumTypeName(descriptor_, false));
-	  printer->Print(
-			 "function PB_Int32_To_Enumeration is new Ada.Unchecked_Conversion "
-			 "(Protocol_Buffers.Wire_Format.PB_Int32, $name$);\n",
+	  printer->Print("function PB_Int32_To_Enumeration is new Ada.Unchecked_Conversion (Protocol_Buffers.Wire_Format.PB_Int32, $name$);\n",
 			 "name", EnumTypeName(descriptor_, false));
 	}
 

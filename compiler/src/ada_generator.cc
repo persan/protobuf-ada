@@ -49,14 +49,11 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-	AdaGenerator::
-	AdaGenerator() { }
+	AdaGenerator::AdaGenerator() { }
 
-	AdaGenerator::
-	~AdaGenerator() { }
+	AdaGenerator::~AdaGenerator() { }
 
-	bool AdaGenerator::
-	Generate(const FileDescriptor* file,
+	bool AdaGenerator::Generate(const FileDescriptor* file,
 		 const string& parameter,
 		 GeneratorContext* context,
 		 string* error) const {
@@ -96,15 +93,13 @@ namespace google {
 	  file_generator.GenerateSpecification(&printer);
 
 	  // Generate child package for every message
-	  file_generator.GenerateChildPackages("",
-					       file_generator.packagename(), context, &all_files);
+	  file_generator.GenerateChildPackages("", file_generator.packagename(), context, &all_files);
 
 	  // Generate output list if requested.
 	  if (!output_list_file.empty()) {
 	    // Generate output list.  This is just a simple text file placed in a
 	    // deterministic location which lists the ada files being generated.
-	    scoped_ptr<io::ZeroCopyOutputStream> srclist_raw_output(
-								    context->Open(output_list_file));
+	    scoped_ptr<io::ZeroCopyOutputStream> srclist_raw_output( context->Open(output_list_file));
 	    io::Printer srclist_printer(srclist_raw_output.get(), '$');
 	    for (unsigned int i = 0; i < all_files.size(); i++) {
 	      srclist_printer.Print("$filename$\n", "filename", all_files[i]);
@@ -113,9 +108,6 @@ namespace google {
 
 	  return true;
 	}
-
-
-
       } // namespace ada
     } // namespace compiler
   } // namespace protobuf

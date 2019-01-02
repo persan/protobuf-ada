@@ -15,8 +15,7 @@ int main(int argc, char* argv[]) {
 
   google::protobuf::compiler::ada::AdaGenerator ada_generator;
   if (invocation_basename == legacy_name) {
-    cli.RegisterGenerator("--ada_out", &ada_generator,
-			  "Generate Ada specification and body.");
+    cli.RegisterGenerator("--ada_out", &ada_generator, "Generate Ada specification and body.");
     return cli.Run(argc, argv);
   };
   return google::protobuf::compiler::PluginMain(argc, argv, &ada_generator);

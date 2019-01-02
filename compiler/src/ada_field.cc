@@ -57,12 +57,10 @@ namespace google {
 						internal::WireFormat::TagSize(descriptor->number(), descriptor->type()));
 	}
 
-	FieldGenerator::
-	~FieldGenerator() {}
+	FieldGenerator::~FieldGenerator() {}
 
 
-	FieldGeneratorMap::
-	FieldGeneratorMap(const Descriptor* descriptor)
+	FieldGeneratorMap::FieldGeneratorMap(const Descriptor* descriptor)
 	: descriptor_(descriptor),
 	field_generators_(new scoped_ptr<FieldGenerator>[descriptor->field_count()]) {
 	  // Construct all the FieldGenerators.
@@ -71,8 +69,7 @@ namespace google {
 	  }
 	}
 
-	void FieldGenerator::
-	GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const {
+	void FieldGenerator::GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const {
 	  // Reaching here indicates a bug. Cases are:
 	  //   - This FieldGenerator should support packing, but this method should be
 	  //     overridden.
@@ -83,8 +80,7 @@ namespace google {
 
 	}
 
-	FieldGenerator* FieldGeneratorMap::
-	MakeGenerator(const FieldDescriptor* field) {
+	FieldGenerator* FieldGeneratorMap::MakeGenerator(const FieldDescriptor* field) {
 	  if (field->is_repeated()) {
 	    switch (GetAdaType(field)) {
 	      case ADATYPE_MESSAGE:
@@ -110,11 +106,9 @@ namespace google {
 	  }
 	}
 
-	FieldGeneratorMap::
-	~FieldGeneratorMap() {}
+	FieldGeneratorMap::~FieldGeneratorMap() {}
 
-	const FieldGenerator& FieldGeneratorMap::
-	get(const FieldDescriptor* field) const {
+	const FieldGenerator& FieldGeneratorMap::get(const FieldDescriptor* field) const {
 	  GOOGLE_CHECK_EQ(field->containing_type(), descriptor_);
 	  return *field_generators_[field->index()];
 	}
