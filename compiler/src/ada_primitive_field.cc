@@ -109,7 +109,7 @@ namespace google {
 				     map<string, string>* variables) {
 	    if (GetAdaType(descriptor) == ADATYPE_GROUP) {
 	      // TODO: fail more gracefully!
-	      // GOOGLE_LOG(FATAL) << "groups not supported.";
+	      GOOGLE_LOG(WARNING) << "groups not supported.";
 	    }
 	    SetCommonFieldVariables(descriptor, variables);
 	    (*variables)["type"] = PrimitiveTypeName(GetAdaType(descriptor));
