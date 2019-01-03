@@ -51,13 +51,13 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-	class ExtensionGenerator {
-	  public:
-	  explicit ExtensionGenerator(const FieldDescriptor* descriptor);
-	  ~ExtensionGenerator();
-	  private:
-	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ExtensionGenerator);
-	};
+        class ExtensionGenerator {
+          public:
+          explicit ExtensionGenerator(const FieldDescriptor* descriptor);
+          ~ExtensionGenerator();
+          private:
+          GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ExtensionGenerator);
+        };
 
       } // namespace ada
     } // namespace compiler

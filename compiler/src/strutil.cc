@@ -88,10 +88,10 @@ namespace google {
       const char * str_start = s->c_str();
       const char * str = str_start;
       for (str = strpbrk(str, remove);
-	   str != NULL;
-	   str = strpbrk(str + 1, remove)) {
-	  (*s)[str - str_start] = replacewith;
-	}
+           str != NULL;
+           str = strpbrk(str + 1, remove)) {
+          (*s)[str - str_start] = replacewith;
+        }
     }
 
     // ----------------------------------------------------------------------
@@ -102,23 +102,23 @@ namespace google {
     // ----------------------------------------------------------------------
 
     void StringReplace(const string& s, const string& oldsub,
-		       const string& newsub, bool replace_all,
-		       string* res) {
+                       const string& newsub, bool replace_all,
+                       string* res) {
       if (oldsub.empty()) {
-	res->append(s);  // if empty, append the given string.
-	return;
+        res->append(s);  // if empty, append the given string.
+        return;
       }
 
       string::size_type start_pos = 0;
       string::size_type pos;
       do {
-	pos = s.find(oldsub, start_pos);
-	if (pos == string::npos) {
-	  break;
-	}
-	res->append(s, start_pos, pos - start_pos);
-	res->append(newsub);
-	start_pos = pos + oldsub.size();  // start searching again after the "old"
+        pos = s.find(oldsub, start_pos);
+        if (pos == string::npos) {
+          break;
+        }
+        res->append(s, start_pos, pos - start_pos);
+        res->append(newsub);
+        start_pos = pos + oldsub.size();  // start searching again after the "old"
       } while (replace_all);
       res->append(s, start_pos, s.length() - start_pos);
     }
@@ -133,7 +133,7 @@ namespace google {
     // ----------------------------------------------------------------------
 
     string StringReplace(const string& s, const string& oldsub,
-			 const string& newsub, bool replace_all) {
+                         const string& newsub, bool replace_all) {
       string ret;
       StringReplace(s, oldsub, newsub, replace_all, &ret);
       return ret;
@@ -150,41 +150,41 @@ namespace google {
     template <typename ITR>
     static inline
     void SplitStringToIteratorUsing(const string& full,
-				    const char* delim,
-				    ITR& result) {
+                                    const char* delim,
+                                    ITR& result) {
       // Optimize the common case where delim is a single character.
       if (delim[0] != '\0' && delim[1] == '\0') {
-	char c = delim[0];
-	const char* p = full.data();
-	const char* end = p + full.size();
-	while (p != end) {
-	  if (*p == c) {
-	    ++p;
-	  } else {
-	    const char* start = p;
-	    while (++p != end && *p != c);
-	    *result++ = string(start, p - start);
-	  }
-	}
-	return;
+        char c = delim[0];
+        const char* p = full.data();
+        const char* end = p + full.size();
+        while (p != end) {
+          if (*p == c) {
+            ++p;
+          } else {
+            const char* start = p;
+            while (++p != end && *p != c);
+            *result++ = string(start, p - start);
+          }
+        }
+        return;
       }
 
       string::size_type begin_index, end_index;
       begin_index = full.find_first_not_of(delim);
       while (begin_index != string::npos) {
-	end_index = full.find_first_of(delim, begin_index);
-	if (end_index == string::npos) {
-	  *result++ = full.substr(begin_index);
-	  return;
-	}
-	*result++ = full.substr(begin_index, (end_index - begin_index));
-	begin_index = full.find_first_not_of(delim, end_index);
+        end_index = full.find_first_of(delim, begin_index);
+        if (end_index == string::npos) {
+          *result++ = full.substr(begin_index);
+          return;
+        }
+        *result++ = full.substr(begin_index, (end_index - begin_index));
+        begin_index = full.find_first_not_of(delim, end_index);
       }
     }
 
     void SplitStringUsing(const string& full,
-			  const char* delim,
-			  vector<string>* result) {
+                          const char* delim,
+                          vector<string>* result) {
       back_insert_iterator< vector<string> > it(*result);
       SplitStringToIteratorUsing(full, delim, it);
     }
@@ -203,26 +203,26 @@ namespace google {
     template <typename StringType, typename ITR>
     static inline
     void SplitStringToIteratorAllowEmpty(const StringType& full,
-					 const char* delim,
-					 int pieces,
-					 ITR& result) {
+                                         const char* delim,
+                                         int pieces,
+                                         ITR& result) {
       string::size_type begin_index, end_index;
       begin_index = 0;
 
       for (int i = 0; (i < pieces-1) || (pieces == 0); i++) {
-	end_index = full.find_first_of(delim, begin_index);
-	if (end_index == string::npos) {
-	  *result++ = full.substr(begin_index);
-	  return;
-	}
-	*result++ = full.substr(begin_index, (end_index - begin_index));
-	begin_index = end_index + 1;
+        end_index = full.find_first_of(delim, begin_index);
+        if (end_index == string::npos) {
+          *result++ = full.substr(begin_index);
+          return;
+        }
+        *result++ = full.substr(begin_index, (end_index - begin_index));
+        begin_index = end_index + 1;
       }
       *result++ = full.substr(begin_index);
     }
 
     void SplitStringAllowEmpty(const string& full, const char* delim,
-			       vector<string>* result) {
+                               vector<string>* result) {
       back_insert_iterator<vector<string> > it(*result);
       SplitStringToIteratorAllowEmpty(full, delim, 0, it);
     }
@@ -235,9 +235,9 @@ namespace google {
     // ----------------------------------------------------------------------
     template <class ITERATOR>
       static void JoinStringsIterator(const ITERATOR& start,
-				      const ITERATOR& end,
-				      const char* delim,
-				      string* result) {
+                                      const ITERATOR& end,
+                                      const char* delim,
+                                      string* result) {
       GOOGLE_CHECK(result != NULL);
       result->clear();
       int delim_length = strlen(delim);
@@ -245,25 +245,25 @@ namespace google {
       // Precompute resulting length so we can reserve() memory in one shot.
       int length = 0;
       for (ITERATOR iter = start; iter != end; ++iter) {
-	if (iter != start) {
-	  length += delim_length;
-	}
-	length += iter->size();
+        if (iter != start) {
+          length += delim_length;
+        }
+        length += iter->size();
       }
       result->reserve(length);
 
       // Now combine everything.
       for (ITERATOR iter = start; iter != end; ++iter) {
-	if (iter != start) {
-	  result->append(delim, delim_length);
-	}
-	result->append(iter->data(), iter->size());
+        if (iter != start) {
+          result->append(delim, delim_length);
+        }
+        result->append(iter->data(), iter->size());
       }
     }
 
     void JoinStrings(const vector<string>& components,
-		     const char* delim,
-		     string * result) {
+                     const char* delim,
+                     string * result) {
       JoinStringsIterator(components.begin(), components.end(), delim, result);
     }
 
@@ -287,7 +287,7 @@ namespace google {
       assert(isxdigit(c));
       int x = static_cast<unsigned char>(c);
       if (x > '9') {
-	x += 9;
+        x += 9;
       }
       return x & 0xf;
     }
@@ -301,7 +301,7 @@ namespace google {
     }
 
     int UnescapeCEscapeSequences(const char* source, char* dest,
-				 vector<string> *errors) {
+                                 vector<string> *errors) {
       GOOGLE_DCHECK(errors == NULL) << "Error reporting not implemented.";
 
       char* d = dest;
@@ -309,58 +309,58 @@ namespace google {
 
       // Small optimization for case where source = dest and there's no escaping
       while ( p == d && *p != '\0' && *p != '\\' )
-	p++, d++;
+        p++, d++;
 
       while (*p != '\0') {
-	if (*p != '\\') {
-	  *d++ = *p++;
-	} else {
-	  switch ( *++p ) {                    // skip past the '\\'
-	    case '\0':
-	      LOG_STRING(ERROR, errors) << "String cannot end with \\";
-	      *d = '\0';
-	      return d - dest;   // we're done with p
-	    case 'a':  *d++ = '\a';  break;
-	    case 'b':  *d++ = '\b';  break;
-	    case 'f':  *d++ = '\f';  break;
-	    case 'n':  *d++ = '\n';  break;
-	    case 'r':  *d++ = '\r';  break;
-	    case 't':  *d++ = '\t';  break;
-	    case 'v':  *d++ = '\v';  break;
-	    case '\\': *d++ = '\\';  break;
-	    case '?':  *d++ = '\?';  break;    // \?  Who knew?
-	    case '\'': *d++ = '\'';  break;
-	    case '"':  *d++ = '\"';  break;
-	    case '0': case '1': case '2': case '3':  // octal digit: 1 to 3 digits
-	    case '4': case '5': case '6': case '7': {
-		char ch = *p - '0';
-		if ( IS_OCTAL_DIGIT(p[1]) )
-		  ch = ch * 8 + *++p - '0';
-		if ( IS_OCTAL_DIGIT(p[1]) )      // safe (and easy) to do this twice
-		  ch = ch * 8 + *++p - '0';      // now points at last digit
-		*d++ = ch;
-		break;
-	      }
-	    case 'x': case 'X': {
-		if (!isxdigit(p[1])) {
-		  if (p[1] == '\0') {
-		    LOG_STRING(ERROR, errors) << "String cannot end with \\x";
-		  } else {
-		    LOG_STRING(ERROR, errors) <<
-		    "\\x cannot be followed by non-hex digit: \\" << *p << p[1];
-		  }
-		  break;
-		}
-		unsigned int ch = 0;
-		const char *hex_start = p;
-		while (isxdigit(p[1]))  // arbitrarily many hex digits
-		  ch = (ch << 4) + hex_digit_to_int(*++p);
-		if (ch > 0xFF)
-		  LOG_STRING(ERROR, errors) << "Value of " <<
-		  "\\" << string(hex_start, p+1-hex_start) << " exceeds 8 bits";
-		*d++ = ch;
-		break;
-	      }
+        if (*p != '\\') {
+          *d++ = *p++;
+        } else {
+          switch ( *++p ) {                    // skip past the '\\'
+            case '\0':
+              LOG_STRING(ERROR, errors) << "String cannot end with \\";
+              *d = '\0';
+              return d - dest;   // we're done with p
+            case 'a':  *d++ = '\a';  break;
+            case 'b':  *d++ = '\b';  break;
+            case 'f':  *d++ = '\f';  break;
+            case 'n':  *d++ = '\n';  break;
+            case 'r':  *d++ = '\r';  break;
+            case 't':  *d++ = '\t';  break;
+            case 'v':  *d++ = '\v';  break;
+            case '\\': *d++ = '\\';  break;
+            case '?':  *d++ = '\?';  break;    // \?  Who knew?
+            case '\'': *d++ = '\'';  break;
+            case '"':  *d++ = '\"';  break;
+            case '0': case '1': case '2': case '3':  // octal digit: 1 to 3 digits
+            case '4': case '5': case '6': case '7': {
+                char ch = *p - '0';
+                if ( IS_OCTAL_DIGIT(p[1]) )
+                  ch = ch * 8 + *++p - '0';
+                if ( IS_OCTAL_DIGIT(p[1]) )      // safe (and easy) to do this twice
+                  ch = ch * 8 + *++p - '0';      // now points at last digit
+                *d++ = ch;
+                break;
+              }
+            case 'x': case 'X': {
+                if (!isxdigit(p[1])) {
+                  if (p[1] == '\0') {
+                    LOG_STRING(ERROR, errors) << "String cannot end with \\x";
+                  } else {
+                    LOG_STRING(ERROR, errors) <<
+                    "\\x cannot be followed by non-hex digit: \\" << *p << p[1];
+                  }
+                  break;
+                }
+                unsigned int ch = 0;
+                const char *hex_start = p;
+                while (isxdigit(p[1]))  // arbitrarily many hex digits
+                  ch = (ch << 4) + hex_digit_to_int(*++p);
+                if (ch > 0xFF)
+                  LOG_STRING(ERROR, errors) << "Value of " <<
+                  "\\" << string(hex_start, p+1-hex_start) << " exceeds 8 bits";
+                *d++ = ch;
+                break;
+              }
 #if 0  // TODO(kenton):  Support \u and \U?  Requires runetochar().
         case 'u': {
           // \uhhhh => convert 4 hex digits to UTF-8
@@ -407,12 +407,12 @@ namespace google {
           d += runetochar(d, &rune);
           break;
         }
-	      #endif
-	    default:
-	      LOG_STRING(ERROR, errors) << "Unknown escape sequence: \\" << *p;
-	  }
-	  p++;                                 // read past letter we escaped
-	}
+              #endif
+            default:
+              LOG_STRING(ERROR, errors) << "Unknown escape sequence: \\" << *p;
+          }
+          p++;                                 // read past letter we escaped
+        }
       }
       *d = '\0';
       return d - dest;
@@ -437,7 +437,7 @@ namespace google {
     }
 
     int UnescapeCEscapeString(const string& src, string* dest,
-			      vector<string> *errors) {
+                              vector<string> *errors) {
       scoped_array<char> unescaped(new char[src.size() + 1]);
       int len = UnescapeCEscapeSequences(src.c_str(), unescaped.get(), errors);
       GOOGLE_CHECK(dest);
@@ -464,45 +464,45 @@ namespace google {
     //    Currently only \n, \r, \t, ", ', \ and !isprint() chars are escaped.
     // ----------------------------------------------------------------------
     int CEscapeInternal(const char* src, int src_len, char* dest,
-			int dest_len, bool use_hex, bool utf8_safe) {
+                        int dest_len, bool use_hex, bool utf8_safe) {
       const char* src_end = src + src_len;
       int used = 0;
       bool last_hex_escape = false; // true if last output char was \xNN
 
       for (; src < src_end; src++) {
-	if (dest_len - used < 2)   // Need space for two letter escape
-	  return -1;
+        if (dest_len - used < 2)   // Need space for two letter escape
+          return -1;
 
-	bool is_hex_escape = false;
-	switch (*src) {
-	  case '\n': dest[used++] = '\\'; dest[used++] = 'n';  break;
-	  case '\r': dest[used++] = '\\'; dest[used++] = 'r';  break;
-	  case '\t': dest[used++] = '\\'; dest[used++] = 't';  break;
-	  case '\"': dest[used++] = '\\'; dest[used++] = '\"'; break;
-	  case '\'': dest[used++] = '\\'; dest[used++] = '\''; break;
-	  case '\\': dest[used++] = '\\'; dest[used++] = '\\'; break;
-	  default:
-	    // Note that if we emit \xNN and the src character after that is a hex
-	    // digit then that digit must be escaped too to prevent it being
-	    // interpreted as part of the character code by C.
-	    if ((!utf8_safe || static_cast<uint8>(*src) < 0x80) &&
-		(!isprint(*src) ||
-		 (last_hex_escape && isxdigit(*src)))) {
-		if (dest_len - used < 4) // need space for 4 letter escape
-		  return -1;
-		sprintf(dest + used, (use_hex ? "\\x%02x" : "\\%03o"),
-			static_cast<uint8>(*src));
-		is_hex_escape = use_hex;
-		used += 4;
-	      } else {
-	      dest[used++] = *src; break;
-	    }
-	}
-	last_hex_escape = is_hex_escape;
+        bool is_hex_escape = false;
+        switch (*src) {
+          case '\n': dest[used++] = '\\'; dest[used++] = 'n';  break;
+          case '\r': dest[used++] = '\\'; dest[used++] = 'r';  break;
+          case '\t': dest[used++] = '\\'; dest[used++] = 't';  break;
+          case '\"': dest[used++] = '\\'; dest[used++] = '\"'; break;
+          case '\'': dest[used++] = '\\'; dest[used++] = '\''; break;
+          case '\\': dest[used++] = '\\'; dest[used++] = '\\'; break;
+          default:
+            // Note that if we emit \xNN and the src character after that is a hex
+            // digit then that digit must be escaped too to prevent it being
+            // interpreted as part of the character code by C.
+            if ((!utf8_safe || static_cast<uint8>(*src) < 0x80) &&
+                (!isprint(*src) ||
+                 (last_hex_escape && isxdigit(*src)))) {
+                if (dest_len - used < 4) // need space for 4 letter escape
+                  return -1;
+                sprintf(dest + used, (use_hex ? "\\x%02x" : "\\%03o"),
+                        static_cast<uint8>(*src));
+                is_hex_escape = use_hex;
+                used += 4;
+              } else {
+              dest[used++] = *src; break;
+            }
+        }
+        last_hex_escape = is_hex_escape;
       }
 
       if (dest_len - used < 1)   // make sure that there is room for \0
-	return -1;
+        return -1;
 
       dest[used] = '\0';   // doesn't count towards return value though
       return used;
@@ -526,7 +526,7 @@ namespace google {
       const int dest_length = src.size() * 4 + 1; // Maximum possible expansion
       scoped_array<char> dest(new char[dest_length]);
       const int len = CEscapeInternal(src.data(), src.size(),
-				      dest.get(), dest_length, false, false);
+                                      dest.get(), dest_length, false, false);
       GOOGLE_DCHECK_GE(len, 0);
       return string(dest.get(), len);
     }
@@ -534,21 +534,21 @@ namespace google {
     namespace strings {
 
       string Utf8SafeCEscape(const string& src) {
-	const int dest_length = src.size() * 4 + 1; // Maximum possible expansion
-	scoped_array<char> dest(new char[dest_length]);
-	const int len = CEscapeInternal(src.data(), src.size(),
-					dest.get(), dest_length, false, true);
-	GOOGLE_DCHECK_GE(len, 0);
-	return string(dest.get(), len);
+        const int dest_length = src.size() * 4 + 1; // Maximum possible expansion
+        scoped_array<char> dest(new char[dest_length]);
+        const int len = CEscapeInternal(src.data(), src.size(),
+                                        dest.get(), dest_length, false, true);
+        GOOGLE_DCHECK_GE(len, 0);
+        return string(dest.get(), len);
       }
 
       string CHexEscape(const string& src) {
-	const int dest_length = src.size() * 4 + 1; // Maximum possible expansion
-	scoped_array<char> dest(new char[dest_length]);
-	const int len = CEscapeInternal(src.data(), src.size(),
-					dest.get(), dest_length, true, false);
-	GOOGLE_DCHECK_GE(len, 0);
-	return string(dest.get(), len);
+        const int dest_length = src.size() * 4 + 1; // Maximum possible expansion
+        scoped_array<char> dest(new char[dest_length]);
+        const int len = CEscapeInternal(src.data(), src.size(),
+                                        dest.get(), dest_length, true, false);
+        GOOGLE_DCHECK_GE(len, 0);
+        return string(dest.get(), len);
       }
 
     }  // namespace strings
@@ -566,18 +566,18 @@ namespace google {
       errno = 0;
       const long result = strtol(nptr, endptr, base);
       if (errno == ERANGE && result == LONG_MIN) {
-	return kint32min;
+        return kint32min;
       } else if (errno == ERANGE && result == LONG_MAX) {
-	return kint32max;
+        return kint32max;
       } else if (errno == 0 && result < kint32min) {
-	errno = ERANGE;
-	return kint32min;
+        errno = ERANGE;
+        return kint32min;
       } else if (errno == 0 && result > kint32max) {
-	errno = ERANGE;
-	return kint32max;
+        errno = ERANGE;
+        return kint32max;
       }
       if (errno == 0)
-	errno = saved_errno;
+        errno = saved_errno;
       return static_cast<int32>(result);
     }
 
@@ -586,13 +586,13 @@ namespace google {
       errno = 0;
       const unsigned long result = strtoul(nptr, endptr, base);
       if (errno == ERANGE && result == ULONG_MAX) {
-	return kuint32max;
+        return kuint32max;
       } else if (errno == 0 && result > kuint32max) {
-	errno = ERANGE;
-	return kuint32max;
+        errno = ERANGE;
+        return kuint32max;
       }
       if (errno == 0)
-	errno = saved_errno;
+        errno = saved_errno;
       return static_cast<uint32>(result);
     }
 
@@ -615,34 +615,34 @@ namespace google {
       char* p = buffer + kFastInt64ToBufferOffset;
       *p-- = '\0';
       if (i >= 0) {
-	do {
-	  *p-- = '0' + i % 10;
-	  i /= 10;
-	} while (i > 0);
-	return p + 1;
+        do {
+          *p-- = '0' + i % 10;
+          i /= 10;
+        } while (i > 0);
+        return p + 1;
       } else {
-	// On different platforms, % and / have different behaviors for
-	// negative numbers, so we need to jump through hoops to make sure
-	// we don't divide negative numbers.
-	if (i > -10) {
-	  i = -i;
-	  *p-- = '0' + i;
-	  *p = '-';
-	  return p;
-	} else {
-	  // Make sure we aren't at MIN_INT, in which case we can't say i = -i
-	  i = i + 10;
-	  i = -i;
-	  *p-- = '0' + i % 10;
-	  // Undo what we did a moment ago
-	  i = i / 10 + 1;
-	  do {
-	    *p-- = '0' + i % 10;
-	    i /= 10;
-	  } while (i > 0);
-	  *p = '-';
-	  return p;
-	}
+        // On different platforms, % and / have different behaviors for
+        // negative numbers, so we need to jump through hoops to make sure
+        // we don't divide negative numbers.
+        if (i > -10) {
+          i = -i;
+          *p-- = '0' + i;
+          *p = '-';
+          return p;
+        } else {
+          // Make sure we aren't at MIN_INT, in which case we can't say i = -i
+          i = i + 10;
+          i = -i;
+          *p-- = '0' + i % 10;
+          // Undo what we did a moment ago
+          i = i / 10 + 1;
+          do {
+            *p-- = '0' + i % 10;
+            i /= 10;
+          } while (i > 0);
+          *p = '-';
+          return p;
+        }
       }
     }
 
@@ -660,34 +660,34 @@ namespace google {
       char* p = buffer + kFastInt32ToBufferOffset;
       *p-- = '\0';
       if (i >= 0) {
-	do {
-	  *p-- = '0' + i % 10;
-	  i /= 10;
-	} while (i > 0);
-	return p + 1;
+        do {
+          *p-- = '0' + i % 10;
+          i /= 10;
+        } while (i > 0);
+        return p + 1;
       } else {
-	// On different platforms, % and / have different behaviors for
-	// negative numbers, so we need to jump through hoops to make sure
-	// we don't divide negative numbers.
-	if (i > -10) {
-	  i = -i;
-	  *p-- = '0' + i;
-	  *p = '-';
-	  return p;
-	} else {
-	  // Make sure we aren't at MIN_INT, in which case we can't say i = -i
-	  i = i + 10;
-	  i = -i;
-	  *p-- = '0' + i % 10;
-	  // Undo what we did a moment ago
-	  i = i / 10 + 1;
-	  do {
-	    *p-- = '0' + i % 10;
-	    i /= 10;
-	  } while (i > 0);
-	  *p = '-';
-	  return p;
-	}
+        // On different platforms, % and / have different behaviors for
+        // negative numbers, so we need to jump through hoops to make sure
+        // we don't divide negative numbers.
+        if (i > -10) {
+          i = -i;
+          *p-- = '0' + i;
+          *p = '-';
+          return p;
+        } else {
+          // Make sure we aren't at MIN_INT, in which case we can't say i = -i
+          i = i + 10;
+          i = -i;
+          *p-- = '0' + i % 10;
+          // Undo what we did a moment ago
+          i = i / 10 + 1;
+          do {
+            *p-- = '0' + i % 10;
+            i /= 10;
+          } while (i > 0);
+          *p = '-';
+          return p;
+        }
       }
     }
 
@@ -698,8 +698,8 @@ namespace google {
       char *p = buffer + 21;
       *p-- = '\0';
       do {
-	*p-- = hexdigits[i & 15];   // mod by 16
-	i >>= 4;                    // divide by 16
+        *p-- = hexdigits[i & 15];   // mod by 16
+        i >>= 4;                    // divide by 16
       } while (i > 0);
       return p + 1;
     }
@@ -709,14 +709,14 @@ namespace google {
       buffer[num_byte] = '\0';
       for (int i = num_byte - 1; i >= 0; i--) {
 #ifdef _M_X64
-	// MSVC x64 platform has a bug optimizing the uint32(value) in the #else
-	// block. Given that the uint32 cast was to improve performance on 32-bit
-	// platforms, we use 64-bit '&' directly.
-	buffer[i] = hexdigits[value & 0xf];
+        // MSVC x64 platform has a bug optimizing the uint32(value) in the #else
+        // block. Given that the uint32 cast was to improve performance on 32-bit
+        // platforms, we use 64-bit '&' directly.
+        buffer[i] = hexdigits[value & 0xf];
 #else
-	buffer[i] = hexdigits[uint32(value) & 0xf];
+        buffer[i] = hexdigits[uint32(value) & 0xf];
 #endif
-	value >>= 4;
+        value >>= 4;
       }
       return buffer;
     }
@@ -753,26 +753,26 @@ namespace google {
     // ----------------------------------------------------------------------
 
     static const char two_ASCII_digits[100][2] = {
-						  {'0','0'}, {'0','1'}, {'0','2'}, {'0','3'}, {'0','4'},
-						  {'0','5'}, {'0','6'}, {'0','7'}, {'0','8'}, {'0','9'},
-						  {'1','0'}, {'1','1'}, {'1','2'}, {'1','3'}, {'1','4'},
-						  {'1','5'}, {'1','6'}, {'1','7'}, {'1','8'}, {'1','9'},
-						  {'2','0'}, {'2','1'}, {'2','2'}, {'2','3'}, {'2','4'},
-						  {'2','5'}, {'2','6'}, {'2','7'}, {'2','8'}, {'2','9'},
-						  {'3','0'}, {'3','1'}, {'3','2'}, {'3','3'}, {'3','4'},
-						  {'3','5'}, {'3','6'}, {'3','7'}, {'3','8'}, {'3','9'},
-						  {'4','0'}, {'4','1'}, {'4','2'}, {'4','3'}, {'4','4'},
-						  {'4','5'}, {'4','6'}, {'4','7'}, {'4','8'}, {'4','9'},
-						  {'5','0'}, {'5','1'}, {'5','2'}, {'5','3'}, {'5','4'},
-						  {'5','5'}, {'5','6'}, {'5','7'}, {'5','8'}, {'5','9'},
-						  {'6','0'}, {'6','1'}, {'6','2'}, {'6','3'}, {'6','4'},
-						  {'6','5'}, {'6','6'}, {'6','7'}, {'6','8'}, {'6','9'},
-						  {'7','0'}, {'7','1'}, {'7','2'}, {'7','3'}, {'7','4'},
-						  {'7','5'}, {'7','6'}, {'7','7'}, {'7','8'}, {'7','9'},
-						  {'8','0'}, {'8','1'}, {'8','2'}, {'8','3'}, {'8','4'},
-						  {'8','5'}, {'8','6'}, {'8','7'}, {'8','8'}, {'8','9'},
-						  {'9','0'}, {'9','1'}, {'9','2'}, {'9','3'}, {'9','4'},
-						  {'9','5'}, {'9','6'}, {'9','7'}, {'9','8'}, {'9','9'}
+                                                  {'0','0'}, {'0','1'}, {'0','2'}, {'0','3'}, {'0','4'},
+                                                  {'0','5'}, {'0','6'}, {'0','7'}, {'0','8'}, {'0','9'},
+                                                  {'1','0'}, {'1','1'}, {'1','2'}, {'1','3'}, {'1','4'},
+                                                  {'1','5'}, {'1','6'}, {'1','7'}, {'1','8'}, {'1','9'},
+                                                  {'2','0'}, {'2','1'}, {'2','2'}, {'2','3'}, {'2','4'},
+                                                  {'2','5'}, {'2','6'}, {'2','7'}, {'2','8'}, {'2','9'},
+                                                  {'3','0'}, {'3','1'}, {'3','2'}, {'3','3'}, {'3','4'},
+                                                  {'3','5'}, {'3','6'}, {'3','7'}, {'3','8'}, {'3','9'},
+                                                  {'4','0'}, {'4','1'}, {'4','2'}, {'4','3'}, {'4','4'},
+                                                  {'4','5'}, {'4','6'}, {'4','7'}, {'4','8'}, {'4','9'},
+                                                  {'5','0'}, {'5','1'}, {'5','2'}, {'5','3'}, {'5','4'},
+                                                  {'5','5'}, {'5','6'}, {'5','7'}, {'5','8'}, {'5','9'},
+                                                  {'6','0'}, {'6','1'}, {'6','2'}, {'6','3'}, {'6','4'},
+                                                  {'6','5'}, {'6','6'}, {'6','7'}, {'6','8'}, {'6','9'},
+                                                  {'7','0'}, {'7','1'}, {'7','2'}, {'7','3'}, {'7','4'},
+                                                  {'7','5'}, {'7','6'}, {'7','7'}, {'7','8'}, {'7','9'},
+                                                  {'8','0'}, {'8','1'}, {'8','2'}, {'8','3'}, {'8','4'},
+                                                  {'8','5'}, {'8','6'}, {'8','7'}, {'8','8'}, {'8','9'},
+                                                  {'9','0'}, {'9','1'}, {'9','2'}, {'9','3'}, {'9','4'},
+                                                  {'9','5'}, {'9','6'}, {'9','7'}, {'9','8'}, {'9','9'}
     };
 
     char* FastUInt32ToBufferLeft(uint32 u, char* buffer) {
@@ -785,71 +785,71 @@ namespace google {
       // that case in one branch-free block of code, and only output conditional
       // branches into it from below.
       if (u >= 1000000000) {  // >= 1,000,000,000
-	digits = u / 100000000;  // 100,000,000
-	ASCII_digits = two_ASCII_digits[digits];
-	buffer[0] = ASCII_digits[0];
-	buffer[1] = ASCII_digits[1];
-	buffer += 2;
-	sublt100_000_000:
-	u -= digits * 100000000;  // 100,000,000
-	lt100_000_000:
-	digits = u / 1000000;  // 1,000,000
-	ASCII_digits = two_ASCII_digits[digits];
-	buffer[0] = ASCII_digits[0];
-	buffer[1] = ASCII_digits[1];
-	buffer += 2;
-	sublt1_000_000:
-	u -= digits * 1000000;  // 1,000,000
-	lt1_000_000:
-	digits = u / 10000;  // 10,000
-	ASCII_digits = two_ASCII_digits[digits];
-	buffer[0] = ASCII_digits[0];
-	buffer[1] = ASCII_digits[1];
-	buffer += 2;
-	sublt10_000:
-	u -= digits * 10000;  // 10,000
-	lt10_000:
-	digits = u / 100;
-	ASCII_digits = two_ASCII_digits[digits];
-	buffer[0] = ASCII_digits[0];
-	buffer[1] = ASCII_digits[1];
-	buffer += 2;
-	sublt100:
-	u -= digits * 100;
-	lt100:
-	digits = u;
-	ASCII_digits = two_ASCII_digits[digits];
-	buffer[0] = ASCII_digits[0];
-	buffer[1] = ASCII_digits[1];
-	buffer += 2;
-	done:
-	*buffer = 0;
-	return buffer;
+        digits = u / 100000000;  // 100,000,000
+        ASCII_digits = two_ASCII_digits[digits];
+        buffer[0] = ASCII_digits[0];
+        buffer[1] = ASCII_digits[1];
+        buffer += 2;
+        sublt100_000_000:
+        u -= digits * 100000000;  // 100,000,000
+        lt100_000_000:
+        digits = u / 1000000;  // 1,000,000
+        ASCII_digits = two_ASCII_digits[digits];
+        buffer[0] = ASCII_digits[0];
+        buffer[1] = ASCII_digits[1];
+        buffer += 2;
+        sublt1_000_000:
+        u -= digits * 1000000;  // 1,000,000
+        lt1_000_000:
+        digits = u / 10000;  // 10,000
+        ASCII_digits = two_ASCII_digits[digits];
+        buffer[0] = ASCII_digits[0];
+        buffer[1] = ASCII_digits[1];
+        buffer += 2;
+        sublt10_000:
+        u -= digits * 10000;  // 10,000
+        lt10_000:
+        digits = u / 100;
+        ASCII_digits = two_ASCII_digits[digits];
+        buffer[0] = ASCII_digits[0];
+        buffer[1] = ASCII_digits[1];
+        buffer += 2;
+        sublt100:
+        u -= digits * 100;
+        lt100:
+        digits = u;
+        ASCII_digits = two_ASCII_digits[digits];
+        buffer[0] = ASCII_digits[0];
+        buffer[1] = ASCII_digits[1];
+        buffer += 2;
+        done:
+        *buffer = 0;
+        return buffer;
       }
 
       if (u < 100) {
-	digits = u;
-	if (u >= 10) goto lt100;
-	*buffer++ = '0' + digits;
-	goto done;
+        digits = u;
+        if (u >= 10) goto lt100;
+        *buffer++ = '0' + digits;
+        goto done;
       }
       if (u  <  10000) {   // 10,000
-	if (u >= 1000) goto lt10_000;
-	digits = u / 100;
-	*buffer++ = '0' + digits;
-	goto sublt100;
+        if (u >= 1000) goto lt10_000;
+        digits = u / 100;
+        *buffer++ = '0' + digits;
+        goto sublt100;
       }
       if (u  <  1000000) {   // 1,000,000
-	if (u >= 100000) goto lt1_000_000;
-	digits = u / 10000;  //    10,000
-	*buffer++ = '0' + digits;
-	goto sublt10_000;
+        if (u >= 100000) goto lt1_000_000;
+        digits = u / 10000;  //    10,000
+        *buffer++ = '0' + digits;
+        goto sublt10_000;
       }
       if (u  <  100000000) {   // 100,000,000
-	if (u >= 10000000) goto lt100_000_000;
-	digits = u / 1000000;  //   1,000,000
-	*buffer++ = '0' + digits;
-	goto sublt1_000_000;
+        if (u >= 10000000) goto lt100_000_000;
+        digits = u / 1000000;  //   1,000,000
+        *buffer++ = '0' + digits;
+        goto sublt1_000_000;
       }
       // we already know that u < 1,000,000,000
       digits = u / 100000000;   // 100,000,000
@@ -860,8 +860,8 @@ namespace google {
     char* FastInt32ToBufferLeft(int32 i, char* buffer) {
       uint32 u = i;
       if (i < 0) {
-	*buffer++ = '-';
-	u = -i;
+        *buffer++ = '-';
+        u = -i;
       }
       return FastUInt32ToBufferLeft(u, buffer);
     }
@@ -911,8 +911,8 @@ namespace google {
     char* FastInt64ToBufferLeft(int64 i, char* buffer) {
       uint64 u = i;
       if (i < 0) {
-	*buffer++ = '-';
-	u = -i;
+        *buffer++ = '-';
+        u = -i;
       }
       return FastUInt64ToBufferLeft(u, buffer);
     }
@@ -934,8 +934,8 @@ namespace google {
     string SimpleItoa(unsigned int i) {
       char buffer[kFastToBufferSize];
       return string(buffer, (sizeof(i) == 4) ?
-		    FastUInt32ToBufferLeft(i, buffer) :
-		    FastUInt64ToBufferLeft(i, buffer));
+                    FastUInt32ToBufferLeft(i, buffer) :
+                    FastUInt64ToBufferLeft(i, buffer));
     }
 
     string SimpleItoa(long i) {
@@ -948,8 +948,8 @@ namespace google {
     string SimpleItoa(unsigned long i) {
       char buffer[kFastToBufferSize];
       return string(buffer, (sizeof(i) == 4) ?
-		    FastUInt32ToBufferLeft(i, buffer) :
-		    FastUInt64ToBufferLeft(i, buffer));
+                    FastUInt32ToBufferLeft(i, buffer) :
+                    FastUInt64ToBufferLeft(i, buffer));
     }
 
     string SimpleItoa(long long i) {
@@ -962,8 +962,8 @@ namespace google {
     string SimpleItoa(unsigned long long i) {
       char buffer[kFastToBufferSize];
       return string(buffer, (sizeof(i) == 4) ?
-		    FastUInt32ToBufferLeft(i, buffer) :
-		    FastUInt64ToBufferLeft(i, buffer));
+                    FastUInt32ToBufferLeft(i, buffer) :
+                    FastUInt64ToBufferLeft(i, buffer));
     }
 
     // ----------------------------------------------------------------------
@@ -1032,8 +1032,8 @@ namespace google {
       while (IsValidFloatChar(*buffer)) ++buffer;
 
       if (*buffer == '\0') {
-	// No radix character found.
-	return;
+        // No radix character found.
+        return;
       }
 
       // We are now pointing at the locale-specific radix character.  Replace it
@@ -1042,11 +1042,11 @@ namespace google {
       ++buffer;
 
       if (!IsValidFloatChar(*buffer) && *buffer != '\0') {
-	// It appears the radix was a multi-byte character.  We need to remove the
-	// extra bytes.
-	char* target = buffer;
-	do { ++buffer; } while (!IsValidFloatChar(*buffer) && *buffer != '\0');
-	memmove(target, buffer, strlen(buffer) + 1);
+        // It appears the radix was a multi-byte character.  We need to remove the
+        // extra bytes.
+        char* target = buffer;
+        do { ++buffer; } while (!IsValidFloatChar(*buffer) && *buffer != '\0');
+        memmove(target, buffer, strlen(buffer) + 1);
       }
     }
 
@@ -1058,14 +1058,14 @@ namespace google {
       GOOGLE_COMPILE_ASSERT(DBL_DIG < 20, DBL_DIG_is_too_big);
 
       if (value == numeric_limits<double>::infinity()) {
-	strcpy(buffer, "inf");
-	return buffer;
+        strcpy(buffer, "inf");
+        return buffer;
       } else if (value == -numeric_limits<double>::infinity()) {
-	strcpy(buffer, "-inf");
-	return buffer;
+        strcpy(buffer, "-inf");
+        return buffer;
       } else if (IsNaN(value)) {
-	strcpy(buffer, "nan");
-	return buffer;
+        strcpy(buffer, "nan");
+        return buffer;
       }
 
       int snprintf_result =
@@ -1083,11 +1083,11 @@ namespace google {
       // truncated to a double.
       volatile double parsed_value = strtod(buffer, NULL);
       if (parsed_value != value) {
-	int snprintf_result =
-	snprintf(buffer, kDoubleToBufferSize, "%.*g", DBL_DIG+2, value);
+        int snprintf_result =
+        snprintf(buffer, kDoubleToBufferSize, "%.*g", DBL_DIG+2, value);
 
-	// Should never overflow; see above.
-	GOOGLE_DCHECK(snprintf_result > 0 && snprintf_result < kDoubleToBufferSize);
+        // Should never overflow; see above.
+        GOOGLE_DCHECK(snprintf_result > 0 && snprintf_result < kDoubleToBufferSize);
       }
 
       DelocalizeRadix(buffer);
@@ -1113,14 +1113,14 @@ namespace google {
       GOOGLE_COMPILE_ASSERT(FLT_DIG < 10, FLT_DIG_is_too_big);
 
       if (value == numeric_limits<double>::infinity()) {
-	strcpy(buffer, "inf");
-	return buffer;
+        strcpy(buffer, "inf");
+        return buffer;
       } else if (value == -numeric_limits<double>::infinity()) {
-	strcpy(buffer, "-inf");
-	return buffer;
+        strcpy(buffer, "-inf");
+        return buffer;
       } else if (IsNaN(value)) {
-	strcpy(buffer, "nan");
-	return buffer;
+        strcpy(buffer, "nan");
+        return buffer;
       }
 
       int snprintf_result =
@@ -1132,11 +1132,11 @@ namespace google {
 
       float parsed_value;
       if (!safe_strtof(buffer, &parsed_value) || parsed_value != value) {
-	int snprintf_result =
-	snprintf(buffer, kFloatToBufferSize, "%.*g", FLT_DIG+2, value);
+        int snprintf_result =
+        snprintf(buffer, kFloatToBufferSize, "%.*g", FLT_DIG+2, value);
 
-	// Should never overflow; see above.
-	GOOGLE_DCHECK(snprintf_result > 0 && snprintf_result < kFloatToBufferSize);
+        // Should never overflow; see above.
+        GOOGLE_DCHECK(snprintf_result > 0 && snprintf_result < kFloatToBufferSize);
       }
 
       DelocalizeRadix(buffer);
@@ -1192,17 +1192,17 @@ namespace google {
       char* localized_endptr;
       result = strtod(localized_cstr, &localized_endptr);
       if ((localized_endptr - localized_cstr) >
-	  (temp_endptr - text)) {
-	  // This attempt got further, so replacing the decimal must have helped.
-	  // Update original_endptr to point at the right location.
-	  if (original_endptr != NULL) {
-	    // size_diff is non-zero if the localized radix has multiple bytes.
-	    int size_diff = localized.size() - strlen(text);
-	    // const_cast is necessary to match the strtod() interface.
-	    *original_endptr = const_cast<char*>(
-						 text + (localized_endptr - localized_cstr - size_diff));
-	  }
-	}
+          (temp_endptr - text)) {
+          // This attempt got further, so replacing the decimal must have helped.
+          // Update original_endptr to point at the right location.
+          if (original_endptr != NULL) {
+            // size_diff is non-zero if the localized radix has multiple bytes.
+            int size_diff = localized.size() - strlen(text);
+            // const_cast is necessary to match the strtod() interface.
+            *original_endptr = const_cast<char*>(
+                                                 text + (localized_endptr - localized_cstr - size_diff));
+          }
+        }
 
       return result;
     }

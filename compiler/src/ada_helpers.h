@@ -46,74 +46,74 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-	enum AdaType {
-	  ADATYPE_INT32,
-	  ADATYPE_INT64,
-	  ADATYPE_UINT32,
-	  ADATYPE_UINT64,
-	  ADATYPE_FLOAT,
-	  ADATYPE_DOUBLE,
-	  ADATYPE_BOOL,
-	  ADATYPE_STRING,
-	  ADATYPE_BYTES,
-	  ADATYPE_ENUM,
-	  ADATYPE_GROUP,
-	  ADATYPE_MESSAGE
-	};
+        enum AdaType {
+          ADATYPE_INT32,
+          ADATYPE_INT64,
+          ADATYPE_UINT32,
+          ADATYPE_UINT64,
+          ADATYPE_FLOAT,
+          ADATYPE_DOUBLE,
+          ADATYPE_BOOL,
+          ADATYPE_STRING,
+          ADATYPE_BYTES,
+          ADATYPE_ENUM,
+          ADATYPE_GROUP,
+          ADATYPE_MESSAGE
+        };
 
-	FieldDescriptor::Type GetType(const FieldDescriptor* field);
+        FieldDescriptor::Type GetType(const FieldDescriptor* field);
 
-	AdaType GetAdaType(const FieldDescriptor* field);
+        AdaType GetAdaType(const FieldDescriptor* field);
 
-	// Returns the scope where the field was defined (for extensions, this is
-	// different from the message type to which the field applies).
-	inline const Descriptor* FieldScope(const FieldDescriptor* field) {
-	  return field->is_extension() ?
-	  field->extension_scope() : field->containing_type();
-	}
+        // Returns the scope where the field was defined (for extensions, this is
+        // different from the message type to which the field applies).
+        inline const Descriptor* FieldScope(const FieldDescriptor* field) {
+          return field->is_extension() ?
+          field->extension_scope() : field->containing_type();
+        }
 
-	// Get the (unqualified) name that should be used for this field in Ada code.
-	string FieldName(const FieldDescriptor* field);
+        // Get the (unqualified) name that should be used for this field in Ada code.
+        string FieldName(const FieldDescriptor* field);
 
-	// Get the message type name that should be used for this message field.
-	string FieldMessageTypeName(const FieldDescriptor* field);
+        // Get the message type name that should be used for this message field.
+        string FieldMessageTypeName(const FieldDescriptor* field);
 
 
-	// Get the containing message type name that should be used for this message
-	// field.
-	string FieldMessageContainingPackageName(const FieldDescriptor* field);
+        // Get the containing message type name that should be used for this message
+        // field.
+        string FieldMessageContainingPackageName(const FieldDescriptor* field);
 
-	// Get the containing message type name that should be used for this enum
-	// field.
-	string FieldEnumContainingPackageName(const EnumDescriptor* descriptor);
+        // Get the containing message type name that should be used for this enum
+        // field.
+        string FieldEnumContainingPackageName(const EnumDescriptor* descriptor);
 
-	// Strips ".proto" or ".protodevel" from the end of a filename.
-	string StripProto(const string& filename);
+        // Strips ".proto" or ".protodevel" from the end of a filename.
+        string StripProto(const string& filename);
 
-	// Gets the unqualified package name for the file.
-	string FileAdaPackageName(const FileDescriptor* file);
+        // Gets the unqualified package name for the file.
+        string FileAdaPackageName(const FileDescriptor* file);
 
-	// TODO: rename!
-	bool IsParentMessage(const Descriptor* parent_descriptor,
-			     const Descriptor* child_descriptor);
+        // TODO: rename!
+        bool IsParentMessage(const Descriptor* parent_descriptor,
+                             const Descriptor* child_descriptor);
 
-	// TODO: commment!
-	string AdaPackageTypeName(const Descriptor* descriptor);
-	string AdaPackageName(const Descriptor* descriptor);
-	string EnumTypeName(const EnumDescriptor* enum_descriptor, bool qualified);
-	string EnumDefinitionTypeName(const EnumDescriptor* enum_descriptor);
-	string EnumDefinitionPackageName(const EnumDescriptor* enum_descriptor);
+        // TODO: commment!
+        string AdaPackageTypeName(const Descriptor* descriptor);
+        string AdaPackageName(const Descriptor* descriptor);
+        string EnumTypeName(const EnumDescriptor* enum_descriptor, bool qualified);
+        string EnumDefinitionTypeName(const EnumDescriptor* enum_descriptor);
+        string EnumDefinitionPackageName(const EnumDescriptor* enum_descriptor);
 
-	// Converts the field's name to capitalized underscore, e.g. "foo_bar_baz"
-	// becomes "Foo_Bar_Baz"
-	string UnderscoresToCapitalizedUnderscores(const FieldDescriptor* field);
+        // Converts the field's name to capitalized underscore, e.g. "foo_bar_baz"
+        // becomes "Foo_Bar_Baz"
+        string UnderscoresToCapitalizedUnderscores(const FieldDescriptor* field);
 
-	// Get code that evaluates to the field's default value.
-	string DefaultValue(const FieldDescriptor* field);
+        // Get code that evaluates to the field's default value.
+        string DefaultValue(const FieldDescriptor* field);
 
-	// Takes a type as parameter and returns the type's primitive operation name
-	// (suffix).
-	const char* DeclaredTypePrimitiveOperationName(FieldDescriptor::Type type);
+        // Takes a type as parameter and returns the type's primitive operation name
+        // (suffix).
+        const char* DeclaredTypePrimitiveOperationName(FieldDescriptor::Type type);
 
       }  // namespace ada
     }  // namespace compiler

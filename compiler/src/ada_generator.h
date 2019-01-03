@@ -45,20 +45,20 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-	class LIBPROTOC_EXPORT AdaGenerator : public CodeGenerator {
-	  public:
-	  AdaGenerator();
-	  ~AdaGenerator();
+        class LIBPROTOC_EXPORT AdaGenerator : public CodeGenerator {
+          public:
+          AdaGenerator();
+          ~AdaGenerator();
 
-	  // implements CodeGenerator ----------------------------------------
-	  bool Generate(const FileDescriptor* file,
-			const string& parameter,
-			GeneratorContext* context,
-			string* error) const;
+          // implements CodeGenerator ----------------------------------------
+          bool Generate(const FileDescriptor* file,
+                        const string& parameter,
+                        GeneratorContext* context,
+                        string* error) const;
 
-	  private:
-	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(AdaGenerator);
-	};
+          private:
+          GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(AdaGenerator);
+        };
 
       } // namespace ada
     } // namespace compiler

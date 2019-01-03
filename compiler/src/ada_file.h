@@ -56,30 +56,30 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-	class FileGenerator {
-	  public:
-	  explicit FileGenerator(const FileDescriptor* file);
-	  ~FileGenerator();
+        class FileGenerator {
+          public:
+          explicit FileGenerator(const FileDescriptor* file);
+          ~FileGenerator();
 
-	  void GenerateSpecification(io::Printer* printer);
-	  void GenerateBody(io::Printer* printer);
-	  void GenerateChildPackages(const string& package_dir,
-				     const string& parent,
-				     GeneratorContext* context,
-				     vector<string>* file_list);
+          void GenerateSpecification(io::Printer* printer);
+          void GenerateBody(io::Printer* printer);
+          void GenerateChildPackages(const string& package_dir,
+                                     const string& parent,
+                                     GeneratorContext* context,
+                                     vector<string>* file_list);
 
-	  const string& packagename() {
-	    return ada_package_name_;
-	  }
-	  private:
-	  void GenerateNestedEnumerationPackages(io::Printer* printer,
-						 const Descriptor* descriptor);
+          const string& packagename() {
+            return ada_package_name_;
+          }
+          private:
+          void GenerateNestedEnumerationPackages(io::Printer* printer,
+                                                 const Descriptor* descriptor);
 
-	  const FileDescriptor* file_;
-	  string ada_package_name_;
+          const FileDescriptor* file_;
+          string ada_package_name_;
 
-	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FileGenerator);
-	};
+          GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FileGenerator);
+        };
       } // namespace ada
     } // namespace compiler
   } // namespace protobuf

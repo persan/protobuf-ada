@@ -78,16 +78,16 @@ namespace google {
     //    string.
     // ----------------------------------------------------------------------
     inline bool HasPrefixString(const string& str,
-				const string& prefix) {
+                                const string& prefix) {
       return str.size() >= prefix.size() &&
       str.compare(0, prefix.size(), prefix) == 0;
     }
 
     inline string StripPrefixString(const string& str, const string& prefix) {
       if (HasPrefixString(str, prefix)) {
-	return str.substr(prefix.size());
+        return str.substr(prefix.size());
       } else {
-	return str;
+        return str;
       }
     }
 
@@ -100,16 +100,16 @@ namespace google {
     //    string.
     // ----------------------------------------------------------------------
     inline bool HasSuffixString(const string& str,
-				const string& suffix) {
+                                const string& suffix) {
       return str.size() >= suffix.size() &&
       str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
     }
 
     inline string StripSuffixString(const string& str, const string& suffix) {
       if (HasSuffixString(str, suffix)) {
-	return str.substr(0, str.size() - suffix.size());
+        return str.substr(0, str.size() - suffix.size());
       } else {
-	return str;
+        return str;
       }
     }
 
@@ -121,7 +121,7 @@ namespace google {
     //    of places where they might cause a problem.
     // ----------------------------------------------------------------------
     LIBPROTOBUF_EXPORT void StripString(string* s, const char* remove,
-					char replacewith);
+                                        char replacewith);
 
     // ----------------------------------------------------------------------
     // LowerString()
@@ -135,16 +135,16 @@ namespace google {
     inline void LowerString(string * s) {
       string::iterator end = s->end();
       for (string::iterator i = s->begin(); i != end; ++i) {
-	// tolower() changes based on locale.  We don't want this!
-	if ('A' <= *i && *i <= 'Z') *i += 'a' - 'A';
+        // tolower() changes based on locale.  We don't want this!
+        if ('A' <= *i && *i <= 'Z') *i += 'a' - 'A';
       }
     }
 
     inline void UpperString(string * s) {
       string::iterator end = s->end();
       for (string::iterator i = s->begin(); i != end; ++i) {
-	// toupper() changes based on locale.  We don't want this!
-	if ('a' <= *i && *i <= 'z') *i += 'A' - 'a';
+        // toupper() changes based on locale.  We don't want this!
+        if ('a' <= *i && *i <= 'z') *i += 'A' - 'a';
       }
     }
 
@@ -157,7 +157,7 @@ namespace google {
     // ----------------------------------------------------------------------
 
     LIBPROTOBUF_EXPORT string StringReplace(const string& s, const string& oldsub,
-					    const string& newsub, bool replace_all);
+                                            const string& newsub, bool replace_all);
 
     // ----------------------------------------------------------------------
     // SplitStringUsing()
@@ -166,7 +166,7 @@ namespace google {
     //    over all of them.
     // ----------------------------------------------------------------------
     LIBPROTOBUF_EXPORT void SplitStringUsing(const string& full, const char* delim,
-					     vector<string>* res);
+                                             vector<string>* res);
 
     // Split a string using one or more byte delimiters, presented
     // as a nul-terminated c string. Append the components to 'result'.
@@ -177,8 +177,8 @@ namespace google {
     // If "full" is the empty string, yields an empty string as the only value.
     // ----------------------------------------------------------------------
     LIBPROTOBUF_EXPORT void SplitStringAllowEmpty(const string& full,
-						  const char* delim,
-						  vector<string>* result);
+                                                  const char* delim,
+                                                  vector<string>* result);
 
     // ----------------------------------------------------------------------
     // JoinStrings()
@@ -189,10 +189,10 @@ namespace google {
     //    target string is cleared and overwritten.
     // ----------------------------------------------------------------------
     LIBPROTOBUF_EXPORT void JoinStrings(const vector<string>& components,
-					const char* delim, string* result);
+                                        const char* delim, string* result);
 
     inline string JoinStrings(const vector<string>& components,
-			      const char* delim) {
+                              const char* delim) {
       string result;
       JoinStrings(components, delim, &result);
       return result;
@@ -231,7 +231,7 @@ namespace google {
 
     LIBPROTOBUF_EXPORT int UnescapeCEscapeSequences(const char* source, char* dest);
     LIBPROTOBUF_EXPORT int UnescapeCEscapeSequences(const char* source, char* dest,
-						    vector<string> *errors);
+                                                    vector<string> *errors);
 
     // ----------------------------------------------------------------------
     // UnescapeCEscapeString()
@@ -250,7 +250,7 @@ namespace google {
 
     LIBPROTOBUF_EXPORT int UnescapeCEscapeString(const string& src, string* dest);
     LIBPROTOBUF_EXPORT int UnescapeCEscapeString(const string& src, string* dest,
-						 vector<string> *errors);
+                                                 vector<string> *errors);
     LIBPROTOBUF_EXPORT string UnescapeCEscapeString(const string& src);
 
     // ----------------------------------------------------------------------
@@ -264,7 +264,7 @@ namespace google {
     //    Currently only \n, \r, \t, ", ', \ and !isprint() chars are escaped.
     // ----------------------------------------------------------------------
     LIBPROTOBUF_EXPORT int CEscapeString(const char* src, int src_len,
-					 char* dest, int dest_len);
+                                         char* dest, int dest_len);
 
     // ----------------------------------------------------------------------
     // CEscape()
@@ -294,35 +294,35 @@ namespace google {
     //    overflow behavior, than using the standard libc functions.
     // ----------------------------------------------------------------------
     LIBPROTOBUF_EXPORT int32 strto32_adaptor(const char *nptr, char **endptr,
-					     int base);
+                                             int base);
     LIBPROTOBUF_EXPORT uint32 strtou32_adaptor(const char *nptr, char **endptr,
-					       int base);
+                                               int base);
 
     inline int32 strto32(const char *nptr, char **endptr, int base) {
       if (sizeof(int32) == sizeof(long))
-	return strtol(nptr, endptr, base);
+        return strtol(nptr, endptr, base);
       else
-	return strto32_adaptor(nptr, endptr, base);
+        return strto32_adaptor(nptr, endptr, base);
     }
 
     inline uint32 strtou32(const char *nptr, char **endptr, int base) {
       if (sizeof(uint32) == sizeof(unsigned long))
-	return strtoul(nptr, endptr, base);
+        return strtoul(nptr, endptr, base);
       else
-	return strtou32_adaptor(nptr, endptr, base);
+        return strtou32_adaptor(nptr, endptr, base);
     }
 
     // For now, long long is 64-bit on all the platforms we care about, so these
     // functions can simply pass the call to strto[u]ll.
     inline int64 strto64(const char *nptr, char **endptr, int base) {
       GOOGLE_COMPILE_ASSERT(sizeof(int64) == sizeof(long long),
-			    sizeof_int64_is_not_sizeof_long_long);
+                            sizeof_int64_is_not_sizeof_long_long);
       return strtoll(nptr, endptr, base);
     }
 
     inline uint64 strtou64(const char *nptr, char **endptr, int base) {
       GOOGLE_COMPILE_ASSERT(sizeof(uint64) == sizeof(unsigned long long),
-			    sizeof_uint64_is_not_sizeof_long_long);
+                            sizeof_uint64_is_not_sizeof_long_long);
       return strtoull(nptr, endptr, base);
     }
 
@@ -363,19 +363,19 @@ namespace google {
     // at least 22 bytes long
     inline char* FastIntToBuffer(int i, char* buffer) {
       return (sizeof(i) == 4 ?
-	      FastInt32ToBuffer(i, buffer) : FastInt64ToBuffer(i, buffer));
+              FastInt32ToBuffer(i, buffer) : FastInt64ToBuffer(i, buffer));
     }
     inline char* FastUIntToBuffer(unsigned int i, char* buffer) {
       return (sizeof(i) == 4 ?
-	      FastUInt32ToBuffer(i, buffer) : FastUInt64ToBuffer(i, buffer));
+              FastUInt32ToBuffer(i, buffer) : FastUInt64ToBuffer(i, buffer));
     }
     inline char* FastLongToBuffer(long i, char* buffer) {
       return (sizeof(i) == 4 ?
-	      FastInt32ToBuffer(i, buffer) : FastInt64ToBuffer(i, buffer));
+              FastInt32ToBuffer(i, buffer) : FastInt64ToBuffer(i, buffer));
     }
     inline char* FastULongToBuffer(unsigned long i, char* buffer) {
       return (sizeof(i) == 4 ?
-	      FastUInt32ToBuffer(i, buffer) : FastUInt64ToBuffer(i, buffer));
+              FastUInt32ToBuffer(i, buffer) : FastUInt64ToBuffer(i, buffer));
     }
 
     // ----------------------------------------------------------------------
