@@ -21,5 +21,5 @@ Makefile.conf:Makefile
 gps:
 	${GPS} -P ${project} & 
 
-protoc_ada.gpr:protoc_ada.gpr.in ${PROTOC} Makefile 
-	sed "s-@_LIBDIR_@-$$(dirname $$(find  $$(dirname $$(dirname ${PROTOC})) -name libprotobuf.so))-" ${@}.in >${@}
+protoc_ada.gpr:protoc_ada.gpr.in ${PROTOC} Makefile config.py
+	./config.py

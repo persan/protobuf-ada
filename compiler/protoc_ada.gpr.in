@@ -12,7 +12,7 @@ project Protoc_Ada is
 
 
    package Compiler is
-      for Switches ("c++") use ("-O2", "-Wall");
+      for Switches ("c++") use ("-O2", "-Wall", "-I" & "%(includedir)s");
    end Compiler;
 
    package Install is
@@ -22,7 +22,7 @@ project Protoc_Ada is
 
 
    package Linker is
-      for Switches ("c++") use ("-L" & "@_LIBDIR_@",
+      for Switches ("c++") use ("-L" & "%(libdir)s",
                                 "-l" & "protoc",
                                 "-l" & "protobuf");
    end Linker;
