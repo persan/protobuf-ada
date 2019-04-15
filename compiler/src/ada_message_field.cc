@@ -43,6 +43,7 @@ namespace google {
 
 	namespace {
 
+	// ==================================================================================
 	  void SetMessageVariables(const FieldDescriptor* descriptor,
 				   map<string, string>* variables) {
 	    SetCommonFieldVariables(descriptor, variables);
@@ -52,13 +53,16 @@ namespace google {
 
 	} // namespace
 
+	// ==================================================================================
 	MessageFieldGenerator::MessageFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetMessageVariables(descriptor, &variables_);
 	}
 
+	// ==================================================================================
 	MessageFieldGenerator::~MessageFieldGenerator() { }
 
+	// ==================================================================================
 	void MessageFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration Get_$name$
 	  printer->Print(variables_,"function Get_$name$ (The_Message : in out $packagename$.Instance) return access $containing_type$.Instance;\n");
@@ -72,6 +76,7 @@ namespace google {
 	  printer->Print(variables_, "    Value       : in $containing_type$.$type$_Access);\n");
 	}
 
+	// ==================================================================================
 	void MessageFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body Get_$name$
 	  printer->Print(variables_, "function Get_$name$ (The_Message : in out $packagename$.Instance) return access $containing_type$.Instance is\n");
@@ -112,6 +117,7 @@ namespace google {
 	  printer->Print(variables_,"end Set_$name$;\n");
 	}
 
+	// ==================================================================================
 	void MessageFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
 	  // TODO: Optimize! We _really_ don't want to free a message
 	  //  but instead reuse it to avoid allocating and deallocating
@@ -120,18 +126,22 @@ namespace google {
 	  GenerateFinalizationCode(printer);
 	}
 
+	// ==================================================================================
 	void MessageFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  printer->Print(variables_,"$name$ : access $containing_type$.Instance;\n");
 	}
 
+	// ==================================================================================
 	void MessageFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  printer->Print(variables_,"The_Coded_Output_Stream.Write_Message ($number$, The_Message.$name$.all);\n");
 	}
 
+	// ==================================================================================
 	void MessageFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ + Google.Protobuf.IO.Coded_Output_Stream.Compute_Message_Size_No_Tag (The_Message.$name$.all);\n");
 	}
 
+	// ==================================================================================
 	void MessageFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
 	  if (descriptor_->type() == FieldDescriptor::TYPE_MESSAGE) {
 	    printer->Print(variables_,"The_Coded_Input_Stream.Read_Message (The_Message.Get_$name$.all);\n");
@@ -140,15 +150,16 @@ namespace google {
 	  }
 	}
 
+	// ==================================================================================
 	void MessageFieldGenerator::GenerateMergingCode(io::Printer* printer) const {
 	  printer->Print(variables_,"To.Get_$name$.Merge (From.$name$.all);\n");
 	}
 
-	void MessageFieldGenerator::
-	GenerateStaticDefaults(io::Printer* printer) const { }
+	// ==================================================================================
+	void MessageFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const { }
 
-	void MessageFieldGenerator::
-	GenerateFinalizationCode(io::Printer* printer) const {
+	// ==================================================================================
+	void MessageFieldGenerator::GenerateFinalizationCode(io::Printer* printer) const {
 	  // TODO: Consider changing this to a procedure.
 	  printer->Print(variables_, "declare\n");
 	  // Move this elsewhere
@@ -159,15 +170,16 @@ namespace google {
 	  printer->Print(variables_, "end;\n");
 	}
 
-	// ===================================================================
-
+	// ==================================================================================
 	RepeatedMessageFieldGenerator::RepeatedMessageFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetMessageVariables(descriptor, &variables_);
 	}
 
+	// ==================================================================================
 	RepeatedMessageFieldGenerator::~RepeatedMessageFieldGenerator() { }
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration for Get_$name$
 	  // TODO: change index type?
@@ -182,6 +194,7 @@ namespace google {
 	  printer->Outdent();
 	}
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for $name$
 	  // TODO: change index type?
@@ -203,6 +216,7 @@ namespace google {
 	  printer->Print(variables_, "end Add_$name$;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
 	  // TODO: Optimize! We _really_ don't want to free all messages
 	  //  but instead reuse them to avoid allocating and deallocating
@@ -210,11 +224,13 @@ namespace google {
 	  GenerateFinalizationCode(printer);
 	}
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  // TODO: store vector on heap?
 	  printer->Print(variables_, "$name$ : Google.Protobuf.Message.Message_Vector.Vector;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  // TODO: rewrite with cursor?
 	  printer->Print(variables_, "for E of The_Message.$name$ loop\n");
@@ -222,6 +238,7 @@ namespace google {
 	  printer->Print(variables_, "end loop;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_, "Total_Size := Total_Size + $tag_size$ * The_Message.$name$_Size;\n");
 	  printer->Print(variables_, "   for E of The_Message.$name$ loop\n");
@@ -229,6 +246,7 @@ namespace google {
 	  printer->Print(variables_, "end loop;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
 	  // TODO: consider optimizing. At present we only read one field at time.
 	  //       It might be beneficial to guess that the next read item from the
@@ -240,6 +258,7 @@ namespace google {
 	  printer->Print(variables_,"end;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateMergingCode(io::Printer* printer) const {
 	  // TODO: optimize ...
 	  printer->Print(variables_, "declare\n");
@@ -253,8 +272,10 @@ namespace google {
 	  printer->Print(variables_, "end;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const { }
 
+	// ==================================================================================
 	void RepeatedMessageFieldGenerator::GenerateFinalizationCode(io::Printer* printer) const {
 	  // TODO: Consider changing this to a procedure.
 

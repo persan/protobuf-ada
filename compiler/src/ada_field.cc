@@ -46,6 +46,7 @@ namespace google {
     namespace compiler {
       namespace ada {
 
+	// =========================================================================================
 	void SetCommonFieldVariables(const FieldDescriptor* descriptor,
 				     map<string, string>* variables) {
 	  (*variables)["name"] = FieldName(descriptor);
@@ -56,9 +57,11 @@ namespace google {
 	  (*variables)["tag_size"] = SimpleItoa(internal::WireFormat::TagSize(descriptor->number(), descriptor->type()));
 	}
 
+	// =========================================================================================
 	FieldGenerator::~FieldGenerator() {}
 
 
+	// =========================================================================================
 	FieldGeneratorMap::FieldGeneratorMap(const Descriptor* descriptor)
 	: descriptor_(descriptor),
 	field_generators_(new scoped_ptr<FieldGenerator>[descriptor->field_count()]) {
@@ -68,6 +71,7 @@ namespace google {
 	  }
 	}
 
+	// =========================================================================================
 	void FieldGenerator::GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const {
 	  // Reaching here indicates a bug. Cases are:
 	  //   - This FieldGenerator should support packing, but this method should be
@@ -79,6 +83,7 @@ namespace google {
 
 	}
 
+	// =========================================================================================
 	FieldGenerator* FieldGeneratorMap::MakeGenerator(const FieldDescriptor* field) {
 	  if (field->is_repeated()) {
 	    switch (GetAdaType(field)) {
@@ -105,10 +110,11 @@ namespace google {
 	  }
 	}
 
+	// =========================================================================================
 	FieldGeneratorMap::~FieldGeneratorMap() {}
 
-	const FieldGenerator& FieldGeneratorMap::
-	get(const FieldDescriptor* field) const {
+	// =========================================================================================
+	const FieldGenerator& FieldGeneratorMap::get(const FieldDescriptor* field) const {
 	  GOOGLE_CHECK_EQ(field->containing_type(), descriptor_);
 	  return *field_generators_[field->index()];
 	}

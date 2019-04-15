@@ -49,9 +49,10 @@ namespace google {
 
 	namespace {
 
+
+	// ==================================================================================
 	  // For encodings with fixed sizes, returns that size in bytes.  Otherwise
 	  // returns -1.
-
 	  int FixedSize(FieldDescriptor::Type type) {
 	    switch (type) {
 	      case FieldDescriptor::TYPE_INT32: return -1;
@@ -82,6 +83,7 @@ namespace google {
 	    return -1;
 	  }
 
+	// ==================================================================================
 	  const char* PrimitiveTypeName(AdaType type) {
 	    switch (type) {
 	      case ADATYPE_INT32: return "Google.Protobuf.Wire_Format.PB_Int32";
@@ -105,6 +107,7 @@ namespace google {
 	    return NULL;
 	  }
 
+	// ==================================================================================
 	  void SetPrimitiveVariables(const FieldDescriptor* descriptor,
 				     map<string, string>* variables) {
 	    if (GetAdaType(descriptor) == ADATYPE_GROUP) {
@@ -123,13 +126,16 @@ namespace google {
 
 	} // namespace
 
+	// ==================================================================================
 	PrimitiveFieldGenerator::PrimitiveFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetPrimitiveVariables(descriptor, &variables_);
 	}
 
+	// ==================================================================================
 	PrimitiveFieldGenerator::~PrimitiveFieldGenerator() { }
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration Get_$name$
 	  printer->Print(variables_,"function Get_$name$ (The_Message : in $packagename$.Instance) return $type$;\n");
@@ -138,6 +144,7 @@ namespace google {
 	  printer->Print(variables_,"procedure Set_$name$ (The_Message : in out $packagename$.Instance; value : in $type$);\n");
 	}
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for Get_$name$
 	  printer->Print(variables_, "function Get_$name$ (The_Message : in $packagename$.Instance) return $type$ is\n");
@@ -153,18 +160,22 @@ namespace google {
 	  printer->Print(variables_, "end Set_$name$;\n");
 	}
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
 	  printer->Print(variables_, "The_Message.$name$ := $default$;\n");
 	}
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  printer->Print(variables_, "$name$ : $type$ := $default$;\n");
 	}
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  printer->Print(variables_, "Google.Protobuf.IO.Coded_Output_Stream.Write_$declared_type$ (The_Coded_Output_Stream, $number$, The_Message.$name$);\n");
 	}
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  int fixed_size = FixedSize(descriptor_->type());
 	  if (fixed_size == -1) {
@@ -174,26 +185,30 @@ namespace google {
 	  }
 	}
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
 	  printer->Print(variables_, "The_Message.$name$ := The_Coded_Input_Stream.Read_$declared_type$;\n");
 	  printer->Print(variables_, "The_Message.Set_Has_$name$;\n");
 	}
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateMergingCode(io::Printer* printer) const {
 	  printer->Print(variables_,"To.Set_$name$ (From.$name$);\n");
 	}
 
+	// ==================================================================================
 	void PrimitiveFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const { }
 
-	// ===================================================================
-
+	// ==================================================================================
 	RepeatedPrimitiveFieldGenerator::RepeatedPrimitiveFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetPrimitiveVariables(descriptor, &variables_);
 	}
 
+	// ==================================================================================
 	RepeatedPrimitiveFieldGenerator::~RepeatedPrimitiveFieldGenerator() { }
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration for Get_$name$
 	  // TODO: change index type?
@@ -218,6 +233,7 @@ namespace google {
 	  // TODO: add functionality to get and set vector?
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for Get_$name$
 	  // TODO: change index type?
@@ -248,10 +264,12 @@ namespace google {
 	  printer->Print(variables_, "end Add_$name$;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
 	  printer->Print(variables_, "The_Message.$name$.Clear;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  // TODO: store vector on heap?
 	  printer->Print(variables_, "$name$ : $type$_Vector.Vector;\n");
@@ -260,6 +278,7 @@ namespace google {
 	  }
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  if (descriptor_->options().packed()) {
 	    // Write the tag and the size.
@@ -277,6 +296,7 @@ namespace google {
 	  printer->Print(variables_,"end loop;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_, "declare\n");
 	  printer->Print(variables_, "   Data_Size : Google.Protobuf.Wire_Format.PB_Object_Size := 0;\n");
@@ -302,6 +322,7 @@ namespace google {
 	  printer->Print(variables_,"end;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const {
 	  // TODO: consider optimizing. At present we only read one field at time.
 	  //       It might be beneficial to guess that the next read item from the
@@ -318,6 +339,7 @@ namespace google {
 	  printer->Print(variables_, "end;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
 	  // TODO: consider optimizing. At present we only read one field at time.
 	  //       It might be beneficial to guess that the next read item from the
@@ -325,13 +347,13 @@ namespace google {
 	  printer->Print(variables_,"The_Message.$name$.Append (The_Coded_Input_Stream.Read_$declared_type$);\n");
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateMergingCode(io::Printer* printer) const {
 	  printer->Print(variables_,"To.$name$.Append(From.$name$);\n");
 	}
 
+	// ==================================================================================
 	void RepeatedPrimitiveFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const { }
-
-
       } // namespace ada
     } // namespace compiler
   } // namespace protobuf

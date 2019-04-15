@@ -49,10 +49,13 @@ namespace google {
     namespace compiler {
       namespace ada {
 
+	// =========================================================================================
 	AdaGenerator::AdaGenerator() { }
 
+	// =========================================================================================
 	AdaGenerator::~AdaGenerator() { }
 
+	// =========================================================================================
 	bool AdaGenerator::Generate(const FileDescriptor* file,
 				    const string& parameter,
 				    GeneratorContext* context,

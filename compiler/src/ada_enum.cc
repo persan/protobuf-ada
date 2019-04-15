@@ -59,6 +59,7 @@ namespace google {
 	  // Sort the fields of the given EnumDescriptor by value into a new[]'d array
 	  // and return it.
 
+	// =========================================================================================
 	  const EnumValueDescriptor** SortEnumConstantsByValue(const EnumDescriptor* enum_descriptor) {
 	    const EnumValueDescriptor** enum_constant =
 	    new const EnumValueDescriptor*[enum_descriptor->value_count()];
@@ -72,11 +73,14 @@ namespace google {
 
 	}
 
+	// =========================================================================================
 	EnumGenerator::EnumGenerator(const EnumDescriptor* descriptor)
 	: descriptor_(descriptor) { }
 
+	// =========================================================================================
 	EnumGenerator::~EnumGenerator() { }
 
+	// =========================================================================================
 	void EnumGenerator::GenerateDefinition(io::Printer* printer) {
 	  // Ada requires that enumeration constant values are defined in an ascending
 	  // order. We must therefore sort enumeration constants by value.

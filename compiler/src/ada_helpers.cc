@@ -74,6 +74,7 @@ namespace google {
 					      "rem", "while", "digits", "renames", "with", "do", "mod", "requeue", "xor"
 	  };
 
+	  // =========================================================================================
 	  hash_set<string> MakeKeywordsMap() {
 	    hash_set<string> result;
 	    for (long unsigned i = 0; i < GOOGLE_ARRAYSIZE(kKeywordList); i++) {
@@ -84,6 +85,7 @@ namespace google {
 
 	  hash_set<string> kKeywords = MakeKeywordsMap();
 
+	  // =========================================================================================
 	  string UnderscoresToCapitalizedUnderscoresImpl(const string& input) {
 	    string result;
 	    bool cap_next_letter = true;
@@ -108,6 +110,7 @@ namespace google {
 	    return result;
 	  }
 
+	  // =========================================================================================
 	  int AdaEscapeInternal(const char* src, int src_len, char* dest,
 				int dest_len) {
 	    const char* src_end = src + src_len;
@@ -138,6 +141,7 @@ namespace google {
 	    return used;
 	  }
 
+	  // =========================================================================================
 	  string Basename(const FileDescriptor* file) {
 	    string basename;
 	    string::size_type last_slash = file->name().find_last_of('/');
@@ -163,17 +167,20 @@ namespace google {
 	  // readability and length so it isn't a perfect solution. The maximum length of
 	  // the numbers character representation _should_ not be affected.
 
+	  // =========================================================================================
 	  inline bool IsNaN(double value) {
 	    // NaN is never equal to anything, even itself.
 	    return value != value;
 	  }
 
+	  // =========================================================================================
 	  static inline bool IsValidFloatChar(char c) {
 	    return ('0' <= c && c <= '9') ||
 	    c == 'e' || c == 'E' ||
 	    c == '+' || c == '-';
 	  }
 
+	  // =========================================================================================
 	  void DelocalizeRadix(char* buffer) {
 	    // Fast check:  if the buffer has a normal decimal point, assume no
 	    // translation is needed.
@@ -203,6 +210,7 @@ namespace google {
 	    }
 	  }
 
+	  // =========================================================================================
 	  bool safe_strtof(const char* str, float* value) {
 	    char* endptr;
 	    errno = 0; // errno only gets set on errors
@@ -296,11 +304,13 @@ namespace google {
 	    return buffer;
 	  }
 
+	  // =========================================================================================
 	  string SimpleDtoaDecimal(double value) {
 	    char buffer[kDoubleToBufferSize];
 	    return DoubleToBufferDecimal(value, buffer);
 	  }
 
+	  // =========================================================================================
 	  string SimpleFtoaDecimal(float value) {
 	    char buffer[kFloatToBufferSize];
 	    return FloatToBufferDecimal(value, buffer);

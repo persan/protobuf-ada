@@ -44,6 +44,7 @@ namespace google {
 
 	namespace {
 
+	// ==================================================================================
 	  void SetStringVariables(const FieldDescriptor* descriptor,
 				  map<string, string>* variables) {
 	    SetCommonFieldVariables(descriptor, variables);
@@ -56,17 +57,17 @@ namespace google {
 
 	} // namespace
 
-	StringFieldGenerator::
-	StringFieldGenerator(const FieldDescriptor* descriptor)
+	// ==================================================================================
+	StringFieldGenerator::StringFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetStringVariables(descriptor, &variables_);
 	}
 
-	StringFieldGenerator::
-	~StringFieldGenerator() { }
+	// ==================================================================================
+	StringFieldGenerator::~StringFieldGenerator() { }
 
-	void StringFieldGenerator::
-	GenerateAccessorDeclarations(io::Printer* printer) const {
+	// ==================================================================================
+	void StringFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration Get_$name$ return $type$
 	  printer->Print(variables_,"function Get_$name$ (The_Message : in $packagename$.Instance) return $type$;\n");
 
@@ -80,6 +81,7 @@ namespace google {
 	  printer->Print(variables_,"function Release_$name$ (The_Message : in out $packagename$.Instance) return $access_type$;\n");
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for Get_$name$ return $type$
 	  printer->Print(variables_,"function Get_$name$\n");
@@ -140,6 +142,7 @@ namespace google {
 	  printer->Print(variables_, "end Release_$name$;\n");
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
 	  // TODO: Optimize! We _really_ don't want to free a string
 	  //  but instead reuse it to avoid allocating and deallocating
@@ -149,18 +152,22 @@ namespace google {
 	  printer->Print(variables_,"The_Message.$name$ := $default_variable$'Access;\n");
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  printer->Print(variables_,"$name$ : $access_type$ := $default_variable$'Access;\n");
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  printer->Print(variables_,"The_Coded_Output_Stream.Write_String ($number$, The_Message.$name$.all);\n");
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ + Google.Protobuf.IO.Coded_Output_Stream.Compute_$declared_type$_Size_No_Tag (The_Message.$name$.all);\n");
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
 	  // TODO: create Set_$name$ for access types and use that instead.
 	  GenerateFinalizationCode(printer);
@@ -168,10 +175,12 @@ namespace google {
 	  printer->Print(variables_, "The_Message.$name$ := The_Coded_Input_Stream.Read_String;\n");
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateMergingCode(io::Printer* printer) const {
 	  printer->Print(variables_,"To.Set_$name$(From.Get_$name$);\n");
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const {
 	  if (descriptor_->has_default_value() && !descriptor_->default_value_string().empty()) {
 	    printer->Print(variables_,"$default_variable$ : aliased $type$ :=\n");
@@ -181,6 +190,7 @@ namespace google {
 	  }
 	}
 
+	// ==================================================================================
 	void StringFieldGenerator::GenerateFinalizationCode(io::Printer* printer) const {
 	  // TODO: Consider changing this to a procedure.
 	  printer->Print(variables_, "declare\n");
@@ -193,15 +203,16 @@ namespace google {
 	  printer->Print(variables_, "end;\n");
 	}
 
-	// ===================================================================
-
+	// ==================================================================================
 	RepeatedStringFieldGenerator::RepeatedStringFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetStringVariables(descriptor, &variables_);
 	}
 
+	// ==================================================================================
 	RepeatedStringFieldGenerator::~RepeatedStringFieldGenerator() { }
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration for Get_$name$(index : in Integer)
 	  // TODO: change index type?
@@ -222,6 +233,7 @@ namespace google {
 	  printer->Print(variables_, "    Value       : in $type$);\n");
 	}
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for Get_$name$(index : in Integer)
 	  // TODO: change index type?
@@ -263,6 +275,7 @@ namespace google {
 
 	}
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
 	  // TODO: Optimize! We _really_ don't want to free all strings
 	  //  but instead reuse them to avoid allocating and deallocating
@@ -270,17 +283,20 @@ namespace google {
 	  GenerateFinalizationCode(printer);
 	}
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  // TODO: store vector on heap?
 	  printer->Print(variables_,"$name$ : $access_type$_Vector.Vector;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  printer->Print(variables_,"for E of The_Message.$name$ loop\n");
 	  printer->Print(variables_,"   The_Coded_Output_Stream.Write_$declared_type$ ($number$, E.all);\n");
 	  printer->Print(variables_,"end loop;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ * The_Message.$name$_Size;\n");
 	  printer->Print(variables_,"for E of The_Message.$name$ loop\n");
@@ -288,10 +304,12 @@ namespace google {
 	  printer->Print(variables_,"end loop;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
 	  printer->Print(variables_,"The_Message.$name$.Append (The_Coded_Input_Stream.Read_String);\n");
 	}
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateMergingCode(io::Printer* printer) const {
 	  // TODO: optimize ...
 	  printer->Print(variables_,"for E of From.$name$ loop\n");
@@ -299,8 +317,10 @@ namespace google {
 	  printer->Print(variables_,"end loop;\n");
 	}
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const { }
 
+	// ==================================================================================
 	void RepeatedStringFieldGenerator::GenerateFinalizationCode(io::Printer* printer) const {
 	  // TODO: Consider changing this to a procedure.
 	  printer->Print(variables_,"declare\n");

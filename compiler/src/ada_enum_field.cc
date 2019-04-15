@@ -46,6 +46,7 @@ namespace google {
 
 	namespace {
 
+	// =========================================================================================
 	  void SetEnumVariables(const FieldDescriptor* descriptor,
 				map<string, string>* variables) {
 	    SetCommonFieldVariables(descriptor, variables);
@@ -88,13 +89,16 @@ namespace google {
 
 	} // namespace
 
+	// =========================================================================================
 	EnumFieldGenerator::EnumFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetEnumVariables(descriptor, &variables_);
 	}
 
+	// =========================================================================================
 	EnumFieldGenerator::~EnumFieldGenerator() { }
 
+	// =========================================================================================
 	void EnumFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration Get_$name$
 	  printer->Print(variables_,"function Get_$name$ (The_Message : in $packagename$.Instance) return $type$;\n");
@@ -105,6 +109,7 @@ namespace google {
 	  printer->Print(variables_, "    Value       : in $type$);\n");
 	}
 
+	// =========================================================================================
 	void EnumFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for $name$
 	  printer->Print(variables_,"function Get_$name$ (The_Message : in $packagename$.Instance) return $type$ is\n");
@@ -121,22 +126,27 @@ namespace google {
 	  printer->Print(variables_, "end Set_$name$;\n");
 	}
 
+	// =========================================================================================
 	void EnumFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
 	  printer->Print(variables_, "The_Message.$name$ := $type$'($prefix$$default$);\n");
 	}
 
+	// =========================================================================================
 	void EnumFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  printer->Print(variables_, "$name$ : $type$ := $type$'($prefix$$default$);\n");
 	}
 
+	// =========================================================================================
 	void EnumFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  printer->Print(variables_, "Google.Protobuf.IO.Coded_Output_Stream.Write_Integer_32 (The_Coded_Output_Stream, $number$, $prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
 	}
 
+	// =========================================================================================
 	void EnumFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_, "Total_Size := Total_Size + $tag_size$ + Google.Protobuf.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag ($prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
 	}
 
+	// =========================================================================================
 	void EnumFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
 	  printer->Print(variables_, "The_Message.$name$ := $prefix$PB_Int32_To_Enumeration (The_Coded_Input_Stream.Read_Integer_32);\n");
 	  printer->Print(variables_, "The_Message.Set_Has_$name$;\n");
@@ -146,19 +156,21 @@ namespace google {
 	  printer->Print(variables_,"To.Set_$name$ (From.$name$);\n");
 	}
 
+	// =========================================================================================
 	void EnumFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const { }
 
-	// ===================================================================
-
-	RepeatedEnumFieldGenerator:: RepeatedEnumFieldGenerator(const FieldDescriptor* descriptor)
+	// =========================================================================================
+	// =========================================================================================
+	RepeatedEnumFieldGenerator::RepeatedEnumFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetEnumVariables(descriptor, &variables_);
 	}
 
+	// =========================================================================================
 	RepeatedEnumFieldGenerator::~RepeatedEnumFieldGenerator() { }
 
-	void RepeatedEnumFieldGenerator::
-	GenerateAccessorDeclarations(io::Printer* printer) const {
+	// =========================================================================================
+	void RepeatedEnumFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration for Get_$name$
 	  // TODO: change index type?
 	  printer->Print(variables_, "function Get_$name$\n");
@@ -178,6 +190,7 @@ namespace google {
 	  printer->Print(variables_, "    Value       : in $type$);\n");
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for Get_$name$
 	  // TODO: change index type?
@@ -208,10 +221,12 @@ namespace google {
 	  printer->Print(variables_, "end Add_$name$;\n");
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
 	  printer->Print(variables_, "The_Message.$name$.Clear;\n");
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  // TODO: store vector on heap?
 	  printer->Print(variables_,"$name$ : Google.Protobuf.Wire_Format.PB_Int32_Vector.Vector;\n");
@@ -220,6 +235,7 @@ namespace google {
 	  }
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  if (descriptor_->options().packed()) {
 	    // Write the tag and the size.
@@ -238,6 +254,7 @@ namespace google {
 	  printer->Print(variables_, "end loop;\n");
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_, "declare\n");
 	  printer->Print(variables_, "   Data_Size : Google.Protobuf.Wire_Format.PB_Object_Size := 0;\n");
@@ -257,6 +274,7 @@ namespace google {
 	  printer->Print(variables_, "end;\n");
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
 	  // TODO: implement for packed repeated fields.
 	  // TODO: consider optimizing. At present we only read one field at time.
@@ -265,6 +283,7 @@ namespace google {
 	  printer->Print(variables_,"The_Message.$name$.Append (The_Coded_Input_Stream.Read_$declared_type$);\n");
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const {
 	  // TODO: consider optimizing. At present we only read one field at time.
 	  //       It might be beneficial to guess that the next read item from the
@@ -281,10 +300,12 @@ namespace google {
 	  printer->Print(variables_, "end;\n");
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateMergingCode(io::Printer* printer) const {
 	  printer->Print(variables_,"To.$name$.Append (From.$name$);\n");
 	}
 
+	// =========================================================================================
 	void RepeatedEnumFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const { }
 
       } // namespace ada

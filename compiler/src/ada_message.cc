@@ -64,30 +64,28 @@ namespace google {
 	  };
 
 	  // ===============================================================================================
+	  // Print the field's proto-syntax definition as a comment.  We don't want to
+	  // print group bodies so we cut off after the first line.
 	  void PrintFieldComment(io::Printer* printer, const FieldDescriptor* field) {
-	    // Print the field's proto-syntax definition as a comment.  We don't want to
-	    // print group bodies so we cut off after the first line.
 	    string def = field->DebugString();
-	    printer->Print(
-			   "-- $def$\n",
+	    printer->Print("-- $def$\n",
 			   "def", def.substr(0, def.find_first_of('\n')));
 	  }
 
-	  // Returns true if the "required" restriction check should be ignored for the
-	  // given field.
 
 	  // ===============================================================================================
+	  // Returns true if the "required" restriction check should be ignored for the
+	  // given field.
 	  inline static bool ShouldIgnoreRequiredFieldCheck(const FieldDescriptor* field) {
 	    return false;
 	  }
 
+	  // =========================================================================================
 	  // Returns true if the message type has any required fields.  If it doesn't,
 	  // we can optimize out calls to its Is_Initialized method.
 	  //
 	  // already_seen is used to avoid checking the same type multiple times
 	  // (and also to protect against recursion).
-
-	  // ===============================================================================================
 	  static bool HasRequiredFields(const Descriptor* type,
 					hash_set<const Descriptor*>* already_seen) {
 	    if (already_seen->count(type) > 0) {
@@ -119,14 +117,15 @@ namespace google {
 	    return false;
 	  }
 
+	  // =========================================================================================
 	  static bool HasRequiredFields(const Descriptor* type) {
 	    hash_set<const Descriptor*> already_seen;
 	    return HasRequiredFields(type, &already_seen);
 	  }
 
+	  // =========================================================================================
 	  // Sort the fields of the given Descriptor by number into a new[]'d array
 	  // and return it.
-
 	  const FieldDescriptor** SortFieldsByNumber(const Descriptor* descriptor) {
 	    const FieldDescriptor** fields =
 	    new const FieldDescriptor*[descriptor->field_count()];
