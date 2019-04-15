@@ -1,4 +1,4 @@
-with "protobuff.gpr";
+with "google-protobuf.gpr";
 with "compiler/protoc_ada.gpr";
 project test3 is
 

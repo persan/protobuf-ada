@@ -416,13 +416,13 @@ namespace google {
 	      {
 		double value = field->default_value_double();
 		if (value == numeric_limits<double>::infinity()) {
-		  return "Protocol_Buffers.Generated_Message_Utilities.Positive_Infinity";
+		  return "Google.Protobuf.Generated_Message_Utilities.Positive_Infinity";
 		} else if (value == -numeric_limits<double>::infinity()) {
-		  return "Protocol_Buffers.Generated_Message_Utilities.Negative_Infinity";
+		  return "Google.Protobuf.Generated_Message_Utilities.Negative_Infinity";
 		} else if (value != value) {
-		  return "Protocol_Buffers.Generated_Message_Utilities.NaN";
+		  return "Google.Protobuf.Generated_Message_Utilities.NaN";
 		} else {
-		  return "Protocol_Buffers.Wire_Format.PB_Double (" +
+		  return "Google.Protobuf.Wire_Format.PB_Double (" +
 		  SimpleDtoaDecimal(value) + ")";
 		}
 	      }
@@ -430,13 +430,13 @@ namespace google {
 	      {
 		float value = field->default_value_float();
 		if (value == numeric_limits<float>::infinity()) {
-		  return "Protocol_Buffers.Generated_Message_Utilities.Positive_Infinity";
+		  return "Google.Protobuf.Generated_Message_Utilities.Positive_Infinity";
 		} else if (value == -numeric_limits<float>::infinity()) {
-		  return "Protocol_Buffers.Generated_Message_Utilities.Negative_Infinity";
+		  return "Google.Protobuf.Generated_Message_Utilities.Negative_Infinity";
 		} else if (value != value) {
-		  return "Protocol_Buffers.Generated_Message_Utilities.NaN";
+		  return "Google.Protobuf.Generated_Message_Utilities.NaN";
 		} else {
-		  return "Protocol_Buffers.Wire_Format.PB_Float (" +
+		  return "Google.Protobuf.Wire_Format.PB_Float (" +
 		  SimpleFtoaDecimal(value) + ")";
 		}
 	      }

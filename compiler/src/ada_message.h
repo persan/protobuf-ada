@@ -65,11 +65,11 @@ namespace google {
 
 	  private:
 	  // Generates function and procedure declarations for
-	  // Protocol_Buffers.Message.
+	  // Google.Protobuf.Message.
 	  void GenerateMessageDeclarations(io::Printer* printer);
 
 	  // Generates function and procedure definitions for
-	  // Protocol_Buffers.Message.
+	  // Google.Protobuf.Message.
 	  void GenerateMessageDefinitions(io::Printer* printer);
 
 	  // Generates declarations for accessors of fields defined in proto definition
@@ -84,37 +84,37 @@ namespace google {
 	  // this message.
 	  void GenerateEnumerationLiterals(io::Printer* printer);
 
-	  // Generate code for Clear procedure declared in Protocol_Buffers.Message.
+	  // Generate code for Clear procedure declared in Google.Protobuf.Message.
 	  void GenerateClear(io::Printer* printer);
 
-	  // Generate code for Copy procedure declared in Protocol_Buffers.Message.
+	  // Generate code for Copy procedure declared in Google.Protobuf.Message.
 	  void GenerateCopy(io::Printer* printer);
 
-	  // Generate code for Merge procedure declared in Protocol_Buffers.Message.
+	  // Generate code for Merge procedure declared in Google.Protobuf.Message.
 	  void GenerateMerge(io::Printer* printer);
 
 	  // Generate code for Merge_Partial_From_Coded_Input_Stream procedure declared
-	  // in Protocol_Buffers.Message.
+	  // in Google.Protobuf.Message.
 	  void GenerateMergePartialFromCodedInputStream(io::Printer* printer);
 
 	  // Generate code for Get_Type_Name function declared in
-	  // Protocol_Buffers.Message.
+	  // Google.Protobuf.Message.
 	  void GenerateGetTypeName(io::Printer* printer);
 
 	  // Generate code for Byte_Size function declared in
-	  // Protocol_Buffers.Message.
+	  // Google.Protobuf.Message.
 	  void GenerateByteSize(io::Printer* printer);
 
 	  // Generate code for Get_Cached_Size function declared in
-	  // Protocol_Buffers.Message.
+	  // Google.Protobuf.Message.
 	  void GenerateGetCachedSize(io::Printer* printer);
 
 	  // Generate code for Serialize_With_Cached_Sizes procedure in
-	  // Protocol_Buffers.Message.
+	  // Google.Protobuf.Message.
 	  void GenerateSerializeWithCachedSizes(io::Printer* printer);
 
 	  // Generate code for Is_Initialized function declared in
-	  // Protocol_Buffers.Message.
+	  // Google.Protobuf.Message.
 	  void GenerateIsInitialized(io::Printer* printer);
 
 	  // Generate tagged type

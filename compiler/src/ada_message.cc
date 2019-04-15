@@ -319,7 +319,7 @@ namespace google {
 	  // TODO: replace temporary type Instance!? Other declarations might also need
 	  // prettification ...
 	  printer->Print(
-			 "type Instance is new Protocol_Buffers.Message.Instance with private;\n"
+			 "type Instance is new Google.Protobuf.Message.Instance with private;\n"
 			 "type $package_type$_Access is access all Instance;\n"
 			 "\n",
 			 "package_type", ada_package_type_);
@@ -337,10 +337,10 @@ namespace google {
 	  }
 
 	  printer->Print("---------------------------------------------------------------------------\n");
-	  printer->Print("-- Inherited functions and procedures from Protocol_Buffers.Message -------\n");
+	  printer->Print("-- Inherited functions and procedures from Google.Protobuf.Message -------\n");
 	  printer->Print("---------------------------------------------------------------------------\n\n");
 
-	  printer->Print("use Protocol_Buffers.Wire_Format;\n\n");
+	  printer->Print("use Google.Protobuf.Wire_Format;\n\n");
 	  // Clear
 	  printer->Print("overriding procedure Clear (The_Message : in out $package$.Instance);\n\n",
 			 "package", ada_package_name_);
@@ -348,13 +348,13 @@ namespace google {
 	  // Serialize_With_Cached_Sizes
 	  printer->Print("overriding procedure Serialize_With_Cached_Sizes\n");
 	  printer->Print("   (The_Message   : in $package$.Instance;\n"
-			 "    The_Coded_Output_Stream : in Protocol_Buffers.IO.Coded_Output_Stream.Instance);\n\n",
+			 "    The_Coded_Output_Stream : in Google.Protobuf.IO.Coded_Output_Stream.Instance);\n\n",
 			 "package", ada_package_name_);
 
 	  // Merge_Partial_From_Coded_Input_Stream
 	  printer->Print("overriding procedure Merge_Partial_From_Coded_Input_Stream\n");
 	  printer->Print("   (The_Message   : in out $package$.Instance;\n"
-			 "    The_Coded_Input_Stream : in out Protocol_Buffers.IO.Coded_Input_Stream.Instance);\n\n",
+			 "    The_Coded_Input_Stream : in out Google.Protobuf.IO.Coded_Input_Stream.Instance);\n\n",
 			 "package", ada_package_name_);
 
 	  // Merge
@@ -366,17 +366,17 @@ namespace google {
 			 "package", ada_package_name_);
 
 	  // Get_Type_Name
-	  printer->Print("overriding function Get_Type_Name (The_Message : in $package$.Instance) return Protocol_Buffers.Wire_Format.PB_String;\n\n",
+	  printer->Print("overriding function Get_Type_Name (The_Message : in $package$.Instance) return Google.Protobuf.Wire_Format.PB_String;\n\n",
 			 "package", ada_package_name_);
 
 	  // TODO: change return type from PB_Object_Size
 	  // Byte_Size
-	  printer->Print("overriding function Byte_Size (The_Message : in out $package$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n\n",
+	  printer->Print("overriding function Byte_Size (The_Message : in out $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size;\n\n",
 			 "package", ada_package_name_);
 
 	  // TODO: change return type from PB_Object_Size
 	  // Get_Cached_Size
-	  printer->Print("overriding function Get_Cached_Size (The_Message : in $package$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n\n",
+	  printer->Print("overriding function Get_Cached_Size (The_Message : in $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size;\n\n",
 			 "package", ada_package_name_);
 
 	  // Is_Initialized
@@ -392,7 +392,7 @@ namespace google {
 	void MessageGenerator::GenerateMessageDefinitions(io::Printer * printer) {
 
 	  printer->Print("---------------------------------------------------------------------------\n");
-	  printer->Print("-- Inherited functions and procedures from Protocol_Buffers.Message -------\n");
+	  printer->Print("-- Inherited functions and procedures from Google.Protobuf.Message -------\n");
 	  printer->Print("---------------------------------------------------------------------------\n\n");
 
 	  GenerateClear(printer);
@@ -423,7 +423,7 @@ namespace google {
 
 	    if (field->is_repeated()) {
 	      // Generate $name$_Size
-	      printer->Print(vars,"function $name$_Size (The_Message : in $packagename$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	      printer->Print(vars,"function $name$_Size (The_Message : in $packagename$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size;\n");
 	    } else {
 	      // Generate Has_$name$
 
@@ -456,9 +456,9 @@ namespace google {
 			     "package", EnumDefinitionPackageName(enum_descriptor));
 	    }
 
-	    printer->Print("function Enumeration_To_PB_Int32 is new Ada.Unchecked_Conversion ($name$, Protocol_Buffers.Wire_Format.PB_Int32);\n",
+	    printer->Print("function Enumeration_To_PB_Int32 is new Ada.Unchecked_Conversion ($name$, Google.Protobuf.Wire_Format.PB_Int32);\n",
 			   "name", EnumTypeName(enum_descriptor, false));
-	    printer->Print("function PB_Int32_To_Enumeration is new Ada.Unchecked_Conversion (Protocol_Buffers.Wire_Format.PB_Int32, $name$);\n\n",
+	    printer->Print("function PB_Int32_To_Enumeration is new Ada.Unchecked_Conversion (Google.Protobuf.Wire_Format.PB_Int32, $name$);\n\n",
 			   "name", EnumTypeName(enum_descriptor, false));
 
 	  }
@@ -527,7 +527,7 @@ namespace google {
 		  printer->Outdent();
 		  printer->Print("end if;\n");
 		}
-		printer->Print("if (The_Message.Has_Bits ($index$ / 32) and Protocol_Buffers.Wire_Format.Shift_Left (16#FF#, $index$ mod 32)) /= 0 then\n",
+		printer->Print("if (The_Message.Has_Bits ($index$ / 32) and Google.Protobuf.Wire_Format.Shift_Left (16#FF#, $index$ mod 32)) /= 0 then\n",
 			       "index", SimpleItoa(field->index()));
 		printer->Indent();
 	      }
@@ -590,7 +590,7 @@ namespace google {
 	void MessageGenerator::GenerateGetTypeName(io::Printer * printer) {
 
 	  // TODO: change return type?
-	  printer->Print("function Get_Type_Name (The_Message : in $package$.Instance) return Protocol_Buffers.Wire_Format.PB_String is\n",
+	  printer->Print("function Get_Type_Name (The_Message : in $package$.Instance) return Google.Protobuf.Wire_Format.PB_String is\n",
 			 "package", ada_package_name_);
 	  printer->Print("begin\n");
 	  printer->Print("   return \"$type_name$\";\n",
@@ -709,7 +709,7 @@ namespace google {
 		  printer->Print("end if;\n");
 		}
 
-		printer->Print("if (From.Has_Bits ($index$ / 32) and Protocol_Buffers.Wire_Format.Shift_Left (16#FF#, $index$ mod 32)) /= 0 then\n",
+		printer->Print("if (From.Has_Bits ($index$ / 32) and Google.Protobuf.Wire_Format.Shift_Left (16#FF#, $index$ mod 32)) /= 0 then\n",
 			       "index", SimpleItoa(field->index()));
 		printer->Indent();
 	      }
@@ -742,11 +742,11 @@ namespace google {
 	  printer->Print("function Byte_Size\n");
 	  printer->Indent();
 	  // TODO: change return type?
-	  printer->Print("(The_Message : in out $package$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n",
+	  printer->Print("(The_Message : in out $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size is\n",
 			 "package", ada_package_name_);
 	  printer->Outdent();
 	  printer->Indent();
-	  printer->Print("Total_Size : Protocol_Buffers.Wire_Format.PB_Object_Size := 0;\n");
+	  printer->Print("Total_Size : Google.Protobuf.Wire_Format.PB_Object_Size := 0;\n");
 	  printer->Outdent();
 	  printer->Print("begin\n");
 	  printer->Indent();
@@ -765,7 +765,7 @@ namespace google {
 		    printer->Print("end if;\n");
 		  }
 		  printer->Print("if (The_Message.Has_Bits ($index$ / 32) and "
-				 "Protocol_Buffers.Wire_Format.Shift_Left (16#FF#, $index$ mod 32)) /= 0 then\n",
+				 "Google.Protobuf.Wire_Format.Shift_Left (16#FF#, $index$ mod 32)) /= 0 then\n",
 				 "index", SimpleItoa(field->index()));
 		  printer->Indent();
 		}
@@ -815,7 +815,7 @@ namespace google {
 
 	  printer->Print("function Get_Cached_Size\n");
 	  // TODO: change return type?
-	  printer->Print("   (The_Message : in $package$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n",
+	  printer->Print("   (The_Message : in $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size is\n",
 			 "package", ada_package_name_);
 	  printer->Print("begin\n");
 	  printer->Print("   return The_Message.Cached_Size;\n");
@@ -833,7 +833,7 @@ namespace google {
 			 " The_Coded_Output_Stream : in\n",
 			 "package", ada_package_name_);
 	  printer->Indent();
-	  printer->Print(" Protocol_Buffers.IO.Coded_Output_Stream.Instance) is\n");
+	  printer->Print(" Google.Protobuf.IO.Coded_Output_Stream.Instance) is\n");
 	  printer->Outdent();
 	  printer->Outdent();
 	  printer->Print("begin\n");
@@ -862,9 +862,9 @@ namespace google {
 			 " The_Coded_Input_Stream : in out\n",
 			 "package", ada_package_name_);
 	  printer->Indent();
-	  printer->Print("Protocol_Buffers.IO.Coded_Input_Stream.Instance) is\n");
+	  printer->Print("Google.Protobuf.IO.Coded_Input_Stream.Instance) is\n");
 	  printer->Outdent();
-	  printer->Print("Tag : Protocol_Buffers.Wire_Format.PB_UInt32;\n");
+	  printer->Print("Tag : Google.Protobuf.Wire_Format.PB_UInt32;\n");
 	  printer->Outdent();
 	  printer->Print("begin\n");
 	  printer->Indent();
@@ -877,7 +877,7 @@ namespace google {
 	    printer->Print("while Tag /= 0 loop\n");
 	    printer->Indent();
 
-	    printer->Print("case Protocol_Buffers.Wire_Format.Get_Tag_Field_Number (Tag) is\n");
+	    printer->Print("case Google.Protobuf.Wire_Format.Get_Tag_Field_Number (Tag) is\n");
 
 	    scoped_array<const FieldDescriptor*> ordered_fields(
 								SortFieldsByNumber(descriptor_));
@@ -893,9 +893,9 @@ namespace google {
 	      const FieldGenerator& field_generator = field_generators_.get(field);
 
 	      // Emit code to parse the common, expected case.
-	      printer->Print("if Protocol_Buffers.Wire_Format.Get_Tag_Wire_Type (Tag) =\n");
+	      printer->Print("if Google.Protobuf.Wire_Format.Get_Tag_Wire_Type (Tag) =\n");
 	      printer->Indent();
-	      printer->Print("Protocol_Buffers.Wire_Format.$wiretype$ then\n",
+	      printer->Print("Google.Protobuf.Wire_Format.$wiretype$ then\n",
 			     "wiretype", kWireTypeNames[internal::WireFormat::WireTypeForField(field)]);
 
 	      // TODO: consider implementing optimization ExpectTag from C++
@@ -915,7 +915,7 @@ namespace google {
 	    printer->Print("when others =>\n");
 	    printer->Indent();
 	    printer->Print("declare\n");
-	    printer->Print("   Dummy : Protocol_Buffers.Wire_Format.PB_Bool with Unreferenced;\n");
+	    printer->Print("   Dummy : Google.Protobuf.Wire_Format.PB_Bool with Unreferenced;\n");
 	    printer->Print("begin\n");
 	    printer->Print("   Dummy := The_Coded_Input_Stream.Skip_Field (Tag);\n");
 	    printer->Print("   return;\n");
@@ -940,12 +940,12 @@ namespace google {
 								   io::Printer * printer) {
 
 	  printer->Print((*variables),"function $name$_Size\n");
-	  printer->Print((*variables),"   (The_Message : in $packagename$.Instance) return Protocol_Buffers.Wire_Format.PB_Object_Size is\n");
+	  printer->Print((*variables),"   (The_Message : in $packagename$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size is\n");
 	  printer->Print((*variables),"begin\n");
 
 	  // Body
 	  // TODO: remove type conversion ...
-	  printer->Print((*variables),"   return Protocol_Buffers.Wire_Format.PB_Object_Size (The_Message.$name$.Length);\n");
+	  printer->Print((*variables),"   return Google.Protobuf.Wire_Format.PB_Object_Size (The_Message.$name$.Length);\n");
 	  printer->Print((*variables),"end $name$_Size;\n\n");
 	}
 
@@ -997,7 +997,7 @@ namespace google {
 
 	// ===============================================================================================
 	void MessageGenerator::GenerateTaggedType(io::Printer * printer) {
-	  printer->Print("type Instance is new Protocol_Buffers.Message.Instance with record\n");
+	  printer->Print("type Instance is new Google.Protobuf.Message.Instance with record\n");
 	  printer->Indent();
 
 	  // Add component(s) to record if message has at least one field.
@@ -1009,8 +1009,8 @@ namespace google {
 
 	  // TODO: change name to avoid name collisions, consider changing type of
 	  // Has_Bits and the same goes for Cached_Size.
-	  printer->Print("Has_Bits : Protocol_Buffers.Wire_Format.Has_Bits_Array_Type (0 .. ($field_count$ + 31) / 32) := (others => 0);\n"
-			 "Cached_Size : Protocol_Buffers.Wire_Format.PB_Object_Size := 0;\n",
+	  printer->Print("Has_Bits : Google.Protobuf.Wire_Format.Has_Bits_Array_Type (0 .. ($field_count$ + 31) / 32) := (others => 0);\n"
+			 "Cached_Size : Google.Protobuf.Wire_Format.PB_Object_Size := 0;\n",
 			 "field_count", SimpleItoa(descriptor_->field_count()));
 	  printer->Outdent();
 	  printer->Print("end record;\n\n");

@@ -1,4 +1,4 @@
-with "protobuff.gpr";
+with "google-protobuf-testing.gpr";
 with "compiler/protoc_ada.gpr";
 project unittest_preserve_unknown_enum is
 

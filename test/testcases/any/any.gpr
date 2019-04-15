@@ -1,4 +1,4 @@
-with "protobuff.gpr";
+with "google-protobuf.gpr";
 project Any is
 
    type Boolean is
