@@ -16,3 +16,8 @@ com/example/tutorial/*.java
 list_people_cpp
 list_people_python
 protoc_middleman
+ADDRESS_BOOK_FILE
+bin
+.obj
+obj
+src.*

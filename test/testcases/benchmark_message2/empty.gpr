@@ -1,0 +1,8 @@
+with "aws.gpr";
+
+project Empty is
+
+   for Languages use ();
+
+end Empty;
+
