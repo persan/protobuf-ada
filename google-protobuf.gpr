@@ -1,8 +1,20 @@
 with "google.gpr";
+
 library project Google.Protobuf is
+
    for Source_Dirs use ("google-protobuf.src");
    for Library_Name use "google-protobuf";
-
    for Library_Dir use "lib";
    for Object_Dir use ".obj/" & project'Name;
+
+   package Compiler is
+      for Switches ("ada") use ("-g", "-O2", "-ffunction-sections", "-gnatQ", "-fdata-sections", "-fPIC", "-gnatf", "-gnatwa");
+   end Compiler;
+
+   package Builder is
+      for Switches ("ada") use ("-j0", "-k", "-g", "-s");
+   end Builder;
+
+   for Languages use ("Ada", "C");
+
 end Google.Protobuf;

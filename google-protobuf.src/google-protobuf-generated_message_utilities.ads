@@ -9,14 +9,32 @@ with Google.Protobuf.Wire_Format;
 package Google.Protobuf.Generated_Message_Utilities is
 
    -- Google.Protobuf.Wire_Format.PB_Float
-   function Positive_Infinity return Google.Protobuf.Wire_Format.PB_Float;
-   function Negative_Infinity return Google.Protobuf.Wire_Format.PB_Float;
-   function NaN return Google.Protobuf.Wire_Format.PB_Float;
+   function Positive_Infinity return Google.Protobuf.Wire_Format.PB_Float with
+     Convention => C,
+     Import => True,
+     Link_Name => "positive_infinity_float";
+   function Negative_Infinity return Google.Protobuf.Wire_Format.PB_Float with
+     Convention => C,
+     Import => True,
+     Link_Name => "positive_infinity_float";
+   function NaN return Google.Protobuf.Wire_Format.PB_Float with
+     Convention => C,
+     Import => True,
+     Link_Name => "nan_float";
 
    -- Google.Protobuf.Wire_Format.PB_Double
-   function Positive_Infinity return Google.Protobuf.Wire_Format.PB_Double;
-   function Negative_Infinity return Google.Protobuf.Wire_Format.PB_Double;
-   function NaN return Google.Protobuf.Wire_Format.PB_Double;
+   function Positive_Infinity return Google.Protobuf.Wire_Format.PB_Double with
+     Convention => C,
+     Import => True,
+     Link_Name => "positive_infinity_double";
+   function Negative_Infinity return Google.Protobuf.Wire_Format.PB_Double with
+     Convention => C,
+     Import => True,
+     Link_Name => "negative_infinity_float";
+   function NaN return Google.Protobuf.Wire_Format.PB_Double with
+     Convention => C,
+     Import => True,
+     Link_Name => "nan_double";
 
    EMPTY_STRING : aliased Google.Protobuf.Wire_Format.PB_String := "";
 

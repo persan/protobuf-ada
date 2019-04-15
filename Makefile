@@ -1,6 +1,5 @@
 -include Makefile.conf
 
-project:=protobuff.gpr
 
 ifeq ("${prefix}","")
 	prefix:=$(shell dirname $(shell dirname $(shell which gnatls)))
@@ -10,11 +9,13 @@ all: build test
 
 build:
 	${MAKE} -C compiler ${@}
-	${GPRBUILD} -p -P ${project}
+	${GPRBUILD} -p -P google-protobuf.gpr
 
 install:
-	@set +e ; ${GPRINSTALL} --uninstall ${project} 2>/dev/null >/dev/null ; true
-	${GPRINSTALL} -p -P ${project} --prefix=${destdir}${prefix}
+	@set +e ; ${GPRINSTALL} --uninstall google.gpr 2>/dev/null >/dev/null ; true
+	@set +e ; ${GPRINSTALL} --uninstall google-protobuf.gpr 2>/dev/null >/dev/null ; true
+	${GPRINSTALL} -p -P google.gpr --prefix=${destdir}${prefix}
+	${GPRINSTALL} -p -P google-protobuf.gpr --prefix=${destdir}${prefix}
 	${MAKE} -C compiler ${@}
 
 uninstall:
