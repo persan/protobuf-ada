@@ -1,0 +1,7 @@
+with "google-protobuf.gpr";
+library project Google.Protobuf.Testing is
+   for Source_Dirs use ("google-protobuf-testing.src");
+   for Library_Dir use "lib";
+   for Library_Name use "google-protobuf-testing";
+   for Object_Dir use ".obj/" & project'Name;
+end Google.Protobuf.Testing;

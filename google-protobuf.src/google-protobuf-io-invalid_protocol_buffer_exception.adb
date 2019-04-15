@@ -1,6 +1,6 @@
 pragma Ada_2012;
 
-package body Protocol_Buffers.IO.Invalid_Protocol_Buffer_Exception is
+package body Google.Protobuf.IO.Invalid_Protocol_Buffer_Exception is
 
    -----------------------
    -- Truncated_Message --
@@ -65,4 +65,4 @@ package body Protocol_Buffers.IO.Invalid_Protocol_Buffer_Exception is
       raise Protocol_Buffer_Exception with Size_Limit_Exceeded_Message;
    end Size_Limit_Exceeded;
 
-end Protocol_Buffers.IO.Invalid_Protocol_Buffer_Exception;
+end Google.Protobuf.IO.Invalid_Protocol_Buffer_Exception;

@@ -2,11 +2,11 @@ pragma Ada_2012;
 
 with Interfaces;
 with Ada.Unchecked_Conversion;
-with Protocol_Buffers.Message;
-with Protocol_Buffers.IO.Invalid_Protocol_Buffer_Exception;
+with Google.Protobuf.Message;
+with Google.Protobuf.IO.Invalid_Protocol_Buffer_Exception;
 with Ada.Containers.Indefinite_Vectors;
 
-package body Protocol_Buffers.IO.Coded_Input_Stream is
+package body Google.Protobuf.IO.Coded_Input_Stream is
 
    -----------------------
    -- Decode_Zig_Zag_32 --
@@ -555,7 +555,7 @@ package body Protocol_Buffers.IO.Coded_Input_Stream is
 
    procedure Read_Message
      (This                   : in out Coded_Input_Stream.Instance;
-      Value                  : in out Protocol_Buffers.Message.Instance'Class)
+      Value                  : in out Google.Protobuf.Message.Instance'Class)
    is
       Length : constant PB_UInt32 := This.Read_Raw_Varint_32;
 
@@ -948,4 +948,4 @@ package body Protocol_Buffers.IO.Coded_Input_Stream is
       end if;
    end Skip_Raw_Bytes;
 
-end Protocol_Buffers.IO.Coded_Input_Stream;
+end Google.Protobuf.IO.Coded_Input_Stream;

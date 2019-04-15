@@ -1,8 +1,8 @@
 pragma Ada_2012;
 
-with Protocol_Buffers.IO.Invalid_Protocol_Buffer_Exception;
+with Google.Protobuf.IO.Invalid_Protocol_Buffer_Exception;
 
-package body Protocol_Buffers.Wire_Format is
+package body Google.Protobuf.Wire_Format is
 
    --------------
    -- Make_Tag --
@@ -34,7 +34,7 @@ package body Protocol_Buffers.Wire_Format is
       end;
    exception
       when Constraint_Error =>
-         Protocol_Buffers.IO.Invalid_Protocol_Buffer_Exception.Invalid_Wire_Type;
+         Google.Protobuf.IO.Invalid_Protocol_Buffer_Exception.Invalid_Wire_Type;
          return VARINT;
    end Get_Tag_Wire_Type;
 
@@ -50,4 +50,4 @@ package body Protocol_Buffers.Wire_Format is
       return PB_Field_Type (Shift_Right (Tag, TAG_TYPE_BITS));
    end Get_Tag_Field_Number;
 
-end Protocol_Buffers.Wire_Format;
+end Google.Protobuf.Wire_Format;

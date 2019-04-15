@@ -1,0 +1,7 @@
+library project Google is
+   for Source_Dirs use ("google.src");
+   for Library_Dir use "lib";
+   for Object_Dir use ".obj/" & project'Name;
+   for Library_Name use "google";
+
+end Google;

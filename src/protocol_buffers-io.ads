@@ -1,5 +1,2 @@
-pragma Ada_2012;
-
-package Protocol_Buffers.IO is
-   pragma Pure (Protocol_Buffers.IO);
+package Protocol_Buffers.IO with Pure => True, Obsolescent => "use Google.Protobuf.IO" is
 end Protocol_Buffers.IO;

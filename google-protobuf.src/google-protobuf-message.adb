@@ -2,7 +2,7 @@ pragma Ada_2012;
 
 with Ada.Text_IO;
 
-package body Protocol_Buffers.Message is
+package body Google.Protobuf.Message is
 
    ----------------------------------------
    -- Print_Initialization_Error_Message --
@@ -26,7 +26,7 @@ package body Protocol_Buffers.Message is
    procedure Inline_Merge_From_Coded_Input_Stream
      (The_Message            : in out Message.Instance'Class;
       The_Coded_Input_Stream : in out
-        Protocol_Buffers.IO.Coded_Input_Stream.Instance)
+        Google.Protobuf.IO.Coded_Input_Stream.Instance)
    is
    begin
       The_Message.Merge_Partial_From_Coded_Input_Stream (The_Coded_Input_Stream);
@@ -59,7 +59,7 @@ package body Protocol_Buffers.Message is
    procedure Serialize_To_Coded_Output_Stream
      (The_Message             : in out Message.Instance'Class;
       The_Coded_Output_Stream : in out
-        Protocol_Buffers.IO.Coded_Output_Stream.Instance)
+        Google.Protobuf.IO.Coded_Output_Stream.Instance)
    is
    begin
       if not The_Message.Is_Initialized then
@@ -77,9 +77,9 @@ package body Protocol_Buffers.Message is
       Output_Stream : not null access
         Ada.Streams.Root_Stream_Type'Class)
    is
-      A_Coded_Output_Stream : Protocol_Buffers.IO.Coded_Output_Stream.Instance
-        (Protocol_Buffers.IO.Coded_Output_Stream.Root_Stream_Access (Output_Stream));
-      Size                  : Protocol_Buffers.Wire_Format.PB_Object_Size;
+      A_Coded_Output_Stream : Google.Protobuf.IO.Coded_Output_Stream.Instance
+        (Google.Protobuf.IO.Coded_Output_Stream.Root_Stream_Access (Output_Stream));
+      Size                  : Google.Protobuf.Wire_Format.PB_Object_Size;
       pragma Unreferenced (Size);
    begin
       Size := The_Message.Byte_Size; -- Force caching of message size.
@@ -93,9 +93,9 @@ package body Protocol_Buffers.Message is
    procedure Serialize_Partial_To_Coded_Output_Stream
      (The_Message             : in out Message.Instance'Class;
       The_Coded_Output_Stream : in out
-        Protocol_Buffers.IO.Coded_Output_Stream.Instance)
+        Google.Protobuf.IO.Coded_Output_Stream.Instance)
    is
-      Size                  : Protocol_Buffers.Wire_Format.PB_Object_Size;
+      Size                  : Google.Protobuf.Wire_Format.PB_Object_Size;
       pragma Unreferenced (Size);
    begin
       Size := The_Message.Byte_Size; -- Force caching of message size.
@@ -111,8 +111,8 @@ package body Protocol_Buffers.Message is
       Input_Stream : not null access
         Ada.Streams.Root_Stream_Type'Class)
    is
-      A_Coded_Input_Stream : Protocol_Buffers.IO.Coded_Input_Stream.Instance
-        (Protocol_Buffers.IO.Coded_Input_Stream.Root_Stream_Access (Input_Stream));
+      A_Coded_Input_Stream : Google.Protobuf.IO.Coded_Input_Stream.Instance
+        (Google.Protobuf.IO.Coded_Input_Stream.Root_Stream_Access (Input_Stream));
    begin
       The_Message.Clear;
       Inline_Merge_From_Coded_Input_Stream (The_Message, A_Coded_Input_Stream);
@@ -125,7 +125,7 @@ package body Protocol_Buffers.Message is
    procedure Parse_From_Coded_Input_Stream
      (The_Message            : in out Message.Instance'Class;
       The_Coded_Input_Stream : in out
-        Protocol_Buffers.IO.Coded_Input_Stream.Instance)
+        Google.Protobuf.IO.Coded_Input_Stream.Instance)
    is
    begin
       The_Message.Clear;
@@ -141,8 +141,8 @@ package body Protocol_Buffers.Message is
       Input_Stream : not null access
         Ada.Streams.Root_Stream_Type'Class)
    is
-      A_Coded_Input_Stream : Protocol_Buffers.IO.Coded_Input_Stream.Instance
-        (Protocol_Buffers.IO.Coded_Input_Stream.Root_Stream_Access (Input_Stream));
+      A_Coded_Input_Stream : Google.Protobuf.IO.Coded_Input_Stream.Instance
+        (Google.Protobuf.IO.Coded_Input_Stream.Root_Stream_Access (Input_Stream));
    begin
       The_Message.Clear;
       The_Message.Merge_Partial_From_Coded_Input_Stream (A_Coded_Input_Stream);
@@ -155,7 +155,7 @@ package body Protocol_Buffers.Message is
    procedure Parse_Partial_From_Coded_Input_Stream
      (The_Message            : in out Message.Instance'Class;
       The_Coded_Input_Stream : in out
-        Protocol_Buffers.IO.Coded_Input_Stream.Instance)
+        Google.Protobuf.IO.Coded_Input_Stream.Instance)
    is
    begin
       The_Message.Clear;
@@ -171,8 +171,8 @@ package body Protocol_Buffers.Message is
       Input_Stream : not null access
         Ada.Streams.Root_Stream_Type'Class)
    is
-      A_Coded_Input_Stream : Protocol_Buffers.IO.Coded_Input_Stream.Instance
-        (Protocol_Buffers.IO.Coded_Input_Stream.Root_Stream_Access (Input_Stream));
+      A_Coded_Input_Stream : Google.Protobuf.IO.Coded_Input_Stream.Instance
+        (Google.Protobuf.IO.Coded_Input_Stream.Root_Stream_Access (Input_Stream));
    begin
       Inline_Merge_From_Coded_Input_Stream (The_Message, A_Coded_Input_Stream);
    end Merge_From_Input_Stream;
@@ -184,7 +184,7 @@ package body Protocol_Buffers.Message is
    procedure Merge_From_Coded_Input_Stream
      (The_Message            : in out Message.Instance'Class;
       The_Coded_Input_Stream : in out
-        Protocol_Buffers.IO.Coded_Input_Stream.Instance)
+        Google.Protobuf.IO.Coded_Input_Stream.Instance)
    is
    begin
       Inline_Merge_From_Coded_Input_Stream (The_Message, The_Coded_Input_Stream);
@@ -199,10 +199,10 @@ package body Protocol_Buffers.Message is
       Input_Stream : not null access
         Ada.Streams.Root_Stream_Type'Class)
    is
-      A_Coded_Input_Stream : Protocol_Buffers.IO.Coded_Input_Stream.Instance
-        (Protocol_Buffers.IO.Coded_Input_Stream.Root_Stream_Access (Input_Stream));
+      A_Coded_Input_Stream : Google.Protobuf.IO.Coded_Input_Stream.Instance
+        (Google.Protobuf.IO.Coded_Input_Stream.Root_Stream_Access (Input_Stream));
    begin
       The_Message.Merge_Partial_From_Coded_Input_Stream (A_Coded_Input_Stream);
    end Merge_Partial_From_Input_Stream;
 
-end Protocol_Buffers.Message;
+end Google.Protobuf.Message;

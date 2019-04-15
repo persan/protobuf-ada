@@ -1,5 +1,5 @@
 with Ada.Unchecked_Deallocation;
-package body Protocol_Buffers.Buffered_Byte_Stream is
+package body Google.Protobuf.Buffered_Byte_Stream is
 ----------
 -- Read --
 ----------
@@ -163,4 +163,4 @@ package body Protocol_Buffers.Buffered_Byte_Stream is
 
 
 
-end Protocol_Buffers.Buffered_Byte_Stream;
+end Google.Protobuf.Buffered_Byte_Stream;

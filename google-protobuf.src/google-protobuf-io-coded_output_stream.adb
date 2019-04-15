@@ -1,11 +1,11 @@
 pragma Ada_2012;
 
 with Ada.Unchecked_Conversion;
-with Protocol_Buffers.Message;
+with Google.Protobuf.Message;
 with Interfaces;
 with Gnat.Byte_Swapping;
 
-package body Protocol_Buffers.IO.Coded_Output_Stream is
+package body Google.Protobuf.IO.Coded_Output_Stream is
 
    -----------------------
    -- Encode_Zig_Zag_32 --
@@ -375,7 +375,7 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
    is
       function PB_Int32_To_PB_UInt32 is new Ada.Unchecked_Conversion (Source => PB_Int32,
                                                                       Target => PB_UInt32);
-      use type Protocol_Buffers.Wire_Format.PB_Int32;
+      use type Google.Protobuf.Wire_Format.PB_Int32;
    begin
       if Value >= 0 then
          return Compute_Raw_Varint_32_Size (PB_Int32_To_PB_UInt32 (Value));
@@ -492,7 +492,7 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
 
    function Compute_Message_Size
      (Field_Number : in PB_Field_Type;
-      Value        : in out Protocol_Buffers.Message.Instance'Class)
+      Value        : in out Google.Protobuf.Message.Instance'Class)
       return PB_Object_Size
    is
    begin
@@ -504,7 +504,7 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
    --------------------------
 
    function Compute_Message_Size_No_Tag
-     (Value : in out Protocol_Buffers.Message.Instance'Class)
+     (Value : in out Google.Protobuf.Message.Instance'Class)
       return PB_Object_Size
    is
       Size : PB_Object_Size;
@@ -822,7 +822,7 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
       Value_As_Long             : constant PB_Int64 := PB_Int64 (Value);
       Value_As_Unsigned_Long    : constant PB_UInt64 := PB_Int64_To_PB_UInt64 (Value_As_Long);
 
-      use type Protocol_Buffers.Wire_Format.PB_Int32;
+      use type Google.Protobuf.Wire_Format.PB_Int32;
    begin
       if Value >= 0 then
          This.Write_Raw_Varint_32 (Value_As_Unsigned_Integer);
@@ -1064,7 +1064,7 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
    procedure Write_Message
      (This                    : in Coded_Output_Stream.Instance;
       Field_Number            : in PB_Field_Type;
-      Value                   : in Protocol_Buffers.Message.Instance'Class)
+      Value                   : in Google.Protobuf.Message.Instance'Class)
    is
    begin
       This.Write_Tag (Field_Number, LENGTH_DELIMITED);
@@ -1077,7 +1077,7 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
 
    procedure Write_Message_No_Tag
      (This                    : in Coded_Output_Stream.Instance;
-      Value                   : in Protocol_Buffers.Message.Instance'Class)
+      Value                   : in Google.Protobuf.Message.Instance'Class)
    is
    begin
       -- Change to Unchecked_Conversion
@@ -1085,4 +1085,4 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
       Value.Serialize_With_Cached_Sizes (This);
    end Write_Message_No_Tag;
 
-end Protocol_Buffers.IO.Coded_Output_Stream;
+end Google.Protobuf.IO.Coded_Output_Stream;
