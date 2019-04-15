@@ -30,7 +30,7 @@
 
 syntax = "proto2";
 
-package jspb.exttest.reverse;
+package jspb.exttest;
 
 message TestExtensionReverseOrderMessage1 {
   extend TestExtensionReverseOrderMessage2 {
