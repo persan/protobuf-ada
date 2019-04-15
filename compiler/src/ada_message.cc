@@ -391,7 +391,7 @@ namespace google {
 	void MessageGenerator::GenerateMessageDefinitions(io::Printer * printer) {
 
 	  printer->Print("---------------------------------------------------------------------------\n");
-	  printer->Print("-- Inherited functions and procedures from Google.Protobuf.Message -------\n");
+	  printer->Print("--    Inherited functions and procedures from Google.Protobuf.Message    --\n");
 	  printer->Print("---------------------------------------------------------------------------\n\n");
 
 	  GenerateClear(printer);
@@ -409,8 +409,8 @@ namespace google {
 	// ==================================================================================
 	void MessageGenerator::GenerateFieldAccessorDeclarations(io::Printer * printer) {
 	  printer->Print("---------------------------------------------------------------------------\n");
-	  printer->Print("-- Field accessor declarations --------------------------------------------\n");
-	  printer->Print( "---------------------------------------------------------------------------\n\n");
+	  printer->Print("--                     Field accessor declarations                       --\n");
+	  printer->Print("---------------------------------------------------------------------------\n\n");
 
 	  for (int i = 0; i < descriptor_->field_count(); i++) {
 	    const FieldDescriptor* field = descriptor_->field(i);
