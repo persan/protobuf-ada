@@ -1,30 +1,30 @@
-with Unittest.TestAllTypes.NestedMessage;
-with Unittest.ForeignMessage;
-with Unittest.ImportMessage;
-with Unittest.PublicImportMessage;
+with Protobuf_Unittest.TestAllTypes.NestedMessage;
+with Protobuf_Unittest.ForeignMessage;
+with Protobuf_Unittest_Import.ImportMessage;
+with Protobuf_Unittest_Import.PublicImportMessage;
 
-with Protocol_Buffers.Wire_Format;
-with Protocol_Buffers.Generic_Assertions.Assertions; use Protocol_Buffers.Generic_Assertions.Assertions;
+with Google.Protobuf.Wire_Format;
+with Google.Protobuf.Generic_Assertions.Assertions; use Google.Protobuf.Generic_Assertions.Assertions;
 
 package body Test_Util is
 
-  use type Protocol_Buffers.Wire_Format.PB_String;
-  use type Protocol_Buffers.Wire_Format.PB_Byte;
-  use type Protocol_Buffers.Wire_Format.PB_UInt32;
-  use type Protocol_Buffers.Wire_Format.PB_UInt64;
-  use type Protocol_Buffers.Wire_Format.PB_Double;
-  use type Protocol_Buffers.Wire_Format.PB_Float;
-  use type Protocol_Buffers.Wire_Format.PB_Bool;
-  use type Protocol_Buffers.Wire_Format.PB_Int32;
-  use type Protocol_Buffers.Wire_Format.PB_Int64;
-  use type Protocol_Buffers.Wire_Format.PB_Field_Type;
-  use type Protocol_Buffers.Wire_Format.PB_Wire_Type;
-  use type Protocol_Buffers.Wire_Format.PB_Object_Size;
-  use type Protocol_Buffers.Wire_Format.PB_String_Access;
+  use type Google.Protobuf.Wire_Format.PB_String;
+  use type Google.Protobuf.Wire_Format.PB_Byte;
+  use type Google.Protobuf.Wire_Format.PB_UInt32;
+  use type Google.Protobuf.Wire_Format.PB_UInt64;
+  use type Google.Protobuf.Wire_Format.PB_Double;
+  use type Google.Protobuf.Wire_Format.PB_Float;
+  use type Google.Protobuf.Wire_Format.PB_Bool;
+  use type Google.Protobuf.Wire_Format.PB_Int32;
+  use type Google.Protobuf.Wire_Format.PB_Int64;
+  use type Google.Protobuf.Wire_Format.PB_Field_Type;
+  use type Google.Protobuf.Wire_Format.PB_Wire_Type;
+  use type Google.Protobuf.Wire_Format.PB_Object_Size;
+  use type Google.Protobuf.Wire_Format.PB_String_Access;
 
-  use type Unittest.ForeignEnum;
-  use type Unittest.ImportEnum;
-  use type Unittest.TestAllTypes.NestedEnum;
+  use type Protobuf_Unittest.ForeignEnum;
+  use type Protobuf_Unittest_Import.ImportEnum;
+  use type Protobuf_Unittest.TestAllTypes.NestedEnum;
 
   generic
     type Value_Type is private;
@@ -45,16 +45,16 @@ package body Test_Util is
     Assert (Expected = Actual, "", Source_Info, File_Info);
   end Generic_Equal;
 
-  procedure Assert_Equal is new Generic_Equal (Unittest.ForeignEnum);
-  procedure Assert_Equal is new Generic_Equal (Unittest.ImportEnum);
-  procedure Assert_Equal is new Generic_Equal (Unittest.TestAllTypes.NestedEnum);
+  procedure Assert_Equal is new Generic_Equal (Protobuf_Unittest.ForeignEnum);
+  procedure Assert_Equal is new Generic_Equal (Protobuf_Unittest_Import.ImportEnum);
+  procedure Assert_Equal is new Generic_Equal (Protobuf_Unittest.TestAllTypes.NestedEnum);
 
   --------------------
   -- Set_All_Fields --
   --------------------
 
   procedure Set_All_Fields
-    (Message : in out Unittest.TestAllTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Set_Optional_Fields  (Message);
@@ -68,7 +68,7 @@ package body Test_Util is
   -------------------------
 
   procedure Set_Optional_Fields
-    (Message : in out Unittest.TestAllTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Message.Set_Optional_Int32   (101);
@@ -93,9 +93,9 @@ package body Test_Util is
     Message.Get_Optional_Public_Import_Message.Set_E(126);
     Message.Get_Optional_Lazy_Message         .Set_Bb(127);
 
-    Message.Set_Optional_Nested_Enum (Unittest.TestAllTypes.BAZ);
-    Message.Set_Optional_Foreign_Enum(Unittest.Foreign_BAZ);
-    Message.Set_Optional_Import_Enum (Unittest.Import_BAZ);
+    Message.Set_Optional_Nested_Enum (Protobuf_Unittest.TestAllTypes.BAZ);
+    Message.Set_Optional_Foreign_Enum(Protobuf_Unittest.Foreign_BAZ);
+    Message.Set_Optional_Import_Enum (Protobuf_Unittest_Import.Import_BAZ);
   end Set_Optional_Fields;
 
   --------------------------
@@ -103,7 +103,7 @@ package body Test_Util is
   --------------------------
 
   procedure Add_Repeated_Fields1
-    (Message : in out Unittest.TestAllTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Message.Add_Repeated_Int32   (201);
@@ -127,9 +127,9 @@ package body Test_Util is
     Message.Add_Repeated_Import_Message .Set_D(220);
     Message.Add_Repeated_Lazy_Message   .Set_Bb(227);
 
-    Message.Add_Repeated_Nested_Enum (Unittest.TestAllTypes.BAR);
-    Message.Add_Repeated_Foreign_Enum(Unittest.Foreign_BAR);
-    Message.Add_Repeated_Import_Enum (Unittest.Import_BAR);
+    Message.Add_Repeated_Nested_Enum (Protobuf_Unittest.TestAllTypes.BAR);
+    Message.Add_Repeated_Foreign_Enum(Protobuf_Unittest.Foreign_BAR);
+    Message.Add_Repeated_Import_Enum (Protobuf_Unittest_Import.Import_BAR);
   end Add_Repeated_Fields1;
 
   --------------------------
@@ -137,7 +137,7 @@ package body Test_Util is
   --------------------------
 
   procedure Add_Repeated_Fields2
-    (Message : in out Unittest.TestAllTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     -- Add a second one of each field.
@@ -162,9 +162,9 @@ package body Test_Util is
     Message.Add_Repeated_Import_Message .Set_D(320);
     Message.Add_Repeated_Lazy_Message   .Set_Bb(327);
 
-    Message.Add_Repeated_Nested_Enum (Unittest.TestAllTypes.BAZ);
-    Message.Add_Repeated_Foreign_Enum(Unittest.Foreign_BAZ);
-    Message.Add_Repeated_Import_Enum (Unittest.Import_BAZ);
+    Message.Add_Repeated_Nested_Enum (Protobuf_Unittest.TestAllTypes.BAZ);
+    Message.Add_Repeated_Foreign_Enum(Protobuf_Unittest.Foreign_BAZ);
+    Message.Add_Repeated_Import_Enum (Protobuf_Unittest_Import.Import_BAZ);
   end Add_Repeated_Fields2;
 
   ------------------------
@@ -172,7 +172,7 @@ package body Test_Util is
   ------------------------
 
   procedure Set_Default_Fields
-    (Message : in out Unittest.TestAllTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Message.Set_Default_Int32   (401);
@@ -191,9 +191,9 @@ package body Test_Util is
     Message.Set_Default_String  ("415");
     Message.Set_Default_Bytes   ("416");
 
-    Message.Set_Default_Nested_Enum (Unittest.TestAllTypes.FOO);
-    Message.Set_Default_Foreign_Enum(Unittest.Foreign_FOO);
-    Message.Set_Default_Import_Enum (Unittest.Import_FOO);
+    Message.Set_Default_Nested_Enum (Protobuf_Unittest.TestAllTypes.FOO);
+    Message.Set_Default_Foreign_Enum(Protobuf_Unittest.Foreign_FOO);
+    Message.Set_Default_Import_Enum (Protobuf_Unittest_Import.Import_FOO);
   end Set_Default_Fields;
 
   -------------------------
@@ -201,7 +201,7 @@ package body Test_Util is
   -------------------------
 
   procedure Set_Unpacked_Fields
-    (Message : in out Unittest.TestUnpackedTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestUnpackedTypes.Instance)
   is
   begin
     -- The values applied here must match those of SetPackedFields.
@@ -219,7 +219,7 @@ package body Test_Util is
     Message.Add_Unpacked_Float   (611.0);
     Message.Add_Unpacked_Double  (612.0);
     Message.Add_Unpacked_Bool    (true);
-    Message.Add_Unpacked_Enum    (Unittest.FOREIGN_BAR);
+    Message.Add_Unpacked_Enum    (Protobuf_Unittest.FOREIGN_BAR);
 
 
     -- Add a second one of each field
@@ -236,7 +236,7 @@ package body Test_Util is
     Message.Add_Unpacked_Float   (711.0);
     Message.Add_Unpacked_Double  (712.0);
     Message.Add_Unpacked_Bool    (false);
-    Message.Add_Unpacked_Enum    (Unittest.FOREIGN_BAZ);
+    Message.Add_Unpacked_Enum    (Protobuf_Unittest.FOREIGN_BAZ);
   end Set_Unpacked_Fields;
 
   -----------------------
@@ -244,7 +244,7 @@ package body Test_Util is
   -----------------------
 
   procedure Set_Packed_Fields
-    (Message : in out Unittest.TestPackedTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestPackedTypes.Instance)
   is
   begin
     Message.Add_Packed_Int32   (601);
@@ -260,7 +260,7 @@ package body Test_Util is
     Message.Add_Packed_Float   (611.0);
     Message.Add_Packed_Double  (612.0);
     Message.Add_Packed_Bool    (true);
-    Message.Add_Packed_Enum    (Unittest.FOREIGN_BAR);
+    Message.Add_Packed_Enum    (Protobuf_Unittest.FOREIGN_BAR);
 
     -- Add a second one of each field
     Message.Add_Packed_Int32   (701);
@@ -276,7 +276,7 @@ package body Test_Util is
     Message.Add_Packed_Float   (711.0);
     Message.Add_Packed_Double  (712.0);
     Message.Add_Packed_Bool    (false);
-    Message.Add_Packed_Enum    (Unittest.FOREIGN_BAZ);
+    Message.Add_Packed_Enum    (Protobuf_Unittest.FOREIGN_BAZ);
   end Set_Packed_Fields;
 
   ----------------------------
@@ -284,7 +284,7 @@ package body Test_Util is
   ----------------------------
 
   procedure Modify_Repeated_Fields
-    (Message : in out Unittest.TestAllTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Message.Set_Repeated_Int32   (1, 501);
@@ -308,9 +308,9 @@ package body Test_Util is
     Message.Get_Repeated_Import_Message (1).Set_D(520);
     Message.Get_Repeated_Lazy_Message   (1).Set_Bb(527);
 
-    Message.Set_Repeated_Nested_Enum (1, Unittest.TestAllTypes.FOO);
-    Message.Set_Repeated_Foreign_Enum(1, Unittest.Foreign_FOO);
-    Message.Set_Repeated_Import_Enum (1, Unittest.Import_FOO);
+    Message.Set_Repeated_Nested_Enum (1, Protobuf_Unittest.TestAllTypes.FOO);
+    Message.Set_Repeated_Foreign_Enum(1, Protobuf_Unittest.Foreign_FOO);
+    Message.Set_Repeated_Import_Enum (1, Protobuf_Unittest_Import.Import_FOO);
   end Modify_Repeated_Fields;
 
   --------------------------
@@ -318,7 +318,7 @@ package body Test_Util is
   --------------------------
 
   procedure Modify_Packed_Fields
-    (Message : in out Unittest.TestPackedTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestPackedTypes.Instance)
   is
   begin
     Message.Set_Packed_Int32   (1, 801);
@@ -334,7 +334,7 @@ package body Test_Util is
     Message.Set_Packed_Float   (1, 811.0);
     Message.Set_Packed_Double  (1, 812.0);
     Message.Set_Packed_Bool    (1, true);
-    Message.Set_Packed_Enum    (1, Unittest.FOREIGN_FOO);
+    Message.Set_Packed_Enum    (1, Protobuf_Unittest.FOREIGN_FOO);
   end Modify_Packed_Fields;
 
   ---------------------------
@@ -342,7 +342,7 @@ package body Test_Util is
   ---------------------------
 
   procedure Expect_All_Fields_Set
-    (Message : in out Unittest.TestAllTypes.Instance)
+    (Message : in out Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Assert_True (Message.Has_Optional_Int32   );
@@ -400,9 +400,9 @@ package body Test_Util is
     Assert_Equal (126, Message.Get_Optional_Public_Import_Message .Get_E );
     Assert_Equal (127, Message.Get_Optional_Lazy_Message          .Get_Bb);
 
-    Assert_Equal (Unittest.TestAllTypes.BAZ, Message.Get_Optional_Nested_Enum );
-    Assert_Equal (Unittest.FOREIGN_BAZ     , Message.Get_Optional_Foreign_Enum);
-    Assert_Equal (Unittest.Import_BAZ      , Message.Get_Optional_Import_Enum );
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.BAZ, Message.Get_Optional_Nested_Enum );
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAZ     , Message.Get_Optional_Foreign_Enum);
+    Assert_Equal (Protobuf_Unittest_Import.Import_BAZ      , Message.Get_Optional_Import_Enum );
 
     --------------------------------------------------------------------
 
@@ -452,9 +452,9 @@ package body Test_Util is
     Assert_Equal (227, Message.Get_Repeated_Lazy_Message   (0).Get_Bb);
 
 
-    Assert_Equal (Unittest.TestAllTypes.BAR, Message.Get_Repeated_Nested_Enum (0));
-    Assert_Equal (Unittest.FOREIGN_BAR     , Message.Get_Repeated_Foreign_Enum(0));
-    Assert_Equal (Unittest.Import_BAR      , Message.Get_Repeated_Import_Enum (0));
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.BAR, Message.Get_Repeated_Nested_Enum (0));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAR     , Message.Get_Repeated_Foreign_Enum(0));
+    Assert_Equal (Protobuf_Unittest_Import.Import_BAR      , Message.Get_Repeated_Import_Enum (0));
 
     Assert_Equal (301  , Message.Get_Repeated_Int32   (1));
     Assert_Equal (302  , Message.Get_Repeated_Int64   (1));
@@ -477,9 +477,9 @@ package body Test_Util is
     Assert_Equal (320, Message.Get_Repeated_Import_Message (1).Get_D);
     Assert_Equal (327, Message.Get_Repeated_Lazy_Message   (1).Get_Bb);
 
-    Assert_Equal (Unittest.TestAllTypes.BAZ , Message.Get_Repeated_Nested_Enum (1));
-    Assert_Equal (Unittest.FOREIGN_BAZ      , Message.Get_Repeated_Foreign_Enum(1));
-    Assert_Equal (Unittest.Import_BAZ       , Message.Get_Repeated_Import_Enum (1));
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.BAZ , Message.Get_Repeated_Nested_Enum (1));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAZ      , Message.Get_Repeated_Foreign_Enum(1));
+    Assert_Equal (Protobuf_Unittest_Import.Import_BAZ       , Message.Get_Repeated_Import_Enum (1));
 
 
     --------------------------------------------------------------------
@@ -521,9 +521,9 @@ package body Test_Util is
     Assert_Equal ("415", Message.Get_Default_String  );
     Assert_Equal ("416", Message.Get_Default_Bytes   );
 
-    Assert_Equal (Unittest.TestAllTypes.FOO , Message.Get_Default_Nested_Enum );
-    Assert_Equal (Unittest.FOREIGN_FOO      , Message.Get_Default_Foreign_Enum);
-    Assert_Equal (Unittest.Import_FOO, Message.Get_Default_Import_Enum );
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.FOO , Message.Get_Default_Nested_Enum );
+    Assert_Equal (Protobuf_Unittest.FOREIGN_FOO      , Message.Get_Default_Foreign_Enum);
+    Assert_Equal (Protobuf_Unittest_Import.Import_FOO, Message.Get_Default_Import_Enum );
   end Expect_All_Fields_Set;
 
   ------------------------------
@@ -531,7 +531,7 @@ package body Test_Util is
   ------------------------------
 
   procedure Expect_Packed_Fields_Set
-    (Message : in Unittest.TestPackedTypes.Instance)
+    (Message : in Protobuf_Unittest.TestPackedTypes.Instance)
   is
   begin
     Assert_Equal (2, Message.Packed_Int32_Size   );
@@ -563,7 +563,7 @@ package body Test_Util is
     Assert_Equal (611.0, Message.Get_Packed_Float   (0));
     Assert_Equal (612.0, Message.Get_Packed_Double  (0));
     Assert_True  (       Message.Get_Packed_Bool    (0));
-    Assert_Equal (Unittest.FOREIGN_BAR, Message.Get_Packed_Enum(0));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAR, Message.Get_Packed_Enum(0));
 
 
     Assert_Equal (701  , Message.Get_Packed_Int32   (1));
@@ -579,7 +579,7 @@ package body Test_Util is
     Assert_Equal (711.0, Message.Get_Packed_Float   (1));
     Assert_Equal (712.0, Message.Get_Packed_Double  (1));
     Assert_False (       Message.Get_Packed_Bool    (1));
-    Assert_Equal (Unittest.FOREIGN_BAZ, Message.Get_Packed_Enum(1));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAZ, Message.Get_Packed_Enum(1));
   end Expect_Packed_Fields_Set;
 
   --------------------------------
@@ -587,7 +587,7 @@ package body Test_Util is
   --------------------------------
 
   procedure Expect_Unpacked_Fields_Set
-    (Message : in Unittest.TestUnpackedTypes.Instance)
+    (Message : in Protobuf_Unittest.TestUnpackedTypes.Instance)
   is
   begin
     -- The values expected here must match those of ExpectPackedFieldsSet.
@@ -620,7 +620,7 @@ package body Test_Util is
     Assert_Equal (611.0, Message.Get_Unpacked_Float   (0));
     Assert_Equal (612.0, Message.Get_Unpacked_Double  (0));
     Assert_True  (       Message.Get_Unpacked_Bool    (0));
-    Assert_Equal (Unittest.FOREIGN_BAR, Message.Get_Unpacked_Enum(0));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAR, Message.Get_Unpacked_Enum(0));
 
     Assert_Equal (701  , Message.Get_Unpacked_Int32   (1));
     Assert_Equal (702  , Message.Get_Unpacked_Int64   (1));
@@ -635,7 +635,7 @@ package body Test_Util is
     Assert_Equal (711.0, Message.Get_Unpacked_Float   (1));
     Assert_Equal (712.0, Message.Get_Unpacked_Double  (1));
     Assert_False (       Message.Get_Unpacked_Bool    (1));
-    Assert_Equal (Unittest.FOREIGN_BAZ, Message.Get_Unpacked_Enum(1));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAZ, Message.Get_Unpacked_Enum(1));
   end Expect_Unpacked_Fields_Set;
 
   -------------------------------------
@@ -643,7 +643,7 @@ package body Test_Util is
   -------------------------------------
 
   procedure Expect_Repeated_Fields_Modified
-    (Message : in Unittest.TestAllTypes.Instance)
+    (Message : in Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     -- ModifyRepeatedFields only Sets the second Repeated element of each
@@ -696,9 +696,9 @@ package body Test_Util is
     Assert_Equal (220, Message.Get_Repeated_Import_Message (0).Get_D);
     Assert_Equal (227, Message.Get_Repeated_Lazy_Message   (0).Get_Bb);
 
-    Assert_Equal (Unittest.TestAllTypes.BAR, Message.Get_Repeated_Nested_Enum (0));
-    Assert_Equal (Unittest.FOREIGN_BAR     , Message.Get_Repeated_Foreign_Enum(0));
-    Assert_Equal (Unittest.Import_BAR      , Message.Get_Repeated_Import_Enum (0));
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.BAR, Message.Get_Repeated_Nested_Enum (0));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAR     , Message.Get_Repeated_Foreign_Enum(0));
+    Assert_Equal (Protobuf_Unittest_Import.Import_BAR      , Message.Get_Repeated_Import_Enum (0));
 
 
     -- Actually verify the second (modified) elements now.
@@ -723,9 +723,9 @@ package body Test_Util is
     Assert_Equal (520, Message.Get_Repeated_Import_Message (1).Get_D);
     Assert_Equal (527, Message.Get_Repeated_Lazy_Message   (1).Get_Bb);
 
-    Assert_Equal (Unittest.TestAllTypes.FOO, Message.Get_Repeated_Nested_Enum (1));
-    Assert_Equal (Unittest.FOREIGN_FOO     , Message.Get_Repeated_Foreign_Enum(1));
-    Assert_Equal (Unittest.Import_FOO      , Message.Get_Repeated_Import_Enum (1));
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.FOO, Message.Get_Repeated_Nested_Enum (1));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_FOO     , Message.Get_Repeated_Foreign_Enum(1));
+    Assert_Equal (Protobuf_Unittest_Import.Import_FOO      , Message.Get_Repeated_Import_Enum (1));
   end Expect_Repeated_Fields_Modified;
 
   -----------------------------------
@@ -733,7 +733,7 @@ package body Test_Util is
   -----------------------------------
 
   procedure Expect_Packed_Fields_Modified
-    (Message : in Unittest.TestPackedTypes.Instance)
+    (Message : in Protobuf_Unittest.TestPackedTypes.Instance)
   is
   begin
     -- Do the same for Packed Repeated fields.
@@ -766,7 +766,7 @@ package body Test_Util is
     Assert_Equal (611.0, Message.Get_Packed_Float   (0));
     Assert_Equal (612.0, Message.Get_Packed_Double  (0));
     Assert_True (        Message.Get_Packed_Bool    (0));
-    Assert_Equal (Unittest.FOREIGN_BAR, Message.Get_Packed_Enum(0));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAR, Message.Get_Packed_Enum(0));
 
 
     -- Actually verify the second (modified) elements now.
@@ -783,14 +783,14 @@ package body Test_Util is
     Assert_Equal (811.0, Message.Get_Packed_Float   (1));
     Assert_Equal (812.0, Message.Get_Packed_Double  (1));
     Assert_True (        Message.Get_Packed_Bool    (1));
-    Assert_Equal (Unittest.FOREIGN_FOO, Message.Get_Packed_Enum(1));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_FOO, Message.Get_Packed_Enum(1));
   end Expect_Packed_Fields_Modified;
 
   ------------------
   -- Expect_Clear --
   ------------------
 
-  procedure Expect_Clear (Message : in out Unittest.TestAllTypes.Instance) is
+  procedure Expect_Clear (Message : in out Protobuf_Unittest.TestAllTypes.Instance) is
   begin
     -- has_Blah should initially be false for all Optional fields.
     Assert_False (Message.Has_Optional_Int32   );
@@ -854,9 +854,9 @@ package body Test_Util is
     Assert_Equal (0, Message.Get_Optional_Lazy_Message         .Get_Bb);
 
     -- Enums without defaults are Set to the first value in the enum.
-    Assert_Equal (Unittest.TestAllTypes.FOO , Message.Get_Optional_Nested_Enum );
-    Assert_Equal (Unittest.FOREIGN_FOO      , Message.Get_Optional_Foreign_Enum);
-    Assert_Equal (Unittest.Import_FOO, Message.Get_Optional_Import_Enum );
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.FOO , Message.Get_Optional_Nested_Enum );
+    Assert_Equal (Protobuf_Unittest.FOREIGN_FOO      , Message.Get_Optional_Foreign_Enum);
+    Assert_Equal (Protobuf_Unittest_Import.Import_FOO, Message.Get_Optional_Import_Enum );
 
 
     -- Repeated fields are empty.
@@ -927,9 +927,9 @@ package body Test_Util is
     Assert_Equal ("hello", Message.Get_Default_String  );
     Assert_Equal ("world", Message.Get_Default_Bytes   );
 
-    Assert_Equal (Unittest.TestAllTypes.BAR, Message.Get_Default_Nested_Enum );
-    Assert_Equal (Unittest.FOREIGN_BAR      , Message.Get_Default_Foreign_Enum);
-    Assert_Equal (Unittest.Import_BAR, Message.Get_Default_Import_Enum );
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.BAR, Message.Get_Default_Nested_Enum );
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAR      , Message.Get_Default_Foreign_Enum);
+    Assert_Equal (Protobuf_Unittest_Import.Import_BAR, Message.Get_Default_Import_Enum );
   end Expect_Clear;
 
   -------------------------
@@ -937,7 +937,7 @@ package body Test_Util is
   -------------------------
 
   procedure Expect_Packed_Clear
-    (Message : in Unittest.TestPackedTypes.Instance)
+    (Message : in Protobuf_Unittest.TestPackedTypes.Instance)
   is
   begin
     -- Packed Repeated fields are empty.
@@ -962,7 +962,7 @@ package body Test_Util is
   -----------------------------------
 
   procedure Expect_Last_Repeateds_Removed
-    (Message : in Unittest.TestAllTypes.Instance)
+    (Message : in Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Assert_Equal (1, Message.Repeated_Int32_Size   );
@@ -1012,9 +1012,9 @@ package body Test_Util is
     Assert_Equal (220, Message.Get_Repeated_Import_Message (0).Get_D);
     Assert_Equal (220, Message.Get_Repeated_Import_Message (0).Get_D);
 
-    Assert_Equal (Unittest.TestAllTypes.BAR , Message.Get_Repeated_Nested_Enum (0));
-    Assert_Equal (Unittest.FOREIGN_BAR      , Message.Get_Repeated_Foreign_Enum(0));
-    Assert_Equal (Unittest.Import_BAR       , Message.Get_Repeated_Import_Enum (0));
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.BAR , Message.Get_Repeated_Nested_Enum (0));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAR      , Message.Get_Repeated_Foreign_Enum(0));
+    Assert_Equal (Protobuf_Unittest_Import.Import_BAR       , Message.Get_Repeated_Import_Enum (0));
   end Expect_Last_Repeateds_Removed;
 
   ------------------------------------
@@ -1022,7 +1022,7 @@ package body Test_Util is
   ------------------------------------
 
   procedure Expect_Last_Repeateds_Released
-    (Message : in Unittest.TestAllTypes.Instance)
+    (Message : in Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Assert_Equal (1, Message.Repeated_Nested_Message_Size );
@@ -1041,7 +1041,7 @@ package body Test_Util is
   ------------------------------
 
   procedure Expect_Repeateds_Swapped
-    (Message : in Unittest.TestAllTypes.Instance)
+    (Message : in Protobuf_Unittest.TestAllTypes.Instance)
   is
   begin
     Assert_Equal (2,  Message.Repeated_Int32_Size   );
@@ -1090,9 +1090,9 @@ package body Test_Util is
     Assert_Equal (219, Message.Get_Repeated_Foreign_Message(1).Get_C);
     Assert_Equal (220, Message.Get_Repeated_Import_Message (1).Get_D);
 
-    Assert_Equal (Unittest.TestAllTypes.BAR, Message.Get_Repeated_Nested_Enum (1));
-    Assert_Equal (Unittest.FOREIGN_BAR     , Message.Get_Repeated_Foreign_Enum(1));
-    Assert_Equal (Unittest.Import_BAR      , Message.Get_Repeated_Import_Enum (1));
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.BAR, Message.Get_Repeated_Nested_Enum (1));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAR     , Message.Get_Repeated_Foreign_Enum(1));
+    Assert_Equal (Protobuf_Unittest_Import.Import_BAR      , Message.Get_Repeated_Import_Enum (1));
 
 
     Assert_Equal (301  , Message.Get_Repeated_Int32   (0));
@@ -1115,9 +1115,9 @@ package body Test_Util is
     Assert_Equal (319, Message.Get_Repeated_Foreign_Message(0).Get_C);
     Assert_Equal (320, Message.Get_Repeated_Import_Message (0).Get_D);
 
-    Assert_Equal (Unittest.TestAllTypes.BAZ, Message.Get_Repeated_Nested_Enum (0));
-    Assert_Equal (Unittest.FOREIGN_BAZ      , Message.Get_Repeated_Foreign_Enum(0));
-    Assert_Equal (Unittest.Import_BAZ, Message.Get_Repeated_Import_Enum (0));
+    Assert_Equal (Protobuf_Unittest.TestAllTypes.BAZ, Message.Get_Repeated_Nested_Enum (0));
+    Assert_Equal (Protobuf_Unittest.FOREIGN_BAZ      , Message.Get_Repeated_Foreign_Enum(0));
+    Assert_Equal (Protobuf_Unittest_Import.Import_BAZ, Message.Get_Repeated_Import_Enum (0));
   end Expect_Repeateds_Swapped;
 
 end Test_Util;

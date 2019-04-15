@@ -1,0 +1,58 @@
+with "google-protobuf.gpr";
+with "aunit.gpr";
+
+project Google.protobuf.Test is
+
+   type Boolean is
+      ("True", "False");
+   Generate : Boolean := external ("GENERATE", "False");
+   for Source_Dirs use ("src/**");
+   for Exec_Dir use "bin";
+   for Languages use ("Ada", "Protocoll Buffers");
+
+   case Generate is
+
+      when "True" =>
+         for Object_Dir use "src/gen";
+         for Main use ("pb_harness.adb");
+
+      when "False" =>
+         for Object_Dir use ".obj";
+         for Main use ("pb_harness.adb");
+   end case;
+
+   package Builder is
+      for Switches ("ada") use ("-k", "-j0", "-g", "-s");
+   end Builder;
+
+   package Compiler is
+
+      case Generate is
+
+         when "True" =>
+            for Driver ("protocoll buffers") use "protoc";
+            for Driver ("ada") use "";
+            for Switches ("Ada") use ("-gnatQ", "-fcallgraph-info=su,da", "-O2", "-fstack-check");
+            for Switches ("Protocoll Buffers") use ("-I" & project'Project_Dir & "src", "--ada_out=.");
+            for Switches ("ada") use ("-gnatQ", "-fcallgraph-info=su,da", "-O2", "-fstack-check", "-g");
+
+         when "False" =>
+            for Driver ("protocoll buffers") use "";
+            for Switches ("Protocoll Buffers") use ("-I" & project'Project_Dir & "src", "--ada_out=.");
+            for Switches ("ada") use ("-gnatQ", "-fcallgraph-info=su,da", "-O0", "-g", "-fstack-check", "-g");
+      end case;
+   end Compiler;
+
+   package Naming is
+      for Body_Suffix ("protocoll buffers") use ".proto";
+   end Naming;
+
+   package Binder is
+      for Switches ("ada") use ("-E");
+   end Binder;
+
+   package Linker is
+      for Switches ("ada") use ("-g");
+   end Linker;
+
+end Google.protobuf.Test;

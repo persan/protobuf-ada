@@ -130,11 +130,11 @@ namespace google {
 	}
 
 	void EnumFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
-	  printer->Print(variables_, "Protocol_Buffers.IO.Coded_Output_Stream.Write_Integer_32 (The_Coded_Output_Stream, $number$, $prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
+	  printer->Print(variables_, "Google.Protobuf.IO.Coded_Output_Stream.Write_Integer_32 (The_Coded_Output_Stream, $number$, $prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
 	}
 
 	void EnumFieldGenerator::GenerateByteSize(io::Printer* printer) const {
-	  printer->Print(variables_, "Total_Size := Total_Size + $tag_size$ + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag ($prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
+	  printer->Print(variables_, "Total_Size := Total_Size + $tag_size$ + Google.Protobuf.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag ($prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
 	}
 
 	void EnumFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
@@ -163,12 +163,12 @@ namespace google {
 	  // TODO: change index type?
 	  printer->Print(variables_, "function Get_$name$\n");
 	  printer->Print(variables_, "   (The_Message : in $packagename$.Instance;\n");
-	  printer->Print(variables_, "    Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$;\n");
+	  printer->Print(variables_, "    Index : in Google.Protobuf.Wire_Format.PB_Object_Size) return $type$;\n");
 
 	  // Generate declaration for Set_$name$
 	  // TODO: change index type?
 	  printer->Print(variables_, "procedure Set_$name$ (The_Message : in out $packagename$.Instance;\n");
-	  printer->Print(variables_, "                      Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	  printer->Print(variables_, "                      Index       : in Google.Protobuf.Wire_Format.PB_Object_Size;\n");
 	  printer->Print(variables_, "                      Value       : in $type$);\n");
 
 	  // Generate declaration for Add_$name$
@@ -183,7 +183,7 @@ namespace google {
 	  // TODO: change index type?
 	  printer->Print(variables_, "function Get_$name$\n");
 	  printer->Print(variables_, "   (The_Message : in $packagename$.Instance;\n");
-	  printer->Print(variables_, "    Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$ is\n");
+	  printer->Print(variables_, "    Index : in Google.Protobuf.Wire_Format.PB_Object_Size) return $type$ is\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   return $prefix$PB_Int32_To_Enumeration(The_Message.$name$.Element (Index));\n");
 	  printer->Print(variables_, "end Get_$name$;\n\n");
@@ -192,7 +192,7 @@ namespace google {
 	  // TODO: change index type?
 	  printer->Print(variables_, "procedure Set_$name$\n");
 	  printer->Print(variables_, "   (The_Message : in out $packagename$.Instance;\n");
-	  printer->Print(variables_, "    Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	  printer->Print(variables_, "    Index       : in Google.Protobuf.Wire_Format.PB_Object_Size;\n");
 	  printer->Print(variables_, "    Value       : in $type$) is\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   The_Message.$name$.Replace_Element (Index, $prefix$Enumeration_To_PB_Int32(Value));\n");
@@ -214,9 +214,9 @@ namespace google {
 
 	void RepeatedEnumFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  // TODO: store vector on heap?
-	  printer->Print(variables_,"$name$ : Protocol_Buffers.Wire_Format.PB_Int32_Vector.Vector;\n");
+	  printer->Print(variables_,"$name$ : Google.Protobuf.Wire_Format.PB_Int32_Vector.Vector;\n");
 	  if (descriptor_->options().packed()) {
-	    printer->Print(variables_,"$name$_cached_byte_size : Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	    printer->Print(variables_,"$name$_cached_byte_size : Google.Protobuf.Wire_Format.PB_Object_Size;\n");
 	  }
 	}
 
@@ -224,8 +224,8 @@ namespace google {
 	  if (descriptor_->options().packed()) {
 	    // Write the tag and the size.
 	    printer->Print(variables_, "if The_Message.$name$_Size > 0 then\n");
-	    printer->Print(variables_, "   The_Coded_Output_Stream.Write_Tag ($number$, Protocol_Buffers.Wire_Format.LENGTH_DELIMITED);\n");
-	    printer->Print(variables_, "   The_Coded_Output_Stream.Write_Raw_Varint_32 (Protocol_Buffers.Wire_Format.PB_UInt32(The_Message.$name$_Cached_Byte_Size));\n");
+	    printer->Print(variables_, "   The_Coded_Output_Stream.Write_Tag ($number$, Google.Protobuf.Wire_Format.LENGTH_DELIMITED);\n");
+	    printer->Print(variables_, "   The_Coded_Output_Stream.Write_Raw_Varint_32 (Google.Protobuf.Wire_Format.PB_UInt32(The_Message.$name$_Cached_Byte_Size));\n");
 	    printer->Print(variables_, "end if;\n");
 	  }
 
@@ -240,14 +240,14 @@ namespace google {
 
 	void RepeatedEnumFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_, "declare\n");
-	  printer->Print(variables_, "   Data_Size : Protocol_Buffers.Wire_Format.PB_Object_Size := 0;\n");
+	  printer->Print(variables_, "   Data_Size : Google.Protobuf.Wire_Format.PB_Object_Size := 0;\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   for E of The_Message.$name$ loop\n");
-	  printer->Print(variables_, "      Data_Size := Data_Size + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag (E);\n");
+	  printer->Print(variables_, "      Data_Size := Data_Size + Google.Protobuf.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag (E);\n");
 	  printer->Print(variables_, "   end loop;\n");
 	  if (descriptor_->options().packed()) {
 	    printer->Print(variables_,"   if Data_Size > 0 then\n");
-	    printer->Print(variables_,"      Total_Size := Total_Size + $tag_size$ + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag (Protocol_Buffers.Wire_Format.PB_Int32 (Data_Size));\n");
+	    printer->Print(variables_,"      Total_Size := Total_Size + $tag_size$ + Google.Protobuf.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag (Google.Protobuf.Wire_Format.PB_Int32 (Data_Size));\n");
 	    printer->Print(variables_,"   end if;\n");
 	    printer->Print(variables_,"   The_Message.$name$_Cached_Byte_Size := Data_Size;\n");
 	    printer->Print(variables_,"   Total_Size := Total_Size + Data_Size;\n");
@@ -271,7 +271,7 @@ namespace google {
 	  //       Coded_Input_Stream is also of this type ...
 	  printer->Print(variables_, "declare\n");
 	  printer->Print(variables_, "   use type Ada.Streams.Stream_Element_Offset;\n");
-	  printer->Print(variables_, "   Length : Protocol_Buffers.Wire_Format.PB_UInt32 := The_Coded_Input_Stream.Read_Raw_Varint_32;\n");
+	  printer->Print(variables_, "   Length : Google.Protobuf.Wire_Format.PB_UInt32 := The_Coded_Input_Stream.Read_Raw_Varint_32;\n");
 	  printer->Print(variables_, "   Limit  : Ada.Streams.Stream_Element_Offset := The_Coded_Input_Stream.Push_Limit (Ada.Streams.Stream_Element_Offset (Length));\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   while The_Coded_Input_Stream.Get_Bytes_Until_Limit > 0 loop\n");

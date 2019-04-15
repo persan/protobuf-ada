@@ -1,8 +1,8 @@
 with AUnit.Assertions;
 with GNAT.Source_Info;
-with Protocol_Buffers.Wire_Format;
-with Protocol_Buffers.IO.Coded_Output_Stream;
-with Protocol_Buffers.IO.Coded_Input_Stream;
+with Google.Protobuf.Wire_Format;
+with Google.Protobuf.IO.Coded_Output_Stream;
+with Google.Protobuf.IO.Coded_Input_Stream;
 with Ada.Streams;
 with Ada.Unchecked_Conversion;
 with Test_Helpers;
@@ -14,8 +14,8 @@ package body Coded_Output_Stream_Tests is
      Message   : String;
      Source    : String := GNAT.Source_Info.File;
      Line      : Natural := GNAT.Source_Info.Line) renames AUnit.Assertions.Assert;
-  package COS renames Protocol_Buffers.IO.Coded_Output_Stream;
-  package CIS renames Protocol_Buffers.IO.Coded_Input_Stream;
+  package COS renames Google.Protobuf.IO.Coded_Output_Stream;
+  package CIS renames Google.Protobuf.IO.Coded_Input_Stream;
   package AS renames Ada.Streams;
 
   ----------
@@ -72,12 +72,12 @@ package body Coded_Output_Stream_Tests is
   procedure Test_Encode_Zig_Zag_32 (T : in out Test_Cases.Test_Case'Class) is
     pragma Unreferenced (T);
 
-    use type Protocol_Buffers.Wire_Format.PB_UInt32;
-    use type Protocol_Buffers.Wire_Format.PB_Int32;
+    use type Google.Protobuf.Wire_Format.PB_UInt32;
+    use type Google.Protobuf.Wire_Format.PB_Int32;
 
     function Convert is
-      new Ada.Unchecked_Conversion (Protocol_Buffers.Wire_Format.PB_UInt32,
-                                    Protocol_Buffers.Wire_Format.PB_Int32);
+      new Ada.Unchecked_Conversion (Google.Protobuf.Wire_Format.PB_UInt32,
+                                    Google.Protobuf.Wire_Format.PB_Int32);
   begin
     Assert (0 = COS.Encode_Zig_Zag_32 (0),
             "Expected: 0 = Encode_Zig_Zag_32 (0)");
@@ -118,12 +118,12 @@ package body Coded_Output_Stream_Tests is
   procedure Test_Encode_Zig_Zag_64 (T : in out Test_Cases.Test_Case'Class) is
     pragma Unreferenced (T);
 
-    use type Protocol_Buffers.Wire_Format.PB_Int64;
-    use type Protocol_Buffers.Wire_Format.PB_UInt64;
+    use type Google.Protobuf.Wire_Format.PB_Int64;
+    use type Google.Protobuf.Wire_Format.PB_UInt64;
 
     function Convert is
-      new Ada.Unchecked_Conversion (Protocol_Buffers.Wire_Format.PB_UInt64,
-                                    Protocol_Buffers.Wire_Format.PB_Int64);
+      new Ada.Unchecked_Conversion (Google.Protobuf.Wire_Format.PB_UInt64,
+                                    Google.Protobuf.Wire_Format.PB_Int64);
   begin
     Assert (0 = COS.Encode_Zig_Zag_64 (0),
             "Expected: 0 = Encode_Zig_Zag_64 (0)");
@@ -191,7 +191,7 @@ package body Coded_Output_Stream_Tests is
   procedure Test_Write_Raw_Little_Endian_64 (T : in out Test_Cases.Test_Case'Class) is
     pragma Unreferenced (T);
 
-    use type Protocol_Buffers.Wire_Format.PB_Int64;
+    use type Google.Protobuf.Wire_Format.PB_Int64;
   begin
     Test_Helpers.Assert_Write_Raw_Little_Endian_64
       (Ada.Streams.Stream_Element_Array'
@@ -233,7 +233,7 @@ package body Coded_Output_Stream_Tests is
   is
     pragma Unreferenced (T);
 
-    use type Protocol_Buffers.Wire_Format.PB_Int64;
+    use type Google.Protobuf.Wire_Format.PB_Int64;
   begin
     -- 7256456126
     Test_Helpers.Assert_Write_Raw_Varint

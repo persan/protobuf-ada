@@ -6,16 +6,16 @@ with Ada.Directories;
 with Ada.Streams.Stream_IO;
 with Interfaces;
 
-with Protocol_Buffers.Wire_Format;
-with Protocol_Buffers.IO.Coded_Input_Stream;
-with Protocol_Buffers.IO.Coded_Output_Stream;
-with Protocol_Buffers.IO.Invalid_Protocol_Buffer_Exception;
-with Protocol_Buffers.Message;
+with Google.Protobuf.Wire_Format;
+with Google.Protobuf.IO.Coded_Input_Stream;
+with Google.Protobuf.IO.Coded_Output_Stream;
+with Google.Protobuf.IO.Invalid_Protocol_Buffer_Exception;
+with Google.Protobuf.Message;
 with Buffered_Byte_Stream;
 with Test_Helpers;
 with Test_Util;
-with Unittest.TestAllTypes;
-with Unittest.TestRecursiveMessage;
+with protobuf_unittest.TestAllTypes;
+with Protobuf_Unittest.TestRecursiveMessage;
 
 package body Coded_Input_Stream_Tests is
 
@@ -26,10 +26,10 @@ package body Coded_Input_Stream_Tests is
      Line      : Natural := GNAT.Source_Info.Line) renames AUnit.Assertions.Assert;
   package AS renames Ada.Streams;
 
-  package CIS renames Protocol_Buffers.IO.Coded_Input_Stream;
-  package COS renames Protocol_Buffers.IO.Coded_Output_Stream;
-  package Wire_Format renames Protocol_Buffers.Wire_Format;
-  package PB_Exception renames Protocol_Buffers.IO.Invalid_Protocol_Buffer_Exception;
+  package CIS renames Google.Protobuf.IO.Coded_Input_Stream;
+  package COS renames Google.Protobuf.IO.Coded_Output_Stream;
+  package Wire_Format renames Google.Protobuf.Wire_Format;
+  package PB_Exception renames Google.Protobuf.IO.Invalid_Protocol_Buffer_Exception;
 
 
   ----------
@@ -139,7 +139,7 @@ package body Coded_Input_Stream_Tests is
   procedure Test_Decode_Zig_Zag_64 (T : in out Test_Cases.Test_Case'Class) is
     pragma Unreferenced (T);
 
-    package CIS renames Protocol_Buffers.IO.Coded_Input_Stream;
+    package CIS renames Google.Protobuf.IO.Coded_Input_Stream;
 
     use type Wire_Format.PB_UInt64;
   begin
@@ -290,7 +290,7 @@ package body Coded_Input_Stream_Tests is
     File      : Ada.Streams.Stream_IO.File_Type;
     Test_File : String := "test_size_limit_file";
 
-    Message : Unittest.TestAllTypes.Instance;
+    Message : Protobuf_Unittest.TestAllTypes.Instance;
   begin
     Test_Util.Set_All_Fields (Message);
 
@@ -341,9 +341,9 @@ package body Coded_Input_Stream_Tests is
   -- Make_Recursive_Message --
   -----------------------------------
 
-  function Make_Recursive_Message (Depth : in Natural) return Unittest.TestRecursiveMessage.TestRecursiveMessage_Access is
-    A_Recursive_Message : Unittest.TestRecursiveMessage.TestRecursiveMessage_Access :=
-      new Unittest.TestRecursiveMessage.Instance;
+  function Make_Recursive_Message (Depth : in Natural) return Protobuf_Unittest.TestRecursiveMessage.TestRecursiveMessage_Access is
+    A_Recursive_Message : Protobuf_Unittest.TestRecursiveMessage.TestRecursiveMessage_Access :=
+      new Protobuf_Unittest.TestRecursiveMessage.Instance;
   begin
     if Depth = 0 then
       A_Recursive_Message.Set_I (5);
@@ -358,7 +358,7 @@ package body Coded_Input_Stream_Tests is
   -- Assert_Message_Depth --
   --------------------------
 
-  procedure Assert_Message_Depth (Message : access Unittest.TestRecursiveMessage.Instance; Depth : in Natural) is
+  procedure Assert_Message_Depth (Message : access Protobuf_Unittest.TestRecursiveMessage.Instance; Depth : in Natural) is
     use type Wire_Format.PB_Int32;
   begin
     if Depth = 0 then
@@ -381,10 +381,10 @@ package body Coded_Input_Stream_Tests is
     File      : Ada.Streams.Stream_IO.File_Type;
     Test_File : String := "test_malicious_recursion_file";
 
-    Message_64   : Unittest.TestRecursiveMessage.Instance;
-    Message_64_2 : aliased Unittest.TestRecursiveMessage.Instance;
-    Message_65   : Unittest.TestRecursiveMessage.Instance;
-    Message_65_2 : aliased Unittest.TestRecursiveMessage.Instance;
+    Message_64   : Protobuf_Unittest.TestRecursiveMessage.Instance;
+    Message_64_2 : aliased Protobuf_Unittest.TestRecursiveMessage.Instance;
+    Message_65   : Protobuf_Unittest.TestRecursiveMessage.Instance;
+    Message_65_2 : aliased Protobuf_Unittest.TestRecursiveMessage.Instance;
   begin
     Message_64.Set_A (Make_Recursive_Message (63));
     Message_65.Set_A (Make_Recursive_Message (64));
@@ -472,9 +472,9 @@ package body Coded_Input_Stream_Tests is
     File      : Ada.Streams.Stream_IO.File_Type;
     Test_File : String := "test_write_and_read_huge_blob_file";
 
-    Message   : Unittest.TestAllTypes.Instance;
-    Message_2 : Unittest.TestAllTypes.Instance;
-    Message_3 : Unittest.TestAllTypes.Instance;
+    Message   : Protobuf_Unittest.TestAllTypes.Instance;
+    Message_2 : Protobuf_Unittest.TestAllTypes.Instance;
+    Message_3 : Protobuf_Unittest.TestAllTypes.Instance;
 
     -- 1 MB Blob
     Blob : Wire_Format.PB_String (1 .. 2 ** 20);
@@ -678,8 +678,8 @@ package body Coded_Input_Stream_Tests is
     File      : Ada.Streams.Stream_IO.File_Type;
     Test_File : String := "test_write_and_read_whole_message_file";
 
-    Message   : Unittest.TestAllTypes.Instance;
-    Message_2 : Unittest.TestAllTypes.Instance;
+    Message   : Protobuf_Unittest.TestAllTypes.Instance;
+    Message_2 : Protobuf_Unittest.TestAllTypes.Instance;
   begin
     Test_Util.Set_All_Fields (Message);
 

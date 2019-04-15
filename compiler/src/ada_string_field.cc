@@ -47,11 +47,11 @@ namespace google {
 	  void SetStringVariables(const FieldDescriptor* descriptor,
 				  map<string, string>* variables) {
 	    SetCommonFieldVariables(descriptor, variables);
-	    (*variables)["type"] = "Protocol_Buffers.Wire_Format.PB_String";
-	    (*variables)["access_type"] = "Protocol_Buffers.Wire_Format.PB_String_Access";
+	    (*variables)["type"] = "Google.Protobuf.Wire_Format.PB_String";
+	    (*variables)["access_type"] = "Google.Protobuf.Wire_Format.PB_String_Access";
 	    (*variables)["default"] = DefaultValue(descriptor);
 	    (*variables)["default_variable"] = descriptor->default_value_string().empty() ?
-	    "Protocol_Buffers.Generated_Message_Utilities.EMPTY_STRING" : "Default_" + FieldName(descriptor);
+	    "Google.Protobuf.Generated_Message_Utilities.EMPTY_STRING" : "Default_" + FieldName(descriptor);
 	  }
 
 	} // namespace
@@ -118,7 +118,7 @@ namespace google {
 	  printer->Print(variables_, "   else\n");
 	  // TODO: call inline procedure instead of including finalization code?
 	  GenerateFinalizationCode(printer);
-	  printer->Print(variables_, "      The_Message.$name$ := new Protocol_Buffers.Wire_Format.PB_String'(Value);\n");
+	  printer->Print(variables_, "      The_Message.$name$ := new Google.Protobuf.Wire_Format.PB_String'(Value);\n");
 	  printer->Print(variables_, "   end if;\n");
 	  printer->Print(variables_, "end Set_$name$;\n\n");
 
@@ -158,7 +158,7 @@ namespace google {
 	}
 
 	void StringFieldGenerator::GenerateByteSize(io::Printer* printer) const {
-	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ + Protocol_Buffers.IO.Coded_Output_Stream.Compute_$declared_type$_Size_No_Tag (The_Message.$name$.all);\n");
+	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ + Google.Protobuf.IO.Coded_Output_Stream.Compute_$declared_type$_Size_No_Tag (The_Message.$name$.all);\n");
 	}
 
 	void StringFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
@@ -207,13 +207,13 @@ namespace google {
 	  // TODO: change index type?
 	  printer->Print(variables_,"function Get_$name$\n");
 	  printer->Print(variables_,"   (The_Message : in $packagename$.Instance;\n");
-	  printer->Print(variables_,"    Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$;\n");
+	  printer->Print(variables_,"    Index : in Google.Protobuf.Wire_Format.PB_Object_Size) return $type$;\n");
 
 	  // Generate body for Set_$name$
 	  // TODO: change index type?
 	  printer->Print(variables_,"procedure Set_$name$\n");
 	  printer->Print(variables_,"   (The_Message : in out $packagename$.Instance;\n");
-	  printer->Print(variables_,"    Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	  printer->Print(variables_,"    Index       : in Google.Protobuf.Wire_Format.PB_Object_Size;\n");
 	  printer->Print(variables_,"    Value       : in $type$);\n");
 
 	  // Generate declaration for Add_$name$
@@ -227,7 +227,7 @@ namespace google {
 	  // TODO: change index type?
 	  printer->Print(variables_, "function Get_$name$\n");
 	  printer->Print(variables_, "   (The_Message : in $packagename$.Instance;\n");
-	  printer->Print(variables_, "    Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$ is\n");
+	  printer->Print(variables_, "    Index       : in Google.Protobuf.Wire_Format.PB_Object_Size) return $type$ is\n");
 	  printer->Print(variables_,"begin\n");
 	  printer->Print(variables_,"   return The_Message.$name$.Element (Index).all;\n");
 	  printer->Print(variables_,"end Get_$name$;\n\n");
@@ -237,7 +237,7 @@ namespace google {
 	  printer->Print(variables_,"procedure Set_$name$\n");
 	  printer->Indent();
 	  printer->Print(variables_,"   (The_Message : in out $packagename$.Instance;\n");
-	  printer->Print(variables_,"    Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	  printer->Print(variables_,"    Index       : in Google.Protobuf.Wire_Format.PB_Object_Size;\n");
 	  printer->Print(variables_,"    Value       : in $type$) is\n");
 	  printer->Print(variables_,"begin\n");
 
@@ -284,7 +284,7 @@ namespace google {
 	void RepeatedStringFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ * The_Message.$name$_Size;\n");
 	  printer->Print(variables_,"for E of The_Message.$name$ loop\n");
-	  printer->Print(variables_,"   Total_Size := Total_Size + Protocol_Buffers.IO.Coded_Output_Stream.Compute_$declared_type$_Size_No_Tag (E.all);\n");
+	  printer->Print(variables_,"   Total_Size := Total_Size + Google.Protobuf.IO.Coded_Output_Stream.Compute_$declared_type$_Size_No_Tag (E.all);\n");
 	  printer->Print(variables_,"end loop;\n");
 	}
 

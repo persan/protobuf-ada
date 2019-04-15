@@ -100,9 +100,9 @@ namespace google {
 	  printer->Print(variables_,"   (The_Message : in out $packagename$.Instance;\n");
 	  printer->Print(variables_,"    Value       : in $containing_type$.$type$_Access) is\n");
 	  printer->Print(variables_,"   use type $containing_type$.$type$_Access;\n");
-	  printer->Print(variables_,"   Temp : Protocol_Buffers.Message.Instance_Access := Protocol_Buffers.Message.Instance_Access (The_Message.$name$);\n");
+	  printer->Print(variables_,"   Temp : Google.Protobuf.Message.Instance_Access := Google.Protobuf.Message.Instance_Access (The_Message.$name$);\n");
 	  printer->Print(variables_,"begin\n");
-	  printer->Print(variables_,"   Protocol_Buffers.Message.Free (Temp);\n");
+	  printer->Print(variables_,"   Google.Protobuf.Message.Free (Temp);\n");
 	  printer->Print(variables_,"   The_Message.$name$ := Value;\n");
 	  printer->Print(variables_,"   if The_Message.$name$ /= null then\n");
 	  printer->Print(variables_,"      The_Message.Set_Has_$name$;\n");
@@ -129,7 +129,7 @@ namespace google {
 	}
 
 	void MessageFieldGenerator::GenerateByteSize(io::Printer* printer) const {
-	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Message_Size_No_Tag (The_Message.$name$.all);\n");
+	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ + Google.Protobuf.IO.Coded_Output_Stream.Compute_Message_Size_No_Tag (The_Message.$name$.all);\n");
 	}
 
 	void MessageFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
@@ -152,9 +152,9 @@ namespace google {
 	  // TODO: Consider changing this to a procedure.
 	  printer->Print(variables_, "declare\n");
 	  // Move this elsewhere
-	  printer->Print(variables_, "   Temp : Protocol_Buffers.Message.Instance_Access := Protocol_Buffers.Message.Instance_Access(The_Message.$name$);\n");
+	  printer->Print(variables_, "   Temp : Google.Protobuf.Message.Instance_Access := Google.Protobuf.Message.Instance_Access(The_Message.$name$);\n");
 	  printer->Print(variables_, "begin\n");
-	  printer->Print(variables_, "   Protocol_Buffers.Message.Free (Temp);\n");
+	  printer->Print(variables_, "   Google.Protobuf.Message.Free (Temp);\n");
 	  printer->Print(variables_, "   The_Message.$name$ := null;\n");
 	  printer->Print(variables_, "end;\n");
 	}
@@ -173,7 +173,7 @@ namespace google {
 	  // TODO: change index type?
 	  printer->Print(variables_, "function Get_$name$\n");
 	  printer->Print(variables_, "   (The_Message : in $packagename$.Instance;\n");
-	  printer->Print(variables_, "    Index        : in Protocol_Buffers.Wire_Format.PB_Object_Size) return access $containing_type$.Instance;\n");
+	  printer->Print(variables_, "    Index        : in Google.Protobuf.Wire_Format.PB_Object_Size) return access $containing_type$.Instance;\n");
 
 	  // Generate declaration for Add_$name$
 	  printer->Print(variables_,"function Add_$name$\n");
@@ -187,7 +187,7 @@ namespace google {
 	  // TODO: change index type?
 	  printer->Print(variables_, "function Get_$name$\n");
 	  printer->Print(variables_, "   (The_Message : in $packagename$.Instance;\n");
-	  printer->Print(variables_, "   Index        : in Protocol_Buffers.Wire_Format.PB_Object_Size) return access $containing_type$.Instance is\n");
+	  printer->Print(variables_, "   Index        : in Google.Protobuf.Wire_Format.PB_Object_Size) return access $containing_type$.Instance is\n");
 	  printer->Print(variables_,"begin\n");
 	  printer->Print(variables_,"   return $containing_type$.$type$_Access (The_Message.$name$.Element (Index));\n");
 	  printer->Print(variables_,"end Get_$name$;\n\n");
@@ -198,7 +198,7 @@ namespace google {
 	  printer->Print(variables_, "   (The_Message : in out $packagename$.Instance) return access $containing_type$.Instance is\n");
 	  printer->Print(variables_, "   Temp : $containing_type$.$type$_Access := new $containing_type$.Instance;\n");
 	  printer->Print(variables_, "begin\n");
-	  printer->Print(variables_, "   The_Message.$name$.Append (Protocol_Buffers.Message.Instance_Access (Temp));\n");
+	  printer->Print(variables_, "   The_Message.$name$.Append (Google.Protobuf.Message.Instance_Access (Temp));\n");
 	  printer->Print(variables_, "   return Temp;\n");
 	  printer->Print(variables_, "end Add_$name$;\n");
 	}
@@ -212,7 +212,7 @@ namespace google {
 
 	void RepeatedMessageFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
 	  // TODO: store vector on heap?
-	  printer->Print(variables_, "$name$ : Protocol_Buffers.Message.Message_Vector.Vector;\n");
+	  printer->Print(variables_, "$name$ : Google.Protobuf.Message.Message_Vector.Vector;\n");
 	}
 
 	void RepeatedMessageFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
@@ -225,7 +225,7 @@ namespace google {
 	void RepeatedMessageFieldGenerator::GenerateByteSize(io::Printer* printer) const {
 	  printer->Print(variables_, "Total_Size := Total_Size + $tag_size$ * The_Message.$name$_Size;\n");
 	  printer->Print(variables_, "   for E of The_Message.$name$ loop\n");
-	  printer->Print(variables_, "   Total_Size := Total_Size + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Message_Size_No_Tag (E.all);\n");
+	  printer->Print(variables_, "   Total_Size := Total_Size + Google.Protobuf.IO.Coded_Output_Stream.Compute_Message_Size_No_Tag (E.all);\n");
 	  printer->Print(variables_, "end loop;\n");
 	}
 
@@ -248,7 +248,7 @@ namespace google {
 	  printer->Print(variables_, "   for E of From.$name$ loop\n");
 	  printer->Print(variables_, "      Temp := new $containing_type$.Instance;\n");
 	  printer->Print(variables_, "      Temp.Merge ($containing_type$.Instance (E.all));\n");
-	  printer->Print(variables_, "      To.$name$.Append (Protocol_Buffers.Message.Instance_Access (Temp));\n");
+	  printer->Print(variables_, "      To.$name$.Append (Google.Protobuf.Message.Instance_Access (Temp));\n");
 	  printer->Print(variables_, "   end loop;\n");
 	  printer->Print(variables_, "end;\n");
 	}
@@ -260,7 +260,7 @@ namespace google {
 
 	  // For some reason we can't use a container element iterator here ...
 	  printer->Print(variables_,"for C in The_Message.$name$.Iterate loop\n");
-	  printer->Print(variables_,"   Protocol_Buffers.Message.Free (The_Message.$name$.Reference (C).Element.all);\n");
+	  printer->Print(variables_,"   Google.Protobuf.Message.Free (The_Message.$name$.Reference (C).Element.all);\n");
 	  printer->Print(variables_,"end loop;\n");
 	  printer->Print(variables_,"The_Message.$name$.Clear;\n\n");
 	}

@@ -64,11 +64,11 @@ namespace google {
 			 "filename", file_->name());
 
 	  if (file_->message_type_count() > 0) {
-	    printer->Print("with Protocol_Buffers.Message;\n"
-			   "with Protocol_Buffers.Wire_Format;\n"
-			   "with Protocol_Buffers.IO.Coded_Output_Stream;\n"
-			   "with Protocol_Buffers.IO.Coded_Input_Stream;\n"
-			   "with Protocol_Buffers.Generated_Message_Utilities;\n"
+	    printer->Print("with Google.Protobuf.Message;\n"
+			   "with Google.Protobuf.Wire_Format;\n"
+			   "with Google.Protobuf.IO.Coded_Output_Stream;\n"
+			   "with Google.Protobuf.IO.Coded_Input_Stream;\n"
+			   "with Google.Protobuf.Generated_Message_Utilities;\n"
 			   "with Ada.Streams.Stream_IO;\n"
 			   "with Ada.Containers.Vectors;\n"
 			   "with Ada.Unchecked_Conversion;\n"
@@ -81,19 +81,19 @@ namespace google {
 
 	  printer->Indent();
 
-	  printer->Print("use type Protocol_Buffers.Wire_Format.PB_String;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Byte;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_UInt32;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_UInt64;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Double;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Float;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Bool;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Int32;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Int64;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Field_Type;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Wire_Type;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_Object_Size;\n"
-			 "use type Protocol_Buffers.Wire_Format.PB_String_Access;\n"
+	  printer->Print("use type Google.Protobuf.Wire_Format.PB_String;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Byte;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_UInt32;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_UInt64;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Double;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Float;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Bool;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Int32;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Int64;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Field_Type;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Wire_Type;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_Object_Size;\n"
+			 "use type Google.Protobuf.Wire_Format.PB_String_Access;\n"
 			 "\n");
 
 	  for (int i = 0; i < file_->enum_type_count(); i++) {
@@ -197,11 +197,11 @@ namespace google {
 			"filename", descriptor->file()->name());
 
 	  if (descriptor->file()->message_type_count() > 0) {
-	    printer.Print("with Protocol_Buffers.Message;\n"
-			  "with Protocol_Buffers.Wire_Format;\n"
-			  "with Protocol_Buffers.IO.Coded_Output_Stream;\n"
-			  "with Protocol_Buffers.IO.Coded_Input_Stream;\n"
-			  "with Protocol_Buffers.Generated_Message_Utilities;\n"
+	    printer.Print("with Google.Protobuf.Message;\n"
+			  "with Google.Protobuf.Wire_Format;\n"
+			  "with Google.Protobuf.IO.Coded_Output_Stream;\n"
+			  "with Google.Protobuf.IO.Coded_Input_Stream;\n"
+			  "with Google.Protobuf.Generated_Message_Utilities;\n"
 			  "with Ada.Streams.Stream_IO;\n"
 			  "with Ada.Containers.Vectors;\n"
 			  "with Ada.Unchecked_Conversion;\n"

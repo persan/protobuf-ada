@@ -1,4 +1,4 @@
-with "protobuff.gpr";
+with "google-protobuf-testing.gpr";
 with "aunit.gpr";
 
 project test_check_utf8 is

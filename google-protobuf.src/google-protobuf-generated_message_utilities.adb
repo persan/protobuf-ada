@@ -12,9 +12,9 @@ package body Google.Protobuf.Generated_Message_Utilities is
       Inf : Google.Protobuf.Wire_Format.PB_Float :=
               Google.Protobuf.Wire_Format.PB_Float'Last;
    begin
-      if not Google.Protobuf.Wire_Format.PB_Float'Machine_Overflows then
-         Inf := Google.Protobuf.Wire_Format.PB_Float'Succ (Inf);
-      end if;
+--        if not Google.Protobuf.Wire_Format.PB_Float'Machine_Overflows then
+--           Inf := Google.Protobuf.Wire_Format.PB_Float'Succ (Inf);
+--        end if;
       return Inf;
    end Positive_Infinity;
 
@@ -28,9 +28,9 @@ package body Google.Protobuf.Generated_Message_Utilities is
       Neg_Inf : Google.Protobuf.Wire_Format.PB_Float :=
                   Google.Protobuf.Wire_Format.PB_Float'First;
    begin
-      if not Google.Protobuf.Wire_Format.PB_Float'Machine_Overflows then
-         Neg_Inf := Google.Protobuf.Wire_Format.PB_Float'Pred (Neg_Inf);
-      end if;
+--        if not Google.Protobuf.Wire_Format.PB_Float'Machine_Overflows then
+--           Neg_Inf := Google.Protobuf.Wire_Format.PB_Float'Pred (Neg_Inf);
+--        end if;
       return Neg_Inf;
    end Negative_Infinity;
 
@@ -63,9 +63,9 @@ package body Google.Protobuf.Generated_Message_Utilities is
       Inf : Google.Protobuf.Wire_Format.PB_Double :=
               Google.Protobuf.Wire_Format.PB_Double'Last;
    begin
-      if not Google.Protobuf.Wire_Format.PB_Double'Machine_Overflows then
-         Inf := Google.Protobuf.Wire_Format.PB_Double'Succ (Inf);
-      end if;
+      --        if not Google.Protobuf.Wire_Format.PB_Double'Machine_Overflows then
+      --           Inf := Google.Protobuf.Wire_Format.PB_Double'Succ (Inf);
+      --        end if;
       return Inf;
    end Positive_Infinity;
 
@@ -79,9 +79,9 @@ package body Google.Protobuf.Generated_Message_Utilities is
       Neg_Inf : Google.Protobuf.Wire_Format.PB_Double :=
                   Google.Protobuf.Wire_Format.PB_Double'First;
    begin
-      if not Google.Protobuf.Wire_Format.PB_Double'Machine_Overflows then
-         Neg_Inf := Google.Protobuf.Wire_Format.PB_Double'Pred (Neg_Inf);
-      end if;
+      --        if not Google.Protobuf.Wire_Format.PB_Double'Machine_Overflows then
+      --           Neg_Inf := Google.Protobuf.Wire_Format.PB_Double'Pred (Neg_Inf);
+      --        end if;
       return Neg_Inf;
    end Negative_Infinity;
 
