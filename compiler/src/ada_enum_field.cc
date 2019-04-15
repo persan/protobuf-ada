@@ -36,7 +36,7 @@
 #include <google/protobuf/io/printer.h>
 #include <google/protobuf/descriptor.pb.h>
 #include <strutil.h>
-
+#include <iostream>
 #include "ada_helpers.h"
 
 namespace google {
@@ -57,16 +57,30 @@ namespace google {
 	    (*variables)["type"] = EnumTypeName(enum_type, true);
 	    (*variables)["definition_type"] = EnumDefinitionTypeName(enum_type);
 
-	    if (enum_type->containing_type() == NULL ||
-		enum_type->containing_type() == descriptor->containing_type()) {
-		(*variables)["type"] = EnumTypeName(enum_type, false);
+	    //If top level or in same message
+	    if (enum_type->containing_type() == NULL || enum_type->containing_type() == descriptor->containing_type()) {
+	      //Enum is declared in the same file
+	      if (enum_type->file() == descriptor->file()) {
+		(*variables)["type"] =	FileAdaPackageName(enum_type->file()) + "." + EnumTypeName(enum_type, true);
+		// (*variables)["type"] = EnumTypeName(enum_type, false);
 		(*variables)["prefix"] = "";
-	      } else if (IsParentMessage(enum_type->containing_type(), descriptor->containing_type())) {
-	      (*variables)["type"] = EnumTypeName(enum_type, true);
-	      (*variables)["prefix"] = AdaPackageName(enum_type->containing_type()) + ".";
+	      }
+	      //Enum is declared in a different file - thus should have a qualified name
+	      else {
+		(*variables)["type"] = FileAdaPackageName(enum_type->file()) + "." + enum_type->name();
+		(*variables)["prefix"] = FileAdaPackageName(enum_type->file()) + ".";
+	      }
+
+	      //If the enum is declared somewhere further down in this type hierarchy (does that make sense?)
+	    } else if (IsParentMessage(enum_type->containing_type(), descriptor->containing_type())) {
+	      (*variables)["type"] =	FileAdaPackageName(enum_type->file()) + "." + EnumTypeName(enum_type, true);
+	      //(*variables)["type"] = EnumTypeName(enum_type, true);
+	      (*variables)["prefix"] =  AdaPackageName(enum_type->containing_type()) + ".";
+	      //Prepend qualified package name
 	    } else {
-	      (*variables)["type"] = EnumDefinitionTypeName(enum_type);
-	      (*variables)["prefix"] = EnumDefinitionPackageName(enum_type) + ".";
+	      (*variables)["type"] =	FileAdaPackageName(enum_type->file()) + "." + EnumDefinitionTypeName(enum_type);
+	      // (*variables)["type"] = EnumDefinitionTypeName(enum_type);
+	      (*variables)["prefix"] = ""; // EnumDefinitionPackageName(enum_type) + ".";
 	    }
 
 
@@ -74,59 +88,58 @@ namespace google {
 
 	} // namespace
 
-	EnumFieldGenerator::
-	EnumFieldGenerator(const FieldDescriptor* descriptor)
+	EnumFieldGenerator::EnumFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetEnumVariables(descriptor, &variables_);
 	}
 
-	EnumFieldGenerator::
-	~EnumFieldGenerator() { }
+	EnumFieldGenerator::~EnumFieldGenerator() { }
 
-	void EnumFieldGenerator::
-	GenerateAccessorDeclarations(io::Printer* printer) const {
+	void EnumFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration Get_$name$
-	  printer->Print(variables_,"function Get_$name$ (The_Message : in Instance) return $type$;\n");
+	  printer->Print(variables_,"function Get_$name$ (The_Message : in $packagename$.Instance) return $type$;\n");
 
 	  // Generate declaration Set_$name$
-	  printer->Print(variables_,"procedure Set_$name$ (The_Message : in out Instance; Value : in $type$);\n");
-
+	  printer->Print(variables_, "procedure Set_$name$\n");
+	  printer->Print(variables_, "   (The_Message : in out $packagename$.Instance;\n");
+	  printer->Print(variables_, "    Value       : in $type$);\n");
 	}
 
 	void EnumFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for $name$
-	  printer->Print(variables_,"function Get_$name$ (The_Message : in Instance) return $type$ is\n");
+	  printer->Print(variables_,"function Get_$name$ (The_Message : in $packagename$.Instance) return $type$ is\n");
 	  printer->Print(variables_,"begin\n");
 	  printer->Print(variables_,"   return The_Message.$name$;\n");
 	  printer->Print(variables_,"end Get_$name$;\n\n");
 
 	  // Generate body for Set_$name$
-	  printer->Print(variables_, "procedure Set_$name$ (The_Message : in out Instance; Value : in $type$) is\n");
+	  printer->Print(variables_, "procedure Set_$name$ (The_Message : in out $packagename$.Instance;\n");
+	  printer->Print(variables_, "                      Value       : in $type$) is\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   Set_Has_$name$ (The_Message);\n");
-          printer->Print(variables_, "   The_Message.$name$ := Value;\n");
+	  printer->Print(variables_, "   The_Message.$name$ := Value;\n");
 	  printer->Print(variables_, "end Set_$name$;\n");
 	}
 
 	void EnumFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
-	  printer->Print(variables_,"The_Message.$name$ := $type$'($prefix$$default$);\n");
+	  printer->Print(variables_, "The_Message.$name$ := $type$'($prefix$$default$);\n");
 	}
 
 	void EnumFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
-	  printer->Print(variables_,"$name$ : $type$ := $type$'($prefix$$default$);\n");
+	  printer->Print(variables_, "$name$ : $type$ := $type$'($prefix$$default$);\n");
 	}
 
 	void EnumFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
-	  printer->Print(variables_,"Protocol_Buffers.IO.Coded_Output_Stream.Write_Integer_32 (The_Coded_Output_Stream, $number$, $prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
+	  printer->Print(variables_, "Protocol_Buffers.IO.Coded_Output_Stream.Write_Integer_32 (The_Coded_Output_Stream, $number$, $prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
 	}
 
 	void EnumFieldGenerator::GenerateByteSize(io::Printer* printer) const {
-	  printer->Print(variables_,"Total_Size := Total_Size + $tag_size$ + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag ($prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
+	  printer->Print(variables_, "Total_Size := Total_Size + $tag_size$ + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag ($prefix$Enumeration_To_PB_Int32(The_Message.$name$));\n");
 	}
 
 	void EnumFieldGenerator::GenerateMergeFromCodedInputStream(io::Printer* printer) const {
-	  printer->Print(variables_,"The_Message.$name$ := $prefix$PB_Int32_To_Enumeration (The_Coded_Input_Stream.Read_Integer_32);\n");
-	  printer->Print(variables_,"The_Message.Set_Has_$name$;\n");
+	  printer->Print(variables_, "The_Message.$name$ := $prefix$PB_Int32_To_Enumeration (The_Coded_Input_Stream.Read_Integer_32);\n");
+	  printer->Print(variables_, "The_Message.Set_Has_$name$;\n");
 	}
 
 	void EnumFieldGenerator::GenerateMergingCode(io::Printer* printer) const {
@@ -137,59 +150,66 @@ namespace google {
 
 	// ===================================================================
 
-	RepeatedEnumFieldGenerator::RepeatedEnumFieldGenerator(const FieldDescriptor* descriptor)
+	RepeatedEnumFieldGenerator:: RepeatedEnumFieldGenerator(const FieldDescriptor* descriptor)
 	: descriptor_(descriptor) {
 	  SetEnumVariables(descriptor, &variables_);
 	}
 
 	RepeatedEnumFieldGenerator::~RepeatedEnumFieldGenerator() { }
 
-	void RepeatedEnumFieldGenerator::GenerateAccessorDeclarations(io::Printer* printer) const {
+	void RepeatedEnumFieldGenerator::
+	GenerateAccessorDeclarations(io::Printer* printer) const {
 	  // Generate declaration for Get_$name$
 	  // TODO: change index type?
-	  printer->Print(variables_,"function Get_$name$ (The_Message : in Instance;\n");
-          printer->Print(variables_,"                     Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$;\n");
+	  printer->Print(variables_, "function Get_$name$\n");
+	  printer->Print(variables_, "   (The_Message : in $packagename$.Instance;\n");
+	  printer->Print(variables_, "    Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$;\n");
 
 	  // Generate declaration for Set_$name$
 	  // TODO: change index type?
-	  printer->Print(variables_,"procedure Set_$name$ (The_Message : in out Instance;\n");
-	  printer->Print(variables_,"                      Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
-	  printer->Print(variables_,"                      Value       : in $type$);\n");
-	  printer->Outdent();
+	  printer->Print(variables_, "procedure Set_$name$ (The_Message : in out $packagename$.Instance;\n");
+	  printer->Print(variables_, "                      Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	  printer->Print(variables_, "                      Value       : in $type$);\n");
 
 	  // Generate declaration for Add_$name$
 	  // TODO: change index type?
-	  printer->Print(variables_,"procedure Add_$name$ (The_Message : in out Instance; Value : in $type$);\n");
+	  printer->Print(variables_,"procedure Add_$name$\n");
+	  printer->Print(variables_, "   (The_Message : in out $packagename$.Instance;\n");
+	  printer->Print(variables_, "    Value       : in $type$);\n");
 	}
 
 	void RepeatedEnumFieldGenerator::GenerateAccessorDefinitions(io::Printer* printer) const {
 	  // Generate body for Get_$name$
 	  // TODO: change index type?
-	  printer->Print(variables_, "function Get_$name$ (The_Message : in Instance;\n");
-	  printer->Print(variables_, "                     Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$ is\n");
+	  printer->Print(variables_, "function Get_$name$\n");
+	  printer->Print(variables_, "   (The_Message : in $packagename$.Instance;\n");
+	  printer->Print(variables_, "    Index : in Protocol_Buffers.Wire_Format.PB_Object_Size) return $type$ is\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   return $prefix$PB_Int32_To_Enumeration(The_Message.$name$.Element (Index));\n");
 	  printer->Print(variables_, "end Get_$name$;\n\n");
 
 	  // Generate body for Set_$name$
 	  // TODO: change index type?
-	  printer->Print(variables_, "procedure Set_$name$ (The_Message : in out Instance;\n");
-	  printer->Print(variables_, "                      Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
-	  printer->Print(variables_, "                      Value       : in $type$) is\n");
+	  printer->Print(variables_, "procedure Set_$name$\n");
+	  printer->Print(variables_, "   (The_Message : in out $packagename$.Instance;\n");
+	  printer->Print(variables_, "    Index       : in Protocol_Buffers.Wire_Format.PB_Object_Size;\n");
+	  printer->Print(variables_, "    Value       : in $type$) is\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   The_Message.$name$.Replace_Element (Index, $prefix$Enumeration_To_PB_Int32(Value));\n");
 	  printer->Print(variables_, "end Set_$name$;\n\n");
 
 	  // Generate body for Add_$name$
 	  // TODO: change index type?
-	  printer->Print(variables_, "procedure Add_$name$ (The_Message : in out Instance; Value : in $type$) is\n");
+	  printer->Print(variables_, "procedure Add_$name$\n");
+	  printer->Print(variables_, "   (The_Message : in out $packagename$.Instance;\n");
+	  printer->Print(variables_, "    Value       : in $type$) is\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   The_Message.$name$.Append ($prefix$Enumeration_To_PB_Int32 (Value));\n");
 	  printer->Print(variables_, "end Add_$name$;\n");
 	}
 
 	void RepeatedEnumFieldGenerator::GenerateClearingCode(io::Printer* printer) const {
-	  printer->Print(variables_,"The_Message.$name$.Clear;\n");
+	  printer->Print(variables_, "The_Message.$name$.Clear;\n");
 	}
 
 	void RepeatedEnumFieldGenerator::GenerateRecordComponentDeclaration(io::Printer* printer) const {
@@ -203,17 +223,17 @@ namespace google {
 	void RepeatedEnumFieldGenerator::GenerateSerializeWithCachedSizes(io::Printer* printer) const {
 	  if (descriptor_->options().packed()) {
 	    // Write the tag and the size.
-	    printer->Print(variables_,"if The_Message.$name$_Size > 0 then\n");
-	    printer->Print(variables_,"   The_Coded_Output_Stream.Write_Tag ($number$, Protocol_Buffers.Wire_Format.LENGTH_DELIMITED);\n");
-	    printer->Print(variables_,"   The_Coded_Output_Stream.Write_Raw_Varint_32 (Protocol_Buffers.Wire_Format.PB_UInt32( The_Message.$name$_Cached_Byte_Size));\n");
-	    printer->Print(variables_,"end if;\n");
+	    printer->Print(variables_, "if The_Message.$name$_Size > 0 then\n");
+	    printer->Print(variables_, "   The_Coded_Output_Stream.Write_Tag ($number$, Protocol_Buffers.Wire_Format.LENGTH_DELIMITED);\n");
+	    printer->Print(variables_, "   The_Coded_Output_Stream.Write_Raw_Varint_32 (Protocol_Buffers.Wire_Format.PB_UInt32(The_Message.$name$_Cached_Byte_Size));\n");
+	    printer->Print(variables_, "end if;\n");
 	  }
 
 	  printer->Print(variables_, "for E of The_Message.$name$ loop\n");
 	  if (descriptor_->options().packed()) {
-	    printer->Print(variables_,"   The_Coded_Output_Stream.Write_Integer_32_No_Tag (E);\n");
+	    printer->Print(variables_, "   The_Coded_Output_Stream.Write_Integer_32_No_Tag (E);\n");
 	  } else {
-	    printer->Print(variables_,"   The_Coded_Output_Stream.Write_Integer_32 ($number$, E);\n");
+	    printer->Print(variables_, "   The_Coded_Output_Stream.Write_Integer_32 ($number$, E);\n");
 	  }
 	  printer->Print(variables_, "end loop;\n");
 	}
@@ -226,13 +246,13 @@ namespace google {
 	  printer->Print(variables_, "      Data_Size := Data_Size + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag (E);\n");
 	  printer->Print(variables_, "   end loop;\n");
 	  if (descriptor_->options().packed()) {
-	    printer->Print(variables_, "   if Data_Size > 0 then\n");
-	    printer->Print(variables_, "      Total_Size := Total_Size + $tag_size$ + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag (Protocol_Buffers.Wire_Format.PB_Int32 (Data_Size));\n");
-	    printer->Print(variables_, "   end if;\n");
-	    printer->Print(variables_, "   The_Message.$name$_Cached_Byte_Size := Data_Size;\n");
-            printer->Print(variables_, "   Total_Size := Total_Size + Data_Size;\n");
+	    printer->Print(variables_,"   if Data_Size > 0 then\n");
+	    printer->Print(variables_,"      Total_Size := Total_Size + $tag_size$ + Protocol_Buffers.IO.Coded_Output_Stream.Compute_Integer_32_Size_No_Tag (Protocol_Buffers.Wire_Format.PB_Int32 (Data_Size));\n");
+	    printer->Print(variables_,"   end if;\n");
+	    printer->Print(variables_,"   The_Message.$name$_Cached_Byte_Size := Data_Size;\n");
+	    printer->Print(variables_,"   Total_Size := Total_Size + Data_Size;\n");
 	  } else {
-	    printer->Print(variables_, "   Total_Size := Total_Size + $tag_size$ * The_Message.$name$_Size + Data_Size;\n");
+	    printer->Print(variables_,"   Total_Size := Total_Size + $tag_size$ * The_Message.$name$_Size + Data_Size;\n");
 	  }
 	  printer->Print(variables_, "end;\n");
 	}
@@ -251,8 +271,8 @@ namespace google {
 	  //       Coded_Input_Stream is also of this type ...
 	  printer->Print(variables_, "declare\n");
 	  printer->Print(variables_, "   use type Ada.Streams.Stream_Element_Offset;\n");
-	  printer->Print(variables_, "   Length : Protocol_Buffers.Wire_Format.PB_UInt32 :=  The_Coded_Input_Stream.Read_Raw_Varint_32;\n");
-	  printer->Print(variables_, "   Limit : Ada.Streams.Stream_Element_Offset :=  The_Coded_Input_Stream.Push_Limit (Ada.Streams.Stream_Element_Offset (Length));\n");
+	  printer->Print(variables_, "   Length : Protocol_Buffers.Wire_Format.PB_UInt32 := The_Coded_Input_Stream.Read_Raw_Varint_32;\n");
+	  printer->Print(variables_, "   Limit  : Ada.Streams.Stream_Element_Offset := The_Coded_Input_Stream.Push_Limit (Ada.Streams.Stream_Element_Offset (Length));\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   while The_Coded_Input_Stream.Get_Bytes_Until_Limit > 0 loop\n");
 	  printer->Print(variables_, "      The_Message.$name$.append (The_Coded_Input_Stream.Read_$declared_type$);\n");

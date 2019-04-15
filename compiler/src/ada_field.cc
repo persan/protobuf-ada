@@ -46,72 +46,72 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-        void SetCommonFieldVariables(const FieldDescriptor* descriptor,
-                                     map<string, string>* variables) {
-          (*variables)["name"] = FieldName(descriptor);
-          (*variables)["index"] = SimpleItoa(descriptor->index());
-          (*variables)["number"] = SimpleItoa(descriptor->number());
-          (*variables)["packagename"] = AdaPackageName(FieldScope(descriptor));
-          (*variables)["declared_type"] = DeclaredTypePrimitiveOperationName(descriptor->type());
-          (*variables)["tag_size"] = SimpleItoa(
-                                                internal::WireFormat::TagSize(descriptor->number(), descriptor->type()));
-        }
+	void SetCommonFieldVariables(const FieldDescriptor* descriptor,
+				     map<string, string>* variables) {
+	  (*variables)["name"] = FieldName(descriptor);
+	  (*variables)["index"] = SimpleItoa(descriptor->index());
+	  (*variables)["number"] = SimpleItoa(descriptor->number());
+	  (*variables)["packagename"] = AdaPackageName(FieldScope(descriptor));
+	  (*variables)["declared_type"] = DeclaredTypePrimitiveOperationName(descriptor->type());
+	  (*variables)["tag_size"] = SimpleItoa(internal::WireFormat::TagSize(descriptor->number(), descriptor->type()));
+	}
 
-        FieldGenerator::~FieldGenerator() {}
+	FieldGenerator::~FieldGenerator() {}
 
 
-        FieldGeneratorMap::FieldGeneratorMap(const Descriptor* descriptor)
-        : descriptor_(descriptor),
-        field_generators_(new scoped_ptr<FieldGenerator>[descriptor->field_count()]) {
-          // Construct all the FieldGenerators.
-          for (int i = 0; i < descriptor->field_count(); i++) {
-            field_generators_[i].reset(MakeGenerator(descriptor->field(i)));
-          }
-        }
+	FieldGeneratorMap::FieldGeneratorMap(const Descriptor* descriptor)
+	: descriptor_(descriptor),
+	field_generators_(new scoped_ptr<FieldGenerator>[descriptor->field_count()]) {
+	  // Construct all the FieldGenerators.
+	  for (int i = 0; i < descriptor->field_count(); i++) {
+	    field_generators_[i].reset(MakeGenerator(descriptor->field(i)));
+	  }
+	}
 
-        void FieldGenerator::GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const {
-          // Reaching here indicates a bug. Cases are:
-          //   - This FieldGenerator should support packing, but this method should be
-          //     overridden.
-          //   - This FieldGenerator doesn't support packing, and this method should
-          //     never have been called.
-          GOOGLE_LOG(FATAL) << "GenerateMergeFromCodedStreamWithPacking() "
-          << "called on field generator that does not support packing.";
+	void FieldGenerator::GenerateMergeFromCodedInputStreamWithPacking(io::Printer* printer) const {
+	  // Reaching here indicates a bug. Cases are:
+	  //   - This FieldGenerator should support packing, but this method should be
+	  //     overridden.
+	  //   - This FieldGenerator doesn't support packing, and this method should
+	  //     never have been called.
+	  GOOGLE_LOG(FATAL) << "GenerateMergeFromCodedStreamWithPacking() "
+	  << "called on field generator that does not support packing.";
 
-        }
+	}
 
-        FieldGenerator* FieldGeneratorMap::MakeGenerator(const FieldDescriptor* field) {
-          if (field->is_repeated()) {
-            switch (GetAdaType(field)) {
-              case ADATYPE_MESSAGE:
-                return new RepeatedMessageFieldGenerator(field);
-              case ADATYPE_ENUM:
-                return new RepeatedEnumFieldGenerator(field);
-              case ADATYPE_STRING:
-                return new RepeatedStringFieldGenerator(field);
-              default:
-                return new RepeatedPrimitiveFieldGenerator(field);
-            }
-          } else {
-            switch (GetAdaType(field)) {
-              case ADATYPE_MESSAGE:
-                return new MessageFieldGenerator(field);
-              case ADATYPE_ENUM:
-                return new EnumFieldGenerator(field);
-              case ADATYPE_STRING:
-                return new StringFieldGenerator(field);
-              default:
-                return new PrimitiveFieldGenerator(field);
-            }
-          }
-        }
+	FieldGenerator* FieldGeneratorMap::MakeGenerator(const FieldDescriptor* field) {
+	  if (field->is_repeated()) {
+	    switch (GetAdaType(field)) {
+	      case ADATYPE_MESSAGE:
+		return new RepeatedMessageFieldGenerator(field);
+	      case ADATYPE_ENUM:
+		return new RepeatedEnumFieldGenerator(field);
+	      case ADATYPE_STRING:
+		return new RepeatedStringFieldGenerator(field);
+	      default:
+		return new RepeatedPrimitiveFieldGenerator(field);
+	    }
+	  } else {
+	    switch (GetAdaType(field)) {
+	      case ADATYPE_MESSAGE:
+		return new MessageFieldGenerator(field);
+	      case ADATYPE_ENUM:
+		return new EnumFieldGenerator(field);
+	      case ADATYPE_STRING:
+		return new StringFieldGenerator(field);
+	      default:
+		return new PrimitiveFieldGenerator(field);
+	    }
+	  }
+	}
 
-        FieldGeneratorMap::~FieldGeneratorMap() {}
+	FieldGeneratorMap::~FieldGeneratorMap() {}
 
-        const FieldGenerator& FieldGeneratorMap::get(const FieldDescriptor* field) const {
-          GOOGLE_CHECK_EQ(field->containing_type(), descriptor_);
-          return *field_generators_[field->index()];
-        }
+	const FieldGenerator& FieldGeneratorMap::
+	get(const FieldDescriptor* field) const {
+	  GOOGLE_CHECK_EQ(field->containing_type(), descriptor_);
+	  return *field_generators_[field->index()];
+	}
 
       } // namespace ada
     } // namespace compiler

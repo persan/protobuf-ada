@@ -2,6 +2,7 @@ pragma Ada_2012;
 
 with Protocol_Buffers.Wire_Format;
 with Ada.Streams;
+with System;
 
 limited with Protocol_Buffers.Message;
 
@@ -16,6 +17,10 @@ package Protocol_Buffers.IO.Coded_Output_Stream is
 
    TMP_LITTLE_ENDIAN_32_SIZE : constant := 4;
    TMP_LITTLE_ENDIAN_64_SIZE : constant := 8;
+
+   Big_Endian : constant Boolean := System. "=" (System.Default_Bit_Order, System.High_Order_First);
+
+   --Big_Endian_Not_Implemented : exception;
 
    -- Consider replacing this use clause???
    use Protocol_Buffers.Wire_Format;

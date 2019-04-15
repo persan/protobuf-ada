@@ -10,8 +10,7 @@ def ListPeople(address_book):
   for person in address_book.person:
     print "Person ID:", person.id
     print "  Name:", person.name
-    if person.HasField('email'):
-      print "  E-mail address:", person.email
+    print "  E-mail address:", person.email
 
     for phone_number in person.phone:
       if phone_number.type == addressbook_pb2.Person.MOBILE:
@@ -24,15 +23,16 @@ def ListPeople(address_book):
 
 # Main procedure:  Reads the entire address book from a file and prints all
 #   the information inside.
-if len(sys.argv) != 2:
-  print "Usage:", sys.argv[0], "ADDRESS_BOOK_FILE"
-  sys.exit(-1)
 
 address_book = addressbook_pb2.AddressBook()
+if len(sys.argv) == 2:
+	with open(sys.argv[1], "rb") as f:
+		address_book.ParseFromString(f.read())
+else:
+	with open("ADDRESS_BOOK_FILE", "rb") as f:
+		address_book.ParseFromString(f.read())
+
 
 # Read the existing address book.
-f = open(sys.argv[1], "rb")
-address_book.ParseFromString(f.read())
-f.close()
 
 ListPeople(address_book)

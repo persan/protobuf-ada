@@ -140,6 +140,7 @@ namespace google {
 	  string ada_package_type_;
 	  FieldGeneratorMap field_generators_;
 	  set<string> package_dependencies_;
+	  set<string> enum_package_dependencies_;
 
 	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(MessageGenerator);
 	};

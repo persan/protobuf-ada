@@ -2,6 +2,7 @@ pragma Ada_2012;
 
 with Protocol_Buffers.Wire_Format;
 with Ada.Streams;
+with System;
 
 limited with Protocol_Buffers.Message;
 
@@ -100,6 +101,10 @@ private
    BUFFER_SIZE : constant := 4096;
    DEFAULT_RECURSION_LIMIT : constant := 64;
    DEFAULT_SIZE_LIMIT : constant := 2 ** 26; -- 64 MB
+
+   Big_Endian : constant Boolean := System. "=" (System.Default_Bit_Order, System.High_Order_First);
+
+   --Big_Endian_Not_Implemented : exception;
 
    -- Temporary types. Consider changing types??? Allow user to change defaults ...
    type Instance (Input_Stream : Root_Stream_Access) is tagged

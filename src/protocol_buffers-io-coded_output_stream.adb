@@ -3,6 +3,7 @@ pragma Ada_2012;
 with Ada.Unchecked_Conversion;
 with Protocol_Buffers.Message;
 with Interfaces;
+with Gnat.Byte_Swapping;
 
 package body Protocol_Buffers.IO.Coded_Output_Stream is
 
@@ -958,8 +959,16 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
      (This                    : in Coded_Output_Stream.Instance;
       Value                   : in PB_UInt32)
    is
+      Value_Copy : Pb_Uint32 := Value;
    begin
-      PB_UInt32'Write (This.Output_Stream, Value);
+      if Big_Endian then
+         -- If we are on a big endian system like PowerPC, do something here
+         --raise Big_Endian_Not_Implemented;
+         Gnat.Byte_Swapping.Swap4 (Value_Copy'Address);
+         Pb_Uint32'Write (This.Output_Stream, Value_Copy);
+      else
+         Pb_Uint32'Write (This.Output_Stream, Value);
+      end if;
    end Write_Raw_Little_Endian_32;
 
    --------------------------------
@@ -970,8 +979,16 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
      (This                    : in Coded_Output_Stream.Instance;
       Value                   : in PB_UInt64)
    is
+      Value_Copy : Pb_Uint64 := Value;
    begin
-      PB_UInt64'Write (This.Output_Stream, Value);
+      if Big_Endian then
+         -- If we are on a big endian system like PowerPC, do something here
+         --raise Big_Endian_Not_Implemented;
+         Gnat.Byte_Swapping.Swap8 (Value_Copy'Address);
+         Pb_Uint64'Write (This.Output_Stream, Value_Copy);
+      else
+         Pb_Uint64'Write (This.Output_Stream, Value);
+      end if;
    end Write_Raw_Little_Endian_64;
 
    -------------------------
@@ -983,8 +1000,10 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
       Value                   : in PB_UInt32)
    is
       Value_To_Unsigned_32 : Interfaces.Unsigned_32 := Interfaces.Unsigned_32 (Value);
+      pragma Warnings (Off, "types for unchecked conversion have different sizes");
       function Unsigned_32_To_PB_Byte is new Ada.Unchecked_Conversion (Source => Interfaces.Unsigned_32,
                                                                        Target => PB_Byte);
+      pragma Warnings (On, "types for unchecked conversion have different sizes");
       use type Interfaces.Unsigned_32;
    begin
       loop
@@ -1008,8 +1027,10 @@ package body Protocol_Buffers.IO.Coded_Output_Stream is
       Value                   : in PB_UInt64)
    is
       Value_To_Unsigned_64 : Interfaces.Unsigned_64 := Interfaces.Unsigned_64 (Value);
+      pragma Warnings (Off, "types for unchecked conversion have different sizes");
       function Unsigned_64_To_PB_Byte is new Ada.Unchecked_Conversion (Source => Interfaces.Unsigned_64,
                                                                        Target => PB_Byte);
+      pragma Warnings (On, "types for unchecked conversion have different sizes");
       use type Interfaces.Unsigned_64;
    begin
       loop

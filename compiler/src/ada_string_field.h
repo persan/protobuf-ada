@@ -46,51 +46,51 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-        class StringFieldGenerator : public FieldGenerator {
-          public:
-          explicit StringFieldGenerator(const FieldDescriptor* descriptor);
-          ~StringFieldGenerator();
+	class StringFieldGenerator : public FieldGenerator {
+	  public:
+	  explicit StringFieldGenerator(const FieldDescriptor* descriptor);
+	  ~StringFieldGenerator();
 
-          // implements FieldGenerator ---------------------------------------
-          void GenerateAccessorDeclarations(io::Printer* printer) const;
-          void GenerateAccessorDefinitions(io::Printer* printer) const;
-          void GenerateClearingCode(io::Printer* printer) const;
-          void GenerateRecordComponentDeclaration(io::Printer* printer) const;
-          void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
-          void GenerateByteSize(io::Printer* printer) const;
-          void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
-          void GenerateMergingCode(io::Printer* printer) const;
-          void GenerateStaticDefaults(io::Printer* printer) const;
-          void GenerateFinalizationCode(io::Printer* printer) const;
-          private:
-          const FieldDescriptor* descriptor_;
-          map<string, string> variables_;
+	  // implements FieldGenerator ---------------------------------------
+	  void GenerateAccessorDeclarations(io::Printer* printer) const;
+	  void GenerateAccessorDefinitions(io::Printer* printer) const;
+	  void GenerateClearingCode(io::Printer* printer) const;
+	  void GenerateRecordComponentDeclaration(io::Printer* printer) const;
+	  void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
+	  void GenerateByteSize(io::Printer* printer) const;
+	  void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
+	  void GenerateMergingCode(io::Printer* printer) const;
+	  void GenerateStaticDefaults(io::Printer* printer) const;
+	  void GenerateFinalizationCode(io::Printer* printer) const;
+	  private:
+	  const FieldDescriptor* descriptor_;
+	  map<string, string> variables_;
 
-          GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(StringFieldGenerator);
-        };
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(StringFieldGenerator);
+	};
 
-        class RepeatedStringFieldGenerator : public FieldGenerator {
-          public:
-          explicit RepeatedStringFieldGenerator(const FieldDescriptor* descriptor);
-          ~RepeatedStringFieldGenerator();
+	class RepeatedStringFieldGenerator : public FieldGenerator {
+	  public:
+	  explicit RepeatedStringFieldGenerator(const FieldDescriptor* descriptor);
+	  ~RepeatedStringFieldGenerator();
 
-          // implements FieldGenerator ---------------------------------------
-          void GenerateAccessorDeclarations(io::Printer* printer) const;
-          void GenerateAccessorDefinitions(io::Printer* printer) const;
-          void GenerateClearingCode(io::Printer* printer) const;
-          void GenerateRecordComponentDeclaration(io::Printer* printer) const;
-          void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
-          void GenerateByteSize(io::Printer* printer) const;
-          void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
-          void GenerateMergingCode(io::Printer* printer) const;
-          void GenerateStaticDefaults(io::Printer* printer) const;
-          void GenerateFinalizationCode(io::Printer* printer) const;
-          private:
-          const FieldDescriptor* descriptor_;
-          map<string, string> variables_;
+	  // implements FieldGenerator ---------------------------------------
+	  void GenerateAccessorDeclarations(io::Printer* printer) const;
+	  void GenerateAccessorDefinitions(io::Printer* printer) const;
+	  void GenerateClearingCode(io::Printer* printer) const;
+	  void GenerateRecordComponentDeclaration(io::Printer* printer) const;
+	  void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
+	  void GenerateByteSize(io::Printer* printer) const;
+	  void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
+	  void GenerateMergingCode(io::Printer* printer) const;
+	  void GenerateStaticDefaults(io::Printer* printer) const;
+	  void GenerateFinalizationCode(io::Printer* printer) const;
+	  private:
+	  const FieldDescriptor* descriptor_;
+	  map<string, string> variables_;
 
-          GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(RepeatedStringFieldGenerator);
-        };
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(RepeatedStringFieldGenerator);
+	};
 
       } // namespace java
     } // namespace compiler

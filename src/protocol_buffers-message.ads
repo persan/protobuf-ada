@@ -1,12 +1,12 @@
 pragma Ada_2012;
 
-with Ada.Streams.Stream_IO;
 with Protocol_Buffers.IO.Coded_Output_Stream;
 with Protocol_Buffers.IO.Coded_Input_Stream;
 with Protocol_Buffers.Wire_Format;
 with Ada.Unchecked_Deallocation;
 with Ada.Finalization;
 with Ada.Containers.Vectors;
+with Ada.Streams;
 
 package Protocol_Buffers.Message is
    type Instance is abstract new Ada.Finalization.Controlled with null record;

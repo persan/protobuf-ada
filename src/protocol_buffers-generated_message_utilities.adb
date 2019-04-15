@@ -43,6 +43,7 @@ package body Protocol_Buffers.Generated_Message_Utilities is
    is
       use type Protocol_Buffers.Wire_Format.PB_Float;
 
+      --Do not change the below to "const"!
       Zero  : Protocol_Buffers.Wire_Format.PB_Float := 0.0;
       A_NaN : Protocol_Buffers.Wire_Format.PB_Float := 0.0;
    begin
@@ -93,6 +94,7 @@ package body Protocol_Buffers.Generated_Message_Utilities is
    is
       use type Protocol_Buffers.Wire_Format.PB_Double;
 
+      --Do not change the below to "const"!
       Zero  : Protocol_Buffers.Wire_Format.PB_Double := 0.0;
       A_NaN : Protocol_Buffers.Wire_Format.PB_Double := 0.0;
    begin

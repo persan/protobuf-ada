@@ -45,51 +45,51 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-        class MessageFieldGenerator : public FieldGenerator {
-          public:
-          explicit MessageFieldGenerator(const FieldDescriptor* descriptor);
-          ~MessageFieldGenerator();
+	class MessageFieldGenerator : public FieldGenerator {
+	  public:
+	  explicit MessageFieldGenerator(const FieldDescriptor* descriptor);
+	  ~MessageFieldGenerator();
 
-          // implements FieldGenerator ---------------------------------------
-          void GenerateAccessorDeclarations(io::Printer* printer) const;
-          void GenerateAccessorDefinitions(io::Printer* printer) const;
-          void GenerateClearingCode(io::Printer* printer) const;
-          void GenerateRecordComponentDeclaration(io::Printer* printer) const;
-          void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
-          void GenerateByteSize(io::Printer* printer) const;
-          void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
-          void GenerateMergingCode(io::Printer* printer) const;
-          void GenerateStaticDefaults(io::Printer* printer) const;
-          void GenerateFinalizationCode(io::Printer* pinter) const;
-          private:
-          const FieldDescriptor* descriptor_;
-          map<string, string> variables_;
+	  // implements FieldGenerator ---------------------------------------
+	  void GenerateAccessorDeclarations(io::Printer* printer) const;
+	  void GenerateAccessorDefinitions(io::Printer* printer) const;
+	  void GenerateClearingCode(io::Printer* printer) const;
+	  void GenerateRecordComponentDeclaration(io::Printer* printer) const;
+	  void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
+	  void GenerateByteSize(io::Printer* printer) const;
+	  void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
+	  void GenerateMergingCode(io::Printer* printer) const;
+	  void GenerateStaticDefaults(io::Printer* printer) const;
+	  void GenerateFinalizationCode(io::Printer* pinter) const;
+	  private:
+	  const FieldDescriptor* descriptor_;
+	  map<string, string> variables_;
 
-          GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(MessageFieldGenerator);
-        };
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(MessageFieldGenerator);
+	};
 
-        class RepeatedMessageFieldGenerator : public FieldGenerator {
-          public:
-          explicit RepeatedMessageFieldGenerator(const FieldDescriptor* descriptor);
-          ~RepeatedMessageFieldGenerator();
+	class RepeatedMessageFieldGenerator : public FieldGenerator {
+	  public:
+	  explicit RepeatedMessageFieldGenerator(const FieldDescriptor* descriptor);
+	  ~RepeatedMessageFieldGenerator();
 
-          // implements FieldGenerator ---------------------------------------
-          void GenerateAccessorDeclarations(io::Printer* printer) const;
-          void GenerateAccessorDefinitions(io::Printer* printer) const;
-          void GenerateClearingCode(io::Printer* printer) const;
-          void GenerateRecordComponentDeclaration(io::Printer* printer) const;
-          void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
-          void GenerateByteSize(io::Printer* printer) const;
-          void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
-          void GenerateMergingCode(io::Printer* printer) const;
-          void GenerateStaticDefaults(io::Printer* printer) const;
-          void GenerateFinalizationCode(io::Printer* pinter) const;
-          private:
-          const FieldDescriptor* descriptor_;
-          map<string, string> variables_;
+	  // implements FieldGenerator ---------------------------------------
+	  void GenerateAccessorDeclarations(io::Printer* printer) const;
+	  void GenerateAccessorDefinitions(io::Printer* printer) const;
+	  void GenerateClearingCode(io::Printer* printer) const;
+	  void GenerateRecordComponentDeclaration(io::Printer* printer) const;
+	  void GenerateSerializeWithCachedSizes(io::Printer* printer) const;
+	  void GenerateByteSize(io::Printer* printer) const;
+	  void GenerateMergeFromCodedInputStream(io::Printer* printer) const;
+	  void GenerateMergingCode(io::Printer* printer) const;
+	  void GenerateStaticDefaults(io::Printer* printer) const;
+	  void GenerateFinalizationCode(io::Printer* pinter) const;
+	  private:
+	  const FieldDescriptor* descriptor_;
+	  map<string, string> variables_;
 
-          GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(RepeatedMessageFieldGenerator);
-        };
+	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(RepeatedMessageFieldGenerator);
+	};
 
       } // namespace ada
     } // namespace compiler

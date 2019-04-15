@@ -167,13 +167,25 @@ package body Protocol_Buffers.IO.Coded_Input_Stream is
 
       use type PB_UInt32;
    begin
-      Value := PB_UInt32 (Byte_4);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt32 (Byte_3);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt32 (Byte_2);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt32 (Byte_1);
+      if Big_Endian then
+         -- If we are on a big endian system like PowerPC, do something here
+         --raise Big_Endian_Not_Implemented;
+         Value := Pb_Uint32 (Byte_1);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint32 (Byte_2);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint32 (Byte_3);
+         Value := Shift_Left (Value, 8);
+         Value := Value or PB_UInt32 (Byte_4);
+      else
+         Value := Pb_Uint32 (Byte_4);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint32 (Byte_3);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint32 (Byte_2);
+         Value := Shift_Left (Value, 8);
+         Value := Value or PB_UInt32 (Byte_1);
+      end if;
       return Value;
    end Read_Raw_Little_Endian_32;
 
@@ -197,21 +209,41 @@ package body Protocol_Buffers.IO.Coded_Input_Stream is
 
       use type PB_UInt64;
    begin
-      Value := PB_UInt64 (Byte_8);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt64 (Byte_7);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt64 (Byte_6);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt64 (Byte_5);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt64 (Byte_4);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt64 (Byte_3);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt64 (Byte_2);
-      Value := Shift_Left (Value, 8);
-      Value := Value or PB_UInt64 (Byte_1);
+      if Big_Endian then
+         -- If we are on a big endian system like PowerPC, do something here
+         --raise Big_Endian_Not_Implemented;
+         Value := Pb_Uint64 (Byte_1);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_2);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_3);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_4);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_5);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_6);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_7);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_8);
+      else
+         Value := Pb_Uint64 (Byte_8);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_7);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_6);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_5);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_4);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_3);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_2);
+         Value := Shift_Left (Value, 8);
+         Value := Value or Pb_Uint64 (Byte_1);
+      end if;
       return Value;
    end Read_Raw_Little_Endian_64;
 
@@ -383,7 +415,7 @@ package body Protocol_Buffers.IO.Coded_Input_Stream is
          -- Fast Path : We already have the bytes in a contiguous buffer, so
          --  just copy directly from it.
          declare
-            Result : PB_String_Access :=
+            Result : constant PB_String_Access :=
                        new PB_String'(Convert (
                                       This.Buffer
                                         (This.Buffer_Position .. This.Buffer_Position + Size - 1)));
@@ -555,7 +587,7 @@ package body Protocol_Buffers.IO.Coded_Input_Stream is
      (This                   : in out Coded_Input_Stream.Instance;
       Limit                  : in Stream_Element_Count) return Stream_Element_Count
    is
-      Old_Limit : Stream_Element_Count := This.Size_Limit;
+      Old_Limit : constant Stream_Element_Count := This.Size_Limit;
    begin
       This.Size_Limit := Limit;
       return Old_Limit;
@@ -683,7 +715,7 @@ package body Protocol_Buffers.IO.Coded_Input_Stream is
       begin
          This.Input_Stream.Read (This.Buffer, Last);
          -- Check for end of stream
-         if This.Buffer'First - 1 = Last then
+         if Last < This.Buffer'First then
             This.Buffer_Size := 0;
             if Must_Succeed then
                Invalid_Protocol_Buffer_Exception.Truncated_Message;

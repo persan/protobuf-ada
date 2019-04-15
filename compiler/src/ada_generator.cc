@@ -49,65 +49,67 @@ namespace google {
     namespace compiler {
       namespace ada {
 
-        AdaGenerator::AdaGenerator() { }
+	AdaGenerator::AdaGenerator() { }
 
-        AdaGenerator::~AdaGenerator() { }
+	AdaGenerator::~AdaGenerator() { }
 
-        bool AdaGenerator::Generate(const FileDescriptor* file,
-                 const string& parameter,
-                 GeneratorContext* context,
-                 string* error) const {
+	bool AdaGenerator::Generate(const FileDescriptor* file,
+				    const string& parameter,
+				    GeneratorContext* context,
+				    string* error) const {
 
-          // -----------------------------------------------------------------
-          // parse generator options
+	  // -----------------------------------------------------------------
+	  // parse generator options
 
-          // Name a file where we will write a list of generated file names, one
-          // per line.
-          string output_list_file;
+	  // Name a file where we will write a list of generated file names, one
+	  // per line.
+	  string output_list_file;
 
-          vector<pair<string, string> > options;
-          ParseGeneratorParameter(parameter, &options);
+	  vector<pair<string, string> > options;
+	  ParseGeneratorParameter(parameter, &options);
 
-          for (unsigned int i = 0; i < options.size(); i++) {
-            if (options[i].first == "output_list_file") {
-              output_list_file = options[i].second;
-            } else {
-              *error = "Unknown generator option: " + options[i].first;
-              return false;
-            }
-          }
+	  for (unsigned long i = 0; i < options.size(); i++) {
+	    if (options[i].first == "output_list_file") {
+	      output_list_file = options[i].second;
+	    } else {
+	      *error = "Unknown generator option: " + options[i].first;
+	      return false;
+	    }
+	  }
 
-          // -----------------------------------------------------------------
+	  // -----------------------------------------------------------------
 
-          FileGenerator file_generator(file);
+	  FileGenerator file_generator(file);
 
-          vector<string> all_files;
-          string ada_filename = file_generator.packagename() + ".ads";
-          LowerString(&ada_filename);
-          all_files.push_back(ada_filename);
+	  vector<string> all_files;
+	  string ada_filename = file_generator.packagename() + ".ads";
+	  LowerString(&ada_filename);
+	  all_files.push_back(ada_filename);
 
-          // Generate specification for parent ada file
-          scoped_ptr<io::ZeroCopyOutputStream> output(
-                                                      context->Open(ada_filename));
-          io::Printer printer(output.get(), '$');
-          file_generator.GenerateSpecification(&printer);
+	  // Generate specification for parent ada file
+	  scoped_ptr<io::ZeroCopyOutputStream> output(context->Open(ada_filename));
+	  io::Printer printer(output.get(), '$');
+	  file_generator.GenerateSpecification(&printer);
 
-          // Generate child package for every message
-          file_generator.GenerateChildPackages("", file_generator.packagename(), context, &all_files);
+	  // Generate child package for every message
+	  file_generator.GenerateChildPackages("",file_generator.packagename(), context, &all_files);
 
-          // Generate output list if requested.
-          if (!output_list_file.empty()) {
-            // Generate output list.  This is just a simple text file placed in a
-            // deterministic location which lists the ada files being generated.
-            scoped_ptr<io::ZeroCopyOutputStream> srclist_raw_output( context->Open(output_list_file));
-            io::Printer srclist_printer(srclist_raw_output.get(), '$');
-            for (unsigned int i = 0; i < all_files.size(); i++) {
-              srclist_printer.Print("$filename$\n", "filename", all_files[i]);
-            }
-          }
+	  // Generate output list if requested.
+	  if (!output_list_file.empty()) {
+	    // Generate output list.  This is just a simple text file placed in a
+	    // deterministic location which lists the ada files being generated.
+	    scoped_ptr<io::ZeroCopyOutputStream> srclist_raw_output(context->Open(output_list_file));
+	    io::Printer srclist_printer(srclist_raw_output.get(), '$');
+	    for (unsigned long i = 0; i < all_files.size(); i++) {
+	      srclist_printer.Print("$filename$\n", "filename", all_files[i]);
+	    }
+	  }
 
-          return true;
-        }
+	  return true;
+	}
+
+
+
       } // namespace ada
     } // namespace compiler
   } // namespace protobuf
