@@ -6,10 +6,11 @@ library project Google.Protobuf is
    for Library_Name use "google-protobuf";
    for Library_Dir use "lib";
    for Object_Dir use ".obj/" & project'Name;
-   for Languages use ("Ada", "C", "Makefile", "Project File","MarkDown");
+   for Languages use ("Ada", "C", "Makefile", "Project File","MarkDown","Text");
 
    package Compiler is
       for Driver ("makefile") use "";
+      for Driver ("Text") use "";
       for Driver ("Project File") use "";
       for Driver ("MarkDown") use "";
       for Switches ("ada") use ("-g", "-O2", "-ffunction-sections", "-gnatQ", "-fdata-sections", "-fPIC", "-gnatf", "-gnatwa");
@@ -23,6 +24,7 @@ library project Google.Protobuf is
       for Body_Suffix ("Project File") use ".gpr";
       for Body_Suffix ("makefile") use ".mk";
       for Body_Suffix ("MarkDown") use ".md";
+      for Body_Suffix ("Text") use ".txt";
       for Implementation_Exceptions ("makefile") use ("Makefile");
    end Naming;
 
