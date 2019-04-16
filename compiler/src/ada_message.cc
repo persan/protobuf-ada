@@ -178,8 +178,6 @@ namespace google {
 		enum_package_dependencies_.insert(full_type_name);
 	      }
 	  }
-	  printer->Print("--  begin read " "only\n");
-	  printer->Print("--  ----------------------------------------------------------------\n");
 	  //Include messages
 	  for (std::set<string>::const_iterator it = package_dependencies_.begin();
 	       it != package_dependencies_.end(); ++it) {
