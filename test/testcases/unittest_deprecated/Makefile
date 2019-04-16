@@ -1,5 +1,9 @@
 all:
-	gprbuild -p -P unittest_deprecated.gpr -XGENERATE=True
-	gprbuild -p -P unittest_deprecated.gpr
+	${MAKE} clean
+	@touch FAIL
+	gprbuild -p -j0 -XGENERATE=True
+	gprbuild -p -j0
+	@rm FAIL
+
 clean:
 	rm -rf .obj bin src/gen

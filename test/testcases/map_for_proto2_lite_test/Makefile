@@ -1,5 +1,9 @@
 all:
-	gprbuild -p -P map_for_proto2_lite_test.gpr -XGENERATE=True
-	gprbuild -p -P map_for_proto2_lite_test.gpr
+	${MAKE} clean
+	@touch FAIL
+	gprbuild -p -j0 -XGENERATE=True
+	gprbuild -p -j0
+	@rm FAIL
+
 clean:
 	rm -rf .obj bin src/gen

@@ -1,5 +1,5 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
+
 project test_bad_identifiers is
 
    type Boolean is ("True", "False");

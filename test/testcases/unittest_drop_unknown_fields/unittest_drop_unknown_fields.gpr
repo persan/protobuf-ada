@@ -1,5 +1,5 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
+
 project unittest_drop_unknown_fields is
 
    type Boolean is ("True", "False");
@@ -9,13 +9,14 @@ project unittest_drop_unknown_fields is
    for Source_Dirs use ("src/**");
 
    for Exec_Dir use "bin";
-   for Languages use ("Ada", "Protocoll Buffers");
 
    case Generate is
       when "True" =>
          for Object_Dir use "src/gen";
+         for Languages use ("Protocoll Buffers");
       when "False" =>
          for Object_Dir use ".obj";
+         for Languages use ("Ada", "Protocoll Buffers");
    end case;
 
    package Builder is

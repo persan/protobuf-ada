@@ -1,7 +1,10 @@
 all:
 	${MAKE} clean
-	gprbuild -p -P data.gpr -XGENERATE=True
-	gprbuild -p -P data.gpr
+	@touch FAIL
+	gprbuild -p -j0 -XGENERATE=True
+	gprbuild -p -j0
+	@rm FAIL
+
 
 clean:
 	rm -rf .obj bin src/gen

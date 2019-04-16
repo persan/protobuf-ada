@@ -1,5 +1,5 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
+
 project nested_builders_test is
 
    type Boolean is ("True", "False");

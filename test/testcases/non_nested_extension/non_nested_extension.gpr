@@ -1,5 +1,5 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
+
 project non_nested_extension is
 
    type Boolean is ("True", "False");

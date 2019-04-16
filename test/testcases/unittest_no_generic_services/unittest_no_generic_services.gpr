@@ -1,5 +1,5 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
+
 project unittest_no_generic_services is
 
    type Boolean is ("True", "False");
