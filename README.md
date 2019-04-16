@@ -3,8 +3,7 @@
 Note this repository is in beta stage.
 
 ## Prereqisits the folowing packages installed:
-* protobuf-compiler
-* protobuf-devel
+* protobuf-compiler and protobuf-devel
 * Or the protobuff packages installed in the GNAT-Installation.
 
 ## How to build and install.
