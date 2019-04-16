@@ -9,7 +9,7 @@ library project Google.Protobuf is
    for Languages use ("Ada", "C", "Makefile", "Project File","MarkDown","Text");
 
    package Compiler is
-      for Driver ("makefile") use "";
+      for Driver ("Makefile") use "";
       for Driver ("Text") use "";
       for Driver ("Project File") use "";
       for Driver ("MarkDown") use "";
@@ -21,11 +21,11 @@ library project Google.Protobuf is
    end Builder;
 
    package Naming is
-      for Body_Suffix ("Project File") use ".gpr";
-      for Body_Suffix ("makefile") use ".mk";
+      for Spec_Suffix ("Project File") use ".gpr";
+      for Body_Suffix ("Makefile") use ".mk";
       for Body_Suffix ("MarkDown") use ".md";
       for Body_Suffix ("Text") use ".txt";
-      for Implementation_Exceptions ("makefile") use ("Makefile");
+      for Implementation_Exceptions ("Makefile") use ("Makefile");
    end Naming;
 
 end Google.Protobuf;
