@@ -3,5 +3,4 @@ to the public version of Protocol Buffers for Ada
 
 Original Protocol Buffers for Ada design and implementation:
   Niklas Ekendahl  <https://www.linkedin.com/in/niklasekendahl/>
-
   Per Sandberg     <per.s.sandberg@bahnhof.se>
