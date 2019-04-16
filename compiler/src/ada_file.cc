@@ -179,10 +179,11 @@ namespace google {
 
 	  string filename = ada_package;
 
-	  filename = package_dir + filename + name_suffix + file_suffix;
+	  filename = package_dir + filename + name_suffix;
 
 	  StripString(&filename, ".", '-');
 	  LowerString(&filename);
+	  filename = filename  + file_suffix;
 	  file_list->push_back(filename);
 
 	  scoped_ptr<io::ZeroCopyOutputStream> output(context->Open(filename));
