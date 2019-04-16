@@ -22,7 +22,7 @@ add_person_ada: add_person.adb
 
 list_people.adb:.protoc_middleman
 list_people_ada:list_people.adb
-	gprbuild -j0 -p -P example_ada.gpr
+	gprbuild -k -j0 -p -P example_ada.gpr
 
 
 add_person_cpp: add_person.cc .protoc_middleman
