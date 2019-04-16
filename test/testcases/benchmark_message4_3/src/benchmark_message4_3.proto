@@ -46,9 +46,9 @@ enum Enum2806 {
 }
 
 enum Enum2851 {
-  option allow_alias = true;
+//  option allow_alias = true;
   ENUM_VALUE2852 = 0;
-  ENUM_VALUE2853 = 0;
+//  ENUM_VALUE2853 = 0;
   ENUM_VALUE2854 = 1;
   ENUM_VALUE2855 = 2;
   ENUM_VALUE2856 = 3;
@@ -748,4 +748,3 @@ enum Enum12871 {
   ENUM_VALUE12876 = 5;
   ENUM_VALUE12877 = 6;
 }
-

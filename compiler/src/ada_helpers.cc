@@ -62,8 +62,7 @@ namespace google {
 
 	namespace {
 
-	  const char* const kKeywordList[] = {
-					      "abort", "else", "new", "return", "abs", "elsif", "not", "reverse",
+	  const char* const kKeywordList[] = {"abort", "else", "new", "return", "abs", "elsif", "not", "reverse",
 					      "abstract", "end", "null", "accept", "entry", "select", "access", "exception",
 					      "of", "separate", "aliased", "exit", "or", "some", "all", "others", "subtype",
 					      "and", "for", "out", "synchronized", "array", "function", "overriding", "at",

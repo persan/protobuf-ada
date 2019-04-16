@@ -1,6 +1,6 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
-project duration is
+
+project Duration is
 
    type Boolean is ("True", "False");
 

@@ -2,12 +2,16 @@ with "google.gpr";
 
 library project Google.Protobuf is
 
-   for Source_Dirs use ("google-protobuf.src");
+   for Source_Dirs use ("google-protobuf.src", ".");
    for Library_Name use "google-protobuf";
    for Library_Dir use "lib";
    for Object_Dir use ".obj/" & project'Name;
+   for Languages use ("Ada", "C", "Makefile", "Project File","MarkDown");
 
    package Compiler is
+      for Driver ("makefile") use "";
+      for Driver ("Project File") use "";
+      for Driver ("MarkDown") use "";
       for Switches ("ada") use ("-g", "-O2", "-ffunction-sections", "-gnatQ", "-fdata-sections", "-fPIC", "-gnatf", "-gnatwa");
    end Compiler;
 
@@ -15,6 +19,11 @@ library project Google.Protobuf is
       for Switches ("ada") use ("-j0", "-k", "-g", "-s");
    end Builder;
 
-   for Languages use ("Ada", "C");
+   package Naming is
+      for Body_Suffix ("Project File") use ".gpr";
+      for Body_Suffix ("makefile") use ".mk";
+      for Body_Suffix ("MarkDown") use ".md";
+      for Implementation_Exceptions ("makefile") use ("Makefile");
+   end Naming;
 
 end Google.Protobuf;

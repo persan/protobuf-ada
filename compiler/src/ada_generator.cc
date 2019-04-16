@@ -85,8 +85,10 @@ namespace google {
 	  FileGenerator file_generator(file);
 
 	  vector<string> all_files;
-	  string ada_filename = file_generator.packagename() + ".ads";
+	  string ada_filename = file_generator.packagename() ;
 	  LowerString(&ada_filename);
+	  StripString(&ada_filename, ".", '-');
+	  ada_filename = ada_filename + ".ads";
 	  all_files.push_back(ada_filename);
 
 	  // Generate specification for parent ada file

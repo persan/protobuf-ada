@@ -1,6 +1,6 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
-project message_set_extensions is
+
+project Message_Set_Extensions is
 
    type Boolean is ("True", "False");
 

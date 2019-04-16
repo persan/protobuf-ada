@@ -178,7 +178,8 @@ namespace google {
 		enum_package_dependencies_.insert(full_type_name);
 	      }
 	  }
-
+	  printer->Print("--  begin read " "only\n");
+	  printer->Print("--  ----------------------------------------------------------------\n");
 	  //Include messages
 	  for (std::set<string>::const_iterator it = package_dependencies_.begin();
 	       it != package_dependencies_.end(); ++it) {
@@ -245,7 +246,8 @@ namespace google {
 
 	  printer->Outdent();
 
-	  printer->Print("end $ada_package_name$;\n",
+	  printer->Print("end $ada_package_name$;\n"
+			 "--  end read only",
 			 "ada_package_name", ada_package_name_);
 	}
 
@@ -295,8 +297,7 @@ namespace google {
 	    printer->Print("\n");
 	  }
 
-	  printer->Print(
-			 "package body $ada_package_name$ is\n",
+	  printer->Print("package body $ada_package_name$ is\n",
 			 "ada_package_name", ada_package_name_);
 	  printer->Indent();
 
@@ -307,8 +308,8 @@ namespace google {
 	  }
 
 	  printer->Outdent();
-	  printer->Print(
-			 "end $ada_package_name$;\n",
+	  printer->Print("end $ada_package_name$;\n"
+			 "--  end read only\n",
 			 "ada_package_name", ada_package_name_);
 	}
 
@@ -336,7 +337,7 @@ namespace google {
 	  }
 
 	  printer->Print("---------------------------------------------------------------------------\n");
-	  printer->Print("-- Inherited functions and procedures from Google.Protobuf.Message -------\n");
+	  printer->Print("-- Inherited functions and procedures from Google.Protobuf.Message       --\n");
 	  printer->Print("---------------------------------------------------------------------------\n\n");
 
 	  printer->Print("use Google.Protobuf.Wire_Format;\n\n");
@@ -466,7 +467,7 @@ namespace google {
 	// ===============================================================================================
 	void MessageGenerator::GenerateFieldAccessorDefinitions(io::Printer * printer) {
 	  printer->Print("---------------------------------------------------------------------------\n");
-	  printer->Print("-- Field accessor definitions ---------------------------------------------\n");
+	  printer->Print("--                  Field accessor definitions                           --\n");
 	  printer->Print("---------------------------------------------------------------------------\n\n");
 
 	  for (int i = 0; i < descriptor_->field_count(); i++) {
@@ -601,11 +602,8 @@ namespace google {
 	void MessageGenerator::GenerateIsInitialized(io::Printer * printer) {
 	  // TODO: change return type?
 
-	  printer->Print("function Is_Initialized\n");
-	  printer->Indent();
-	  printer->Print("(The_Message : in $package$.Instance) return Boolean is\n",
+	  printer->Print("function Is_Initialized (The_Message : in $package$.Instance) return Boolean is\n",
 			 "package", ada_package_name_);
-	  printer->Outdent();
 	  printer->Print("begin\n");
 	  printer->Indent();
 
@@ -669,12 +667,8 @@ namespace google {
 
 	// ===============================================================================================
 	void MessageGenerator::GenerateMerge(io::Printer * printer) {
-	  printer->Print("procedure Merge\n");
-	  printer->Indent();
-	  printer->Print("(To   : in out $package$.Instance;\n"
-			 " From : in $package$.Instance) is\n",
+	  printer->Print("procedure Merge (To : in out $package$.Instance; From : in $package$.Instance) is\n",
 			 "package", ada_package_name_);
-	  printer->Outdent();
 	  printer->Print("begin\n");
 	  printer->Indent();
 	  // TODO: implement for extensions ...
@@ -738,15 +732,10 @@ namespace google {
 
 	// ===============================================================================================
 	void MessageGenerator::GenerateByteSize(io::Printer * printer) {
-	  printer->Print("function Byte_Size\n");
-	  printer->Indent();
 	  // TODO: change return type?
-	  printer->Print("(The_Message : in out $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size is\n",
+	  printer->Print("function Byte_Size (The_Message : in out $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size is\n",
 			 "package", ada_package_name_);
-	  printer->Outdent();
-	  printer->Indent();
-	  printer->Print("Total_Size : Google.Protobuf.Wire_Format.PB_Object_Size := 0;\n");
-	  printer->Outdent();
+	  printer->Print("   Total_Size : Google.Protobuf.Wire_Format.PB_Object_Size := 0;\n");
 	  printer->Print("begin\n");
 	  printer->Indent();
 
@@ -826,15 +815,10 @@ namespace google {
 	  //TODO: implement handling of extensions.
 	  scoped_array<const FieldDescriptor*> ordered_fields(SortFieldsByNumber(descriptor_));
 
-	  printer->Print("procedure Serialize_With_Cached_Sizes\n");
-	  printer->Indent();
-	  printer->Print("(The_Message   : in $package$.Instance;\n"
-			 " The_Coded_Output_Stream : in\n",
+	  printer->Print("procedure Serialize_With_Cached_Sizes\n"
+			 "   (The_Message   : in $package$.Instance;\n"
+			 "    The_Coded_Output_Stream : in Google.Protobuf.IO.Coded_Output_Stream.Instance) is\n",
 			 "package", ada_package_name_);
-	  printer->Indent();
-	  printer->Print(" Google.Protobuf.IO.Coded_Output_Stream.Instance) is\n");
-	  printer->Outdent();
-	  printer->Outdent();
 	  printer->Print("begin\n");
 	  printer->Indent();
 
@@ -856,15 +840,10 @@ namespace google {
 	void MessageGenerator::GenerateMergePartialFromCodedInputStream(io::Printer * printer) {
 	  // TODO: Return value indicating success or failure
 	  printer->Print("procedure Merge_Partial_From_Coded_Input_Stream\n");
-	  printer->Indent();
-	  printer->Print("(The_Message   : in out $package$.Instance;\n"
-			 " The_Coded_Input_Stream : in out\n",
+	  printer->Print("   (The_Message   : in out $package$.Instance;\n"
+			 "    The_Coded_Input_Stream : in out Google.Protobuf.IO.Coded_Input_Stream.Instance) is\n\n",
 			 "package", ada_package_name_);
-	  printer->Indent();
-	  printer->Print("Google.Protobuf.IO.Coded_Input_Stream.Instance) is\n");
-	  printer->Outdent();
-	  printer->Print("Tag : Google.Protobuf.Wire_Format.PB_UInt32;\n");
-	  printer->Outdent();
+	  printer->Print("   Tag : Google.Protobuf.Wire_Format.PB_UInt32;\n");
 	  printer->Print("begin\n");
 	  printer->Indent();
 
@@ -878,8 +857,7 @@ namespace google {
 
 	    printer->Print("case Google.Protobuf.Wire_Format.Get_Tag_Field_Number (Tag) is\n");
 
-	    scoped_array<const FieldDescriptor*> ordered_fields(
-								SortFieldsByNumber(descriptor_));
+	    scoped_array<const FieldDescriptor*> ordered_fields(SortFieldsByNumber(descriptor_));
 
 	    for (int i = 0; i < descriptor_->field_count(); i++) {
 	      const FieldDescriptor* field = ordered_fields[i];
@@ -1036,8 +1014,7 @@ namespace google {
 
 	// ===============================================================================================
 	void MessageGenerator::GenerateFinalize(io::Printer * printer) {
-	  printer->Print("overriding procedure Finalize\n");
-	  printer->Print("   (The_Message : in out $package$.Instance) is\n",
+	  printer->Print("overriding procedure Finalize (The_Message : in out $package$.Instance) is\n",
 			 "package", ada_package_name_);
 	  printer->Print("begin\n");
 	  printer->Indent();

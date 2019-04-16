@@ -1,6 +1,6 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
-project map_initialization_order_test is
+
+project Map_Initialization_Order_Test is
 
    type Boolean is ("True", "False");
 

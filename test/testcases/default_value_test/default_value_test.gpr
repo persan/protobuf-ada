@@ -1,5 +1,4 @@
-with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
+with "google-protobuf.gpr";
 project default_value_test is
 
    type Boolean is ("True", "False");

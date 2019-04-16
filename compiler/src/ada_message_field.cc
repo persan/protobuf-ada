@@ -90,14 +90,14 @@ namespace google {
 	  printer->Print(variables_, "end Get_$name$;\n\n");
 
 	  // Generate body Release_$name$
-	  printer->Print(variables_,"function Release_$name$ (The_Message : in out $packagename$.Instance) return access $containing_type$.Instance is\n");
-	  printer->Print(variables_,"   Temp : access $containing_type$.Instance;\n");
-	  printer->Print(variables_,"begin\n");
-	  printer->Print(variables_,"   The_Message.Clear_Has_$name$;\n");
-	  printer->Print(variables_,"   Temp := The_Message.$name$;\n");
-	  printer->Print(variables_,"   The_Message.$name$ := null;\n");
-	  printer->Print(variables_,"   return Temp;\n");
-	  printer->Print(variables_,"end Release_$name$;\n\n");
+	  printer->Print(variables_, "function Release_$name$ (The_Message : in out $packagename$.Instance) return access $containing_type$.Instance is\n");
+	  printer->Print(variables_, "   Temp : access $containing_type$.Instance;\n");
+	  printer->Print(variables_, "begin\n");
+	  printer->Print(variables_, "   The_Message.Clear_Has_$name$;\n");
+	  printer->Print(variables_, "   Temp := The_Message.$name$;\n");
+	  printer->Print(variables_, "   The_Message.$name$ := null;\n");
+	  printer->Print(variables_, "   return Temp;\n");
+	  printer->Print(variables_, "end Release_$name$;\n\n");
 
 	  // Generate body Set_$name$
 	  // TODO: Move declaration of Free outside Set_$name$. Fix use type?

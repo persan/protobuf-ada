@@ -1,6 +1,6 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
-project map_for_proto2_test is
+
+project Map_For_Proto2_Test is
 
    type Boolean is ("True", "False");
 
@@ -41,4 +41,4 @@ project map_for_proto2_test is
       for Body_Suffix ("protocoll buffers") use ".proto";
    end Naming;
 
-end map_for_proto2_test;
+end Map_For_Proto2_Test;

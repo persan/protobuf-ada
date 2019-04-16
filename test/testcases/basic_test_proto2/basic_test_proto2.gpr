@@ -1,5 +1,4 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
 project basic_test_proto2 is
 
    type Boolean is ("True", "False");

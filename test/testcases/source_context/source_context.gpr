@@ -1,6 +1,6 @@
-with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
-project source_context is
+with "google-protobuf.gpr";
+
+project Source_Context is
 
    type Boolean is ("True", "False");
 

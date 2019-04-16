@@ -1,6 +1,6 @@
 with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
-project lazy_fields_lite is
+
+project Lazy_Fields_Lite is
 
    type Boolean is ("True", "False");
 

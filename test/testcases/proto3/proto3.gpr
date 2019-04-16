@@ -1,6 +1,6 @@
-with "google-protobuf-testing.gpr";
-with "compiler/protoc_ada.gpr";
-project proto3 is
+with "google-protobuf.gpr";
+
+project Proto3 is
 
    type Boolean is ("True", "False");
 
