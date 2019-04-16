@@ -31,3 +31,4 @@ x
 w.py
 *.pyc
 protobuff*
+default.gpr
