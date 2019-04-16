@@ -14,15 +14,15 @@ build:
 install:
 	@set +e ; ${GPRINSTALL} --uninstall google.gpr 2>/dev/null >/dev/null ; true
 	@set +e ; ${GPRINSTALL} --uninstall google-protobuf.gpr 2>/dev/null >/dev/null ; true
-	${GPRINSTALL} -p -P google.gpr --prefix=${destdir}${prefix}
-	${GPRINSTALL} -p -P google-protobuf.gpr --prefix=${destdir}${prefix}
+	${GPRINSTALL} -p -P google.gpr --prefix=${DESTDIR}${prefix}
+	${GPRINSTALL} -p -P google-protobuf.gpr --prefix=${DESTDIR}${prefix}
 	${MAKE} -C compiler ${@}
 
 uninstall:
 	${GPRINSTALL} --uninstall ${project}
 
 gps:
-	@${GPS} -P ${project} & 
+	@${GPS} -P ${project} &
 
 
 Makefile.conf:Makefile

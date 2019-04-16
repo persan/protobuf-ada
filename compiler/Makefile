@@ -10,8 +10,8 @@ uninstall:protoc_ada.gpr
 	${GPRINSTALL} --uninstall ${project}
 
 install:protoc_ada.gpr
-	@${GPRINSTALL} --uninstall ${project} --prefix=${destdir}${prefix} 2>/dev/null >/dev/null ; true
-	${GPRINSTALL} -p -P ${project} --prefix=${destdir}${prefix}
+	@${GPRINSTALL} --uninstall ${project} --prefix=${DESTDIR}${prefix} 2>/dev/null >/dev/null ; true
+	${GPRINSTALL} -p -P ${project} --prefix=${DESTDIR}${prefix}
 
 Makefile.conf:Makefile
 	@echo "GPRBUILD:=$(shell which gprbuild)" >${@}
@@ -19,7 +19,7 @@ Makefile.conf:Makefile
 	@echo "GPS:=$(shell which gps)" >>${@}
 
 gps:
-	${GPS} -P ${project} & 
+	${GPS} -P ${project} &
 
 protoc_ada.gpr:protoc_ada.gpr.in ${PROTOC} Makefile config.py
 	./config.py
