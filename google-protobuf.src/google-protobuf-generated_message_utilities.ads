@@ -16,7 +16,7 @@ package Google.Protobuf.Generated_Message_Utilities is
    function Negative_Infinity return Google.Protobuf.Wire_Format.PB_Float with
      Convention => C,
      Import => True,
-     Link_Name => "positive_infinity_float";
+     Link_Name => "negative_infinity_float";
    function NaN return Google.Protobuf.Wire_Format.PB_Float with
      Convention => C,
      Import => True,
@@ -30,7 +30,7 @@ package Google.Protobuf.Generated_Message_Utilities is
    function Negative_Infinity return Google.Protobuf.Wire_Format.PB_Double with
      Convention => C,
      Import => True,
-     Link_Name => "negative_infinity_float";
+     Link_Name => "negative_infinity_double";
    function NaN return Google.Protobuf.Wire_Format.PB_Double with
      Convention => C,
      Import => True,
