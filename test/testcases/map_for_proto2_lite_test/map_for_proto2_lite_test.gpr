@@ -1,4 +1,5 @@
 with "google-protobuf-testing.gpr";
+
 project map_for_proto2_lite_test is
 
    type Boolean is ("True", "False");

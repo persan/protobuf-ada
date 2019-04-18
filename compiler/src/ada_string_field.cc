@@ -183,18 +183,15 @@ namespace google {
 	// ==================================================================================
 	void StringFieldGenerator::GenerateStaticDefaults(io::Printer* printer) const {
 	  if (descriptor_->has_default_value() && !descriptor_->default_value_string().empty()) {
-	    printer->Print(variables_,"$default_variable$ : aliased $type$ :=\n");
-	    printer->Indent();
-	    printer->Print(variables_,"$default$;\n");
-	    printer->Outdent();
+	    printer->Print(variables_,"$default_variable$ : aliased $type$ := $default$;\n");
 	  }
 	}
 
 	// ==================================================================================
 	void StringFieldGenerator::GenerateFinalizationCode(io::Printer* printer) const {
 	  // TODO: Consider changing this to a procedure.
-	  printer->Print(variables_, "declare\n");
 	  // TODO: Move this elsewhere
+	  printer->Print(variables_, "declare\n");
 	  printer->Print(variables_, "   procedure Free is new Ada.Unchecked_Deallocation ($type$, $access_type$);\n");
 	  printer->Print(variables_, "begin\n");
 	  printer->Print(variables_, "   if The_Message.$name$ /= $default_variable$'Access then\n");
@@ -254,8 +251,8 @@ namespace google {
 	  printer->Print(variables_,"begin\n");
 
 	  // TODO: refactor.
-	  printer->Print(variables_,"   declare\n");
 	  // TODO: move this elsewhere.
+	  printer->Print(variables_,"   declare\n");
 	  printer->Print(variables_,"      Temp : $access_type$ := The_Message.$name$.Element (Index);\n");
 	  printer->Print(variables_,"      procedure Free is new Ada.Unchecked_Deallocation ($type$, $access_type$);\n");
 	  printer->Print(variables_,"   begin\n");
@@ -329,7 +326,6 @@ namespace google {
 	  printer->Print(variables_,"   procedure Free is new Ada.Unchecked_Deallocation ($type$, $access_type$);\n");
 	  printer->Print(variables_,"begin\n");
 	  printer->Print(variables_,"   for E of The_Message.$name$ loop\n");
-	  // TODO: Set E to null
 	  printer->Print(variables_,"      Temp := E;\n");
 	  printer->Print(variables_,"      Free (Temp);\n");
 	  printer->Print(variables_,"   end loop;\n");

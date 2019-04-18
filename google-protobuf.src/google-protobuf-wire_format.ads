@@ -24,8 +24,8 @@ package Google.Protobuf.Wire_Format is
 
    type Has_Bits_Array_Type is array (PB_UInt32 range <>) of PB_UInt32;
 
-   -- Temporary implementation for repeated fields, consider replacing???
-   -- Remove use clauses.
+   --     -- Temporary implementation for repeated fields, consider replacing???
+   --     -- Remove use clauses.
    use type PB_UInt32;
    use type PB_UInt64;
    use type PB_Double;
