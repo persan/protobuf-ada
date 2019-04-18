@@ -40,13 +40,8 @@
 
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/stubs/common.h>
-
+#include <google/protobuf/io/printer.h>
 namespace google {
-  namespace protobuf {
-    namespace io {
-      class Printer; // printer.h
-    }
-  }
 
   namespace protobuf {
     namespace compiler {

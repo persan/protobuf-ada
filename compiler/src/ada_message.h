@@ -39,14 +39,8 @@
 #include <set>
 
 #include <ada_field.h>
-
+#include <google/protobuf/io/printer.h>
 namespace google {
-  namespace protobuf {
-    namespace io {
-      class Printer; // printer.h
-    }
-  }
-
   namespace protobuf {
     namespace compiler {
       namespace ada {

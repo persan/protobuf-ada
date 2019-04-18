@@ -39,19 +39,10 @@
 #include <string>
 
 #include <google/protobuf/stubs/common.h>
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/compiler/code_generator.h>
 
 namespace google {
-  namespace protobuf {
-    class FileDescriptor; // descriptor.h
-    class Descriptor; // descriptor.h
-    namespace io {
-      class Printer; // printer.h
-    }
-    namespace compiler {
-      class GeneratorContext; // code_generator.h
-    }
-  }
-
   namespace protobuf {
     namespace compiler {
       namespace ada {

@@ -38,15 +38,9 @@
 #include <string>
 
 #include <google/protobuf/stubs/common.h>
-
+#include <google/protobuf/io/printer.h>
+#include <google/protobuf/descriptor.h>
 namespace google {
-  namespace protobuf {
-    class FieldDescriptor; // descriptor.h
-    namespace io {
-      class Printer; // printer.h
-    }
-  }
-
   namespace protobuf {
     namespace compiler {
       namespace ada {
