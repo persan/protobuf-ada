@@ -340,49 +340,54 @@ namespace google {
 
 	  printer->Print("use Google.Protobuf.Wire_Format;\n\n");
 	  // Clear
-	  printer->Print("overriding procedure Clear (The_Message : in out $package$.Instance);\n\n",
+	  printer->Print("overriding\n" "procedure Clear (The_Message : in out $package$.Instance);\n\n",
 			 "package", ada_package_name_);
 
 	  // Serialize_With_Cached_Sizes
-	  printer->Print("overriding procedure Serialize_With_Cached_Sizes\n");
+	  printer->Print("overriding\n" "procedure Serialize_With_Cached_Sizes\n");
 	  printer->Print("   (The_Message   : in $package$.Instance;\n"
 			 "    The_Coded_Output_Stream : in Google.Protobuf.IO.Coded_Output_Stream.Instance);\n\n",
 			 "package", ada_package_name_);
 
 	  // Merge_Partial_From_Coded_Input_Stream
-	  printer->Print("overriding procedure Merge_Partial_From_Coded_Input_Stream\n");
+	  printer->Print("overriding\n" "procedure Merge_Partial_From_Coded_Input_Stream\n");
 	  printer->Print("   (The_Message   : in out $package$.Instance;\n"
 			 "    The_Coded_Input_Stream : in out Google.Protobuf.IO.Coded_Input_Stream.Instance);\n\n",
 			 "package", ada_package_name_);
 
 	  // Merge
-	  printer->Print("overriding procedure Merge (To : in out $package$.Instance; From : in $package$.Instance);\n\n",
+	  printer->Print("overriding\n"
+			 "procedure Merge (To    : in out $package$.Instance;\n"
+			 "                 From : in $package$.Instance);\n\n",
 			 "package", ada_package_name_);
 
 	  // Copy
-	  printer->Print("overriding procedure Copy (To : in out $package$.Instance;  From : in $package$.Instance);\n\n",
+	  printer->Print("overriding\n"
+			 "procedure Copy (To : in out $package$.Instance;\n"
+			 "From : in $package$.Instance);\n\n",
 			 "package", ada_package_name_);
 
 	  // Get_Type_Name
-	  printer->Print("overriding function Get_Type_Name (The_Message : in $package$.Instance) return Google.Protobuf.Wire_Format.PB_String;\n\n",
+	  printer->Print("overriding\n"
+			 "function Get_Type_Name (The_Message : in $package$.Instance) return Google.Protobuf.Wire_Format.PB_String;\n\n",
 			 "package", ada_package_name_);
 
 	  // TODO: change return type from PB_Object_Size
 	  // Byte_Size
-	  printer->Print("overriding function Byte_Size (The_Message : in out $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size;\n\n",
+	  printer->Print("overriding\n" "function Byte_Size (The_Message : in out $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size;\n\n",
 			 "package", ada_package_name_);
 
 	  // TODO: change return type from PB_Object_Size
 	  // Get_Cached_Size
-	  printer->Print("overriding function Get_Cached_Size (The_Message : in $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size;\n\n",
+	  printer->Print("overriding\n" "function Get_Cached_Size (The_Message : in $package$.Instance) return Google.Protobuf.Wire_Format.PB_Object_Size;\n\n",
 			 "package", ada_package_name_);
 
 	  // Is_Initialized
-	  printer->Print("overriding function Is_Initialized (The_Message : in $package$.Instance) return Boolean;\n\n",
+	  printer->Print("overriding\n" "function Is_Initialized (The_Message : in $package$.Instance) return Boolean;\n\n",
 			 "package", ada_package_name_);
 
 	  // Finalize
-	  printer->Print("overriding procedure Finalize (The_Message : in out $package$.Instance);\n\n",
+	  printer->Print("overriding\n" "procedure Finalize (The_Message : in out $package$.Instance);\n\n",
 			 "package", ada_package_name_);
 	}
 
@@ -1012,7 +1017,7 @@ namespace google {
 
 	// ===============================================================================================
 	void MessageGenerator::GenerateFinalize(io::Printer * printer) {
-	  printer->Print("overriding procedure Finalize (The_Message : in out $package$.Instance) is\n",
+	  printer->Print("overriding\n" "procedure Finalize (The_Message : in out $package$.Instance) is\n",
 			 "package", ada_package_name_);
 	  printer->Print("begin\n");
 	  printer->Indent();

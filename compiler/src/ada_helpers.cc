@@ -341,8 +341,7 @@ namespace google {
 	}
 
 	string FieldMessageTypeName(const FieldDescriptor* field) {
-	  return UnderscoresToCapitalizedUnderscoresImpl(
-							 field->message_type()->name());
+	  return UnderscoresToCapitalizedUnderscoresImpl(field->message_type()->name());
 	}
 
 	string FieldMessageContainingPackageName(const FieldDescriptor* field) {
