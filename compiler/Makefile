@@ -1,7 +1,6 @@
 -include Makefile.conf
 
 project:=protoc_ada.gpr
-PROTOC:=$(shell which protoc)
 
 build:protoc_ada.gpr
 	${GPRBUILD} -p -P ${project}
@@ -20,6 +19,3 @@ Makefile.conf:Makefile
 
 gps:
 	${GPS} -P ${project} &
-
-protoc_ada.gpr:protoc_ada.gpr.in ${PROTOC} Makefile config.py
-	./config.py
