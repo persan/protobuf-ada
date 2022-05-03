@@ -38,6 +38,9 @@
 #include <map>
 #include <string>
 
+#include <boost/scoped_ptr.hpp>
+#include <boost/scoped_array.hpp>
+
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/io/printer.h>
@@ -51,7 +54,7 @@ namespace google {
 	// field code generators.
 	// ['name', 'index', 'number', 'packagename', 'declared_type', 'tag_size'].
 	void SetCommonFieldVariables(const FieldDescriptor* descriptor,
-				     map<string, string>* variables);
+                                 std::map<string, string>* variables);
 
 	class FieldGenerator {
 	  public:
@@ -125,7 +128,7 @@ namespace google {
 
 	  private:
 	  const Descriptor* descriptor_;
-	  scoped_array<scoped_ptr<FieldGenerator> > field_generators_;
+      boost::scoped_array<boost::scoped_ptr<FieldGenerator> > field_generators_;
 
 	  static FieldGenerator* MakeGenerator(const FieldDescriptor* field);
 

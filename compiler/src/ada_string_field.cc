@@ -46,7 +46,7 @@ namespace google {
 
 	// ==================================================================================
 	  void SetStringVariables(const FieldDescriptor* descriptor,
-				  map<string, string>* variables) {
+                              std::map<string, string>* variables) {
 	    SetCommonFieldVariables(descriptor, variables);
 	    (*variables)["type"] = "Google.Protobuf.Wire_Format.PB_String";
 	    (*variables)["access_type"] = "Google.Protobuf.Wire_Format.PB_String_Access";

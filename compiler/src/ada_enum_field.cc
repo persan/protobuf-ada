@@ -48,7 +48,7 @@ namespace google {
 
 	// =========================================================================================
 	  void SetEnumVariables(const FieldDescriptor* descriptor,
-				map<string, string>* variables) {
+                            std::map<string, string>* variables) {
 	    SetCommonFieldVariables(descriptor, variables);
 	    const EnumDescriptor *enum_type = descriptor->enum_type();
 

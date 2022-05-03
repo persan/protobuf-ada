@@ -38,6 +38,9 @@
 #include <stdio.h>
 #include <iterator>
 
+#include <boost/scoped_ptr.hpp>
+#include <boost/scoped_array.hpp>
+
 #ifdef _WIN32
 // MSVC has only _snprintf, not snprintf.
 //
@@ -60,6 +63,8 @@ namespace google {
       return value != value;
     }
 
+    using namespace std;
+    
     // These are defined as macros on some platforms.  #undef them so that we can
     // redefine them.
 #undef isxdigit
@@ -438,7 +443,7 @@ namespace google {
 
     int UnescapeCEscapeString(const string& src, string* dest,
 			      vector<string> *errors) {
-      scoped_array<char> unescaped(new char[src.size() + 1]);
+      boost::scoped_array<char> unescaped(new char[src.size() + 1]);
       int len = UnescapeCEscapeSequences(src.c_str(), unescaped.get(), errors);
       GOOGLE_CHECK(dest);
       dest->assign(unescaped.get(), len);
@@ -446,7 +451,7 @@ namespace google {
     }
 
     string UnescapeCEscapeString(const string& src) {
-      scoped_array<char> unescaped(new char[src.size() + 1]);
+      boost::scoped_array<char> unescaped(new char[src.size() + 1]);
       int len = UnescapeCEscapeSequences(src.c_str(), unescaped.get(), NULL);
       return string(unescaped.get(), len);
     }
@@ -524,7 +529,7 @@ namespace google {
     // ----------------------------------------------------------------------
     string CEscape(const string& src) {
       const int dest_length = src.size() * 4 + 1; // Maximum possible expansion
-      scoped_array<char> dest(new char[dest_length]);
+      boost::scoped_array<char> dest(new char[dest_length]);
       const int len = CEscapeInternal(src.data(), src.size(),
 				      dest.get(), dest_length, false, false);
       GOOGLE_DCHECK_GE(len, 0);
@@ -535,7 +540,7 @@ namespace google {
 
       string Utf8SafeCEscape(const string& src) {
 	const int dest_length = src.size() * 4 + 1; // Maximum possible expansion
-	scoped_array<char> dest(new char[dest_length]);
+	boost::scoped_array<char> dest(new char[dest_length]);
 	const int len = CEscapeInternal(src.data(), src.size(),
 					dest.get(), dest_length, false, true);
 	GOOGLE_DCHECK_GE(len, 0);
@@ -544,7 +549,7 @@ namespace google {
 
       string CHexEscape(const string& src) {
 	const int dest_length = src.size() * 4 + 1; // Maximum possible expansion
-	scoped_array<char> dest(new char[dest_length]);
+	boost::scoped_array<char> dest(new char[dest_length]);
 	const int len = CEscapeInternal(src.data(), src.size(),
 					dest.get(), dest_length, true, false);
 	GOOGLE_DCHECK_GE(len, 0);

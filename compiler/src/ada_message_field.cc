@@ -45,7 +45,7 @@ namespace google {
 
 	// ==================================================================================
 	  void SetMessageVariables(const FieldDescriptor* descriptor,
-				   map<string, string>* variables) {
+                               std::map<string, string>* variables) {
 	    SetCommonFieldVariables(descriptor, variables);
 	    (*variables)["containing_type"] = FieldMessageContainingPackageName(descriptor);
 	    (*variables)["type"] = FieldMessageTypeName(descriptor);

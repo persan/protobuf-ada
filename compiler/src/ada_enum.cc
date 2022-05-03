@@ -41,6 +41,8 @@
 #include <strutil.h>
 #include <algorithm>
 
+#include <boost/scoped_array.hpp>
+
 namespace google {
   namespace protobuf {
     namespace compiler {
@@ -84,7 +86,7 @@ namespace google {
 	void EnumGenerator::GenerateDefinition(io::Printer* printer) {
 	  // Ada requires that enumeration constant values are defined in an ascending
 	  // order. We must therefore sort enumeration constants by value.
-	  scoped_array<const EnumValueDescriptor*> ordered_values(
+      boost::scoped_array<const EnumValueDescriptor*> ordered_values(
 								  SortEnumConstantsByValue(descriptor_));
 
 	  printer->Print("type $name$ is (", "name", descriptor_->name());

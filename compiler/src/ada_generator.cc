@@ -44,10 +44,14 @@
 #include <google/protobuf/io/zero_copy_stream.h>
 #include <strutil.h>
 
+#include <boost/scoped_ptr.hpp>
+
 namespace google {
   namespace protobuf {
     namespace compiler {
       namespace ada {
+
+        using namespace std;
 
 	// =========================================================================================
 	AdaGenerator::AdaGenerator() { }
@@ -92,7 +96,7 @@ namespace google {
 	  all_files.push_back(ada_filename);
 
 	  // Generate specification for parent ada file
-	  scoped_ptr<io::ZeroCopyOutputStream> output(context->Open(ada_filename));
+      boost::scoped_ptr<io::ZeroCopyOutputStream> output(context->Open(ada_filename));
 	  io::Printer printer(output.get(), '$');
 	  file_generator.GenerateSpecification(&printer);
 
@@ -103,7 +107,7 @@ namespace google {
 	  if (!output_list_file.empty()) {
 	    // Generate output list.  This is just a simple text file placed in a
 	    // deterministic location which lists the ada files being generated.
-	    scoped_ptr<io::ZeroCopyOutputStream> srclist_raw_output(context->Open(output_list_file));
+	    boost::scoped_ptr<io::ZeroCopyOutputStream> srclist_raw_output(context->Open(output_list_file));
 	    io::Printer srclist_printer(srclist_raw_output.get(), '$');
 	    for (unsigned long i = 0; i < all_files.size(); i++) {
 	      srclist_printer.Print("$filename$\n", "filename", all_files[i]);
