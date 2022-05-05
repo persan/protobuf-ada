@@ -2,7 +2,7 @@
 <GPS>
   <Language>
     <Parent>C</Parent>
-    <Name>Protocoll Buffers</Name>
+    <Name>Protocol Buffers</Name>
     <Body_Suffix>.proto</Body_Suffix>
     <Keywords>^(enum|import|package|message|(option(|al))|public|required|repeated|static)\b</Keywords>
 

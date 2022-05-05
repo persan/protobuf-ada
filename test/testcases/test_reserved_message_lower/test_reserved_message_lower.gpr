@@ -13,10 +13,10 @@ project test_reserved_message_lower is
    case Generate is
       when "True" =>
          for Object_Dir use "src/gen";
-         for Languages use ("Protocoll Buffers");
+         for Languages use ("Protocol Buffers");
       when "False" =>
          for Object_Dir use ".obj";
-         for Languages use ("Ada", "Protocoll Buffers");
+         for Languages use ("Ada", "Protocol Buffers");
    end case;
 
    package Builder is
@@ -26,20 +26,20 @@ project test_reserved_message_lower is
    package Compiler is
       case Generate is
          when "True" =>
-            for Driver ("protocoll buffers") use "protoc";
+            for Driver ("protocol buffers") use "protoc";
             for Driver ("ada") use "";
 
          when "False" =>
-            for Driver ("protocoll buffers") use "";
+            for Driver ("protocol buffers") use "";
       end case;
 
       for Switches ("Ada") use ("-gnatQ", "-O2", "-fstack-check");
-      for Switches ("Protocoll Buffers") use ("-I" & project'Project_Dir & "src",
+      for Switches ("Protocol Buffers") use ("-I" & project'Project_Dir & "src",
                                               "--ada_out=.");
    end Compiler;
 
    package Naming is
-      for Body_Suffix ("protocoll buffers") use ".proto";
+      for Body_Suffix ("protocol buffers") use ".proto";
    end Naming;
 
 end test_reserved_message_lower;
