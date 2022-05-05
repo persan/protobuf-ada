@@ -38,7 +38,7 @@ project Google.protobuf.Test is
          when "False" =>
             for Driver ("protocoll buffers") use "";
             for Switches ("Protocoll Buffers") use ("-I" & project'Project_Dir & "src", "--ada_out=.");
-            for Switches ("ada") use ("-gnatQ", "-fcallgraph-info=su,da", "-O0", "-g", "-fstack-check", "-g");
+            for Switches ("ada") use ("-gnatQ", "-O0", "-g", "-fstack-check", "-g");
       end case;
    end Compiler;
 

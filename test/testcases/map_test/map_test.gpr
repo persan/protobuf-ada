@@ -33,7 +33,7 @@ project Map_Test is
             for Driver ("protocoll buffers") use "";
       end case;
 
-      for Switches ("Ada") use ("-gnatQ", "-fcallgraph-info=su,da", "-O2", "-fstack-check");
+      for Switches ("Ada") use ("-gnatQ", "-O2", "-fstack-check");
       for Switches ("Protocoll Buffers") use ("-I" & project'Project_Dir & "src",
                                               "--ada_out=.");
    end Compiler;
