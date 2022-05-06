@@ -41,6 +41,8 @@
 #include <errno.h>
 #include <stdio.h>
 
+#include <boost/scoped_array.hpp>
+
 #ifdef _WIN32
 // MSVC has only _snprintf, not snprintf.
 //
@@ -59,6 +61,8 @@ namespace google {
   namespace protobuf {
     namespace compiler {
       namespace ada {
+
+        using namespace std;
 
 	namespace {
 
@@ -323,7 +327,7 @@ namespace google {
 	// Escape non-printing characters.
 	string AdaEscape(const string& src) {
 	  const int dest_length = src.size() * 30 + 1; // Maximum possible expansion
-	  scoped_array<char> dest(new char[dest_length]);
+	  boost::scoped_array<char> dest(new char[dest_length]);
 	  const int len = AdaEscapeInternal(src.data(), src.size(),
 					    dest.get(), dest_length);
 	  GOOGLE_DCHECK_GE(len, 0);

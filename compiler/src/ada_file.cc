@@ -188,7 +188,7 @@ namespace google {
 	  filename = filename  + file_suffix;
 	  file_list->push_back(filename);
 
-	  scoped_ptr<io::ZeroCopyOutputStream> output(context->Open(filename));
+      boost::scoped_ptr<io::ZeroCopyOutputStream> output(context->Open(filename));
 	  io::Printer printer(output.get(), '$');
 
 	  printer.Print("--  begin " "read only\n"

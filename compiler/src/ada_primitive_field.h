@@ -40,6 +40,8 @@
 
 #include <ada_field.h>
 
+using namespace std;
+
 namespace google {
   namespace protobuf {
     namespace compiler {

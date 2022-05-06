@@ -9,7 +9,7 @@ project unittest_empty is
    for Source_Dirs use ("src/**");
 
    for Exec_Dir use "bin";
-   for Languages use ("Ada", "Protocoll Buffers");
+   for Languages use ("Ada", "Protocol Buffers");
 
    case Generate is
       when "True" =>
@@ -25,20 +25,20 @@ project unittest_empty is
    package Compiler is
       case Generate is
          when "True" =>
-            for Driver ("protocoll buffers") use "protoc";
+            for Driver ("protocol buffers") use "protoc";
             for Driver ("ada") use "";
 
          when "False" =>
-            for Driver ("protocoll buffers") use "";
+            for Driver ("protocol buffers") use "";
       end case;
 
-      for Switches ("Ada") use ("-gnatQ", "-fcallgraph-info=su,da", "-O2", "-fstack-check");
-      for Switches ("Protocoll Buffers") use ("-I" & project'Project_Dir & "src",
+      for Switches ("Ada") use ("-gnatQ", "-O2", "-fstack-check");
+      for Switches ("Protocol Buffers") use ("-I" & project'Project_Dir & "src",
                                               "--ada_out=.");
    end Compiler;
 
    package Naming is
-      for Body_Suffix ("protocoll buffers") use ".proto";
+      for Body_Suffix ("protocol buffers") use ".proto";
    end Naming;
 
 end unittest_empty;

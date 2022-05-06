@@ -55,9 +55,9 @@ namespace google {
 	  void GenerateSpecification(io::Printer* printer);
 	  void GenerateBody(io::Printer* printer);
 	  void GenerateChildPackages(const string& package_dir,
-				     const string& parent,
-				     GeneratorContext* context,
-				     vector<string>* file_list);
+                                 const string& parent,
+                                 GeneratorContext* context,
+                                 std::vector<string>* file_list);
 
 	  const string& packagename() {
 	    return ada_package_name_;

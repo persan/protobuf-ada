@@ -816,7 +816,7 @@ namespace google {
 	// ===============================================================================================
 	void MessageGenerator::GenerateSerializeWithCachedSizes(io::Printer * printer) {
 	  //TODO: implement handling of extensions.
-	  scoped_array<const FieldDescriptor*> ordered_fields(SortFieldsByNumber(descriptor_));
+      boost::scoped_array<const FieldDescriptor*> ordered_fields(SortFieldsByNumber(descriptor_));
 
 	  printer->Print("procedure Serialize_With_Cached_Sizes\n"
 			 "   (The_Message   : in $package$.Instance;\n"
@@ -860,7 +860,7 @@ namespace google {
 
 	    printer->Print("case Google.Protobuf.Wire_Format.Get_Tag_Field_Number (Tag) is\n");
 
-	    scoped_array<const FieldDescriptor*> ordered_fields(SortFieldsByNumber(descriptor_));
+        boost::scoped_array<const FieldDescriptor*> ordered_fields(SortFieldsByNumber(descriptor_));
 
 	    for (int i = 0; i < descriptor_->field_count(); i++) {
 	      const FieldDescriptor* field = ordered_fields[i];

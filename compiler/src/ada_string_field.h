@@ -64,7 +64,7 @@ namespace google {
 	  void GenerateFinalizationCode(io::Printer* printer) const;
 	  private:
 	  const FieldDescriptor* descriptor_;
-	  map<string, string> variables_;
+      std::map<string, string> variables_;
 
 	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(StringFieldGenerator);
 	};
@@ -87,7 +87,7 @@ namespace google {
 	  void GenerateFinalizationCode(io::Printer* printer) const;
 	  private:
 	  const FieldDescriptor* descriptor_;
-	  map<string, string> variables_;
+      std::map<string, string> variables_;
 
 	  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(RepeatedStringFieldGenerator);
 	};

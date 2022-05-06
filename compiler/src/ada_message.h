@@ -40,6 +40,9 @@
 
 #include <ada_field.h>
 #include <google/protobuf/io/printer.h>
+
+using namespace std;
+
 namespace google {
   namespace protobuf {
     namespace compiler {
